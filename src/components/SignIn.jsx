@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5005";
@@ -41,6 +40,7 @@ export function SignIn() {
           body: JSON.stringify({ email, password }),
         }
       );
+      console.log("Successfully sent");
       if (response.ok) {
         const responseData = await response.json();
         console.log(responseData.token);
