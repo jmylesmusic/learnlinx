@@ -28,19 +28,26 @@ export function SignIn() {
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
-  const handleLoginSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axios.post(`${API_URL}/login`, {
-        email,
-        password,
-      });
-      const token = response.data.token;
-      localStorage.setItem("token", token);
-      navigate("/dashboard");
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log(responseData.token);
+        setToken(responseData.token);
+      }
     } catch (error) {
-      setErrorMessage("Invalid email or password. Please try again.");
+      console.log(error);
     }
   };
 
@@ -57,7 +64,7 @@ export function SignIn() {
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={handleLoginSubmit}>
+        <form onSubmit={handleSubmit}>
           <TextInput
             label="Email"
             placeholder="you@mantine.dev"

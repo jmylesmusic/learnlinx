@@ -4,8 +4,6 @@ import { Home, SignIn } from "./pages";
 function App() {
   return (
     <>
-      <Home />
-      <SignIn />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
