@@ -44,13 +44,10 @@ export function SignIn() {
         const responseData = await response.json();
         console.log("Successfully sent");
         console.log(responseData.token);
-        // Assuming you have a function to store token
         // setToken(responseData.token);
 
-        // Navigate to /home on successful login
         navigate("/");
       } else {
-        // Handle error if login fails
         setErrorMessage("Invalid email or password");
       }
     } catch (error) {
