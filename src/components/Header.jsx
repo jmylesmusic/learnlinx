@@ -41,9 +41,8 @@ const user = {
 
 export function Navbar() {
   const theme = useMantineTheme();
-  const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
-  const { isLoggedIn, user } = useContext(AuthContext);
+  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
   return (
     <div className={classes.header}>
@@ -114,7 +113,9 @@ export function Navbar() {
                 <Menu.Item icon={<IconSwitchHorizontal size={16} />}>
                   Change account
                 </Menu.Item>
-                <Menu.Item icon={<IconLogout size={16} />}>Logout</Menu.Item>
+                <Menu.Item onClick={logOutUser} icon={<IconLogout size={16} />}>
+                  Logout
+                </Menu.Item>
                 <Menu.Divider />
                 <Menu.Label>Danger zone</Menu.Label>
                 <Menu.Item icon={<IconPlayerPause size={16} />}>
