@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import {
   Home,
   SignIn,
+  SignUp,
   Navbar,
   Header,
   UsersList,
@@ -40,6 +41,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/main" element={<Dashboard />} />
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/students" element={<UsersList />} />

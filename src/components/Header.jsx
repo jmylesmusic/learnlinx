@@ -13,6 +13,7 @@ import {
   Burger,
   rem,
   useMantineTheme,
+  Button,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import {
@@ -190,6 +191,9 @@ export function Navbar() {
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>
+          <NavLink to="/signup" style={{ textDecoration: "none" }}>
+            <Button>SignUp</Button>
+          </NavLink>
         </Group>
       </Container>
       <Container size="md">
