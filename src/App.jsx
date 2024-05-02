@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <AppShell
-        header={{ height: 100 }}
+        header={{ height: 60 }}
         navbar={{
           width: 300,
           breakpoint: "md",
@@ -28,7 +28,7 @@ function App() {
       >
         <AppShell.Header>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          {/* <Header /> */}
+          <Header />
         </AppShell.Header>
 
         <AppShell.Navbar>

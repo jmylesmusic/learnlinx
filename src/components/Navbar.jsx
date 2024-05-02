@@ -38,17 +38,7 @@ export function Navbar() {
 
   return (
     <nav className={classes.navbar}>
-      <div className={classes.navbarMain}>
-        <Group className={classes.header} justify="space-between">
-          <NavLink to="/" className={classes.logoLink}>
-            <img src={logo} alt="LearnLinx Logo" style={{ width: "250px" }} />
-          </NavLink>
-          <Code fw={700} className={classes.version}>
-            v3.1.2
-          </Code>
-        </Group>
-        {links}
-      </div>
+      <div className={classes.navbarMain}>{links}</div>
 
       {/* Use Switch and Route for rendering components based on route */}
     </nav>
