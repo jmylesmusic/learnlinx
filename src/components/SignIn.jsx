@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-const API_URL = "http://localhost:5005";
+import { AuthContext } from "../context/auth.context";
 
 import {
   TextInput,
@@ -21,6 +20,8 @@ export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -44,7 +45,8 @@ export function SignIn() {
         const responseData = await response.json();
         console.log("Successfully sent");
         console.log(responseData.token);
-        // setToken(responseData.token);
+        storeToken(responseData.token);
+        authenticateUser();
 
         navigate("/");
       } else {

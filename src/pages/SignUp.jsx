@@ -10,8 +10,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [isTeacher, setIsTeacher] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
   // const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
 
@@ -21,19 +20,16 @@ const SignUp = () => {
   const handlePassword = (e) => setPassword(e.target.value);
   const handleFirstName = (e) => setFirstName(e.target.value);
   const handleLastName = (e) => setLastName(e.target.value);
-  const handlePhone = (e) => setPhone(e.target.value);
+  const handlePhone = (e) => setPhoneNumber(e.target.value);
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    const profilePictureUrl = "http:/";
     const requestBody = {
       email,
       password,
       firstName,
       lastName,
-      isTeacher,
-      profilePictureUrl,
-      phoneNumber: phone,
+      phoneNumber,
     };
     console.log("Request body:", requestBody);
     axios
@@ -52,6 +48,7 @@ const SignUp = () => {
       <Text size="lg" fw={500}>
         Create your Account!
       </Text>
+
       <form onSubmit={handleSignupSubmit}>
         <Stack>
           <TextInput
@@ -73,7 +70,7 @@ const SignUp = () => {
             required
             label="Phone"
             placeholder="07039434"
-            value={phone}
+            value={phoneNumber}
             onChange={handlePhone}
             radius="md"
           />
@@ -95,6 +92,11 @@ const SignUp = () => {
             onChange={handlePassword}
             radius="md"
           />
+          {errorMessage && (
+            <Text color="red" size="sm">
+              {errorMessage}
+            </Text>
+          )}
           <Button type="submit">Create Account</Button>
         </Stack>
       </form>
