@@ -8,9 +8,9 @@ import {
   IconFriends,
 } from "@tabler/icons-react";
 import { MantineLogo } from "@mantinex/mantine-logo";
-import { NavLink, Route, Router } from "react-router-dom"; // Import NavLink and Route
+import { NavLink, Route, Router } from "react-router-dom";
 import classes from "../styles/NavbarSimpleColored.module.css";
-import logo from "../images/learnlinx-logo-white.svg";
+
 
 const data = [
   { link: "/main", label: "Dashboard", icon: IconLayoutDashboard },
@@ -26,8 +26,8 @@ export function Navbar() {
   const links = data.map((item) => (
     <NavLink
       className={classes.link}
-      activeClassName={classes.active} // Add activeClassName for active link styling
-      to={item.link} // Use NavLink instead of anchor tag
+      activeClassName={classes.active}
+      to={item.link}
       key={item.label}
       onClick={() => setActive(item.label)}
     >
