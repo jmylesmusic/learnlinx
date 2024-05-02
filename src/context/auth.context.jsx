@@ -1,3 +1,5 @@
+// src/context/auth.context.jsx
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 const API_URL = "http://localhost:5005";
@@ -9,13 +11,43 @@ function AuthProviderWrapper(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
-  /* 
-    Functions for handling the authentication status (isLoggedIn, isLoading, user)
-    will be added here later in the next step
-  */
+  const storeToken = (token) => {
+    // ... no changes
+  };
+
+  const authenticateUser = () => {
+    // ... no changes
+  };
+
+  const removeToken = () => {
+    // <== ADD
+    // Upon logout, remove the token from the localStorage
+    localStorage.removeItem("authToken");
+  };
+
+  const logOutUser = () => {
+    // <== ADD
+    // To log out the user, remove the token
+    removeToken();
+    // and update the state variables
+    authenticateUser();
+  };
+
+  useEffect(() => {
+    authenticateUser();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, isLoading, user }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        isLoading,
+        user,
+        storeToken,
+        authenticateUser,
+        logOutUser,
+      }}
+    >
       {props.children}
     </AuthContext.Provider>
   );
