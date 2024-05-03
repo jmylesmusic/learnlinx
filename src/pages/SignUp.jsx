@@ -1,7 +1,14 @@
 import axios from "axios";
-import { TextInput, PasswordInput, Button, Stack, Text } from "@mantine/core";
+import {
+  TextInput,
+  PasswordInput,
+  Button,
+  Stack,
+  Text,
+  Anchor,
+} from "@mantine/core";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5005";
 
@@ -48,7 +55,6 @@ const SignUp = () => {
       <Text size="lg" fw={500}>
         Create your Account!
       </Text>
-
       <form onSubmit={handleSignupSubmit}>
         <Stack>
           <TextInput
@@ -100,6 +106,12 @@ const SignUp = () => {
           <Button type="submit">Create Account</Button>
         </Stack>
       </form>
+      <Text c="dimmed" size="sm" ta="center" mt={5}>
+        Already have an account?{" "}
+        <Anchor size="sm" component={Link} to="/signin">
+          Sign In
+        </Anchor>
+      </Text>
     </div>
   );
 };

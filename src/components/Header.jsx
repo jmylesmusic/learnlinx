@@ -127,9 +127,6 @@ export function Navbar() {
               </Menu.Dropdown>
             </Menu>
           )}
-          <NavLink to="/signup" style={{ textDecoration: "none" }}>
-            <Button>SignUp</Button>
-          </NavLink>
         </Group>
       </Container>
       <Container size="md">
