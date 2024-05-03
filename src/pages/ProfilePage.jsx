@@ -37,7 +37,7 @@ const ProfilePage = () => {
     };
 
     fetchUserDetails();
-  }, [isLoggedIn, userId]); // Include userId in the dependency array
+  }, [isLoggedIn]); // Include userId in the dependency array
 
   if (error) {
     return <div>Error: {error}</div>;
