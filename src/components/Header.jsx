@@ -1,7 +1,7 @@
 import cx from "clsx";
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import {
   Autocomplete,
   Container,
@@ -32,18 +32,19 @@ import {
 import classes from "../styles/HeaderTabs.module.css";
 import logo from "../images/learnlinx-logo.svg";
 
-const user = {
-  name: "Jane Spoonfighter",
-  email: "janspoon@fighter.dev",
-  image:
-    "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png",
-};
+// const currentUser = {
+//   name: "Jane Spoonfighter",
+//   email: "janspoon@fighter.dev",
+//   image:
+//     "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png",
+// };
 
-export function Navbar() {
+export function Header() {
   const theme = useMantineTheme();
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
-
+  const currentUser = user;
+  const { userId } = useParams();
   return (
     <div className={classes.header}>
       <Container className={classes.mainSection} size="md">
@@ -72,19 +73,19 @@ export function Navbar() {
             >
               <Menu.Target>
                 <UnstyledButton
-                  className={cx(classes.user, {
+                  className={cx(classes.currentUser, {
                     [classes.userActive]: userMenuOpened,
                   })}
                 >
                   <Group gap={7}>
                     <Avatar
-                      src={user.image}
-                      alt={user.name}
+                      src={currentUser.image}
+                      alt={currentUser.firstName}
                       radius="xl"
                       size={20}
                     />
                     <Text weight={500} size="sm" mr={3}>
-                      {user.name}
+                      {currentUser.firstName}
                     </Text>
                     <IconChevronDown size={12} stroke={1.5} />
                   </Group>
@@ -107,9 +108,11 @@ export function Navbar() {
                   Your comments
                 </Menu.Item>
                 <Menu.Label>Settings</Menu.Label>
-                <Menu.Item icon={<IconSettings size={16} />}>
-                  Account settings
-                </Menu.Item>
+                <NavLink to={`/profile/${user.data.userId}`}>
+                  <Menu.Item icon={<IconSettings size={16} />}>
+                    Account settings
+                  </Menu.Item>
+                </NavLink>
                 <Menu.Item icon={<IconSwitchHorizontal size={16} />}>
                   Change account
                 </Menu.Item>
@@ -146,4 +149,4 @@ export function Navbar() {
   );
 }
 
-export default Navbar;
+export default Header;

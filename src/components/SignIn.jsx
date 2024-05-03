@@ -15,6 +15,7 @@ import {
   Button,
 } from "@mantine/core";
 import classes from "../styles/AuthenticationTitle.module.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function SignIn() {
   const [email, setEmail] = useState("");
@@ -31,16 +32,13 @@ export function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
       if (response.ok) {
         const responseData = await response.json();
         console.log("Successfully sent");
@@ -48,7 +46,7 @@ export function SignIn() {
         storeToken(responseData.token);
         authenticateUser();
 
-        navigate("/");
+        navigate("/main");
       } else {
         setErrorMessage("Invalid email or password");
       }
