@@ -10,6 +10,7 @@ import {
   UsersList,
   Courses,
   Calendar,
+  Dropzone,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
