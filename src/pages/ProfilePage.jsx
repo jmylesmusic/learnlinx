@@ -1,13 +1,17 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
+import { Button } from "@mantine/core";
 import CustomDropzone from "../components/CustomDropzone.jsx";
+import { IconEdit, IconX, IconCheck } from "@tabler/icons-react"; // Import the necessary icons
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ProfilePage = () => {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState(null);
+  const [editingField, setEditingField] = useState(null); // State to track which field is being edited
+  const [tempValue, setTempValue] = useState(""); // State to temporarily store edited value
 
   const { userId } = useParams();
   console.log(userId);
@@ -39,6 +43,31 @@ const ProfilePage = () => {
     fetchUserDetails();
   }, [isLoggedIn]);
 
+  const handleEditField = (fieldName) => {
+    setEditingField(fieldName); // Set the editingField state to the clicked field name
+    setTempValue(currentUser[fieldName]); // Store the current value of the field in tempValue
+  };
+
+  const handleInputChange = (e) => {
+    setTempValue(e.target.value); // Update the temporary value as the user types
+  };
+
+  const handleRevertChanges = () => {
+    setEditingField(null); // Reset editingField state to exit editing mode
+    setTempValue(""); // Reset tempValue state
+  };
+
+  const handleSaveChanges = () => {
+    // Implement your logic here to save changes to the backend
+    console.log("Save changes:", tempValue);
+    setCurrentUser({
+      ...currentUser,
+      [editingField]: tempValue, // Update the corresponding field in currentUser state
+    });
+    setEditingField(null); // Reset editingField state after saving changes
+    setTempValue(""); // Reset tempValue state
+  };
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -51,10 +80,94 @@ const ProfilePage = () => {
             {currentUser.isTeacher ? "Teacher Profile" : "Student Profile"}
           </h1>
           <div>
-            <h2>First Name: {currentUser.firstName}</h2>
-            <h2>Last Name: {currentUser.lastName}</h2>
-            <h2>Email Address: {currentUser.email}</h2>
-            <h2>Phone Number: {currentUser.phoneNumber}</h2>{" "}
+            <h2>
+              First Name:{" "}
+              {editingField === "firstName" ? (
+                <>
+                  <input
+                    type="text"
+                    value={tempValue}
+                    onChange={handleInputChange}
+                  />
+                  <IconX strokeWidth={1} onClick={handleRevertChanges} />{" "}
+                  <IconCheck strokeWidth={1} onClick={handleSaveChanges} />
+                </>
+              ) : (
+                <span>
+                  {currentUser.firstName}
+                  <IconEdit
+                    strokeWidth={0.5}
+                    onClick={() => handleEditField("firstName")}
+                  />
+                </span>
+              )}
+            </h2>
+            <h2>
+              Last Name:{" "}
+              {editingField === "lastName" ? (
+                <>
+                  <input
+                    type="text"
+                    value={tempValue}
+                    onChange={handleInputChange}
+                  />
+                  <IconX strokeWidth={1} onClick={handleRevertChanges} />{" "}
+                  <IconCheck strokeWidth={1} onClick={handleSaveChanges} />
+                </>
+              ) : (
+                <span>
+                  {currentUser.lastName}
+                  <IconEdit
+                    strokeWidth={0.5}
+                    onClick={() => handleEditField("lastName")}
+                  />
+                </span>
+              )}
+            </h2>
+            <h2>
+              Email Address:{" "}
+              {editingField === "email" ? (
+                <>
+                  <input
+                    type="email"
+                    value={tempValue}
+                    onChange={handleInputChange}
+                  />
+                  <IconX strokeWidth={1} onClick={handleRevertChanges} />{" "}
+                  <IconCheck strokeWidth={1} onClick={handleSaveChanges} />
+                </>
+              ) : (
+                <span>
+                  {currentUser.email}
+                  <IconEdit
+                    strokeWidth={0.5}
+                    onClick={() => handleEditField("email")}
+                  />
+                </span>
+              )}
+            </h2>
+            <h2>
+              Phone Number:{" "}
+              {editingField === "phoneNumber" ? (
+                <>
+                  <input
+                    type="tel"
+                    value={tempValue}
+                    onChange={handleInputChange}
+                  />
+                  <IconX strokeWidth={1} onClick={handleRevertChanges} />{" "}
+                  <IconCheck strokeWidth={1} onClick={handleSaveChanges} />
+                </>
+              ) : (
+                <span>
+                  {currentUser.phoneNumber}
+                  <IconEdit
+                    strokeWidth={0.5}
+                    onClick={() => handleEditField("phoneNumber")}
+                  />
+                </span>
+              )}
+            </h2>{" "}
             <img
               src={currentUser.profilePictureUrl}
               style={{
