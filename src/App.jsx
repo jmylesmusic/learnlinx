@@ -10,6 +10,8 @@ import {
   UsersList,
   Courses,
   Calendar,
+  CustomDropzone,
+  ProfilePage,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -45,6 +47,7 @@ function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/students" element={<UsersList />} />
+            <Route path="/profile/:userId" element={<ProfilePage />} />
           </Routes>
         </AppShell.Main>
       </AppShell>

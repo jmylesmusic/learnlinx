@@ -11,7 +11,6 @@ import { MantineLogo } from "@mantinex/mantine-logo";
 import { NavLink, Route, Router } from "react-router-dom";
 import classes from "../styles/NavbarSimpleColored.module.css";
 
-
 const data = [
   { link: "/main", label: "Dashboard", icon: IconLayoutDashboard },
   { link: "/courses", label: "Courses", icon: IconSchool },
@@ -26,7 +25,7 @@ export function Navbar() {
   const links = data.map((item) => (
     <NavLink
       className={classes.link}
-      activeClassName={classes.active}
+      // activeClassName={classes.active}
       to={item.link}
       key={item.label}
       onClick={() => setActive(item.label)}
