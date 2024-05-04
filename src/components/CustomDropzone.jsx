@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Text, Group, Button, useMantineTheme } from "@mantine/core";
-import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
+import { Dropzone } from "@mantine/dropzone";
 import { IconCloudUpload, IconX, IconDownload } from "@tabler/icons-react";
 import classes from "../styles/DropzoneButton.module.css";
 
@@ -15,7 +15,7 @@ function CustomDropzone() {
         onDrop={() => {}}
         className={classes.dropzone}
         radius="md"
-        accept={[MIME_TYPES.pdf]}
+        accept={["image/jpeg", "image/png", "image/gif"]} // Accepted MIME types for images
         maxSize={30 * 1024 ** 2}
       >
         <div style={{ pointerEvents: "none" }}>
@@ -41,12 +41,14 @@ function CustomDropzone() {
 
           <Text align="center" weight={700} size="lg" mt="xl">
             <Dropzone.Accept>Drop files here</Dropzone.Accept>
-            <Dropzone.Reject>Pdf file less than 30mb</Dropzone.Reject>
-            <Dropzone.Idle>Upload resume</Dropzone.Idle>
+            <Dropzone.Reject>
+              Unsupported file format or exceeds size limit
+            </Dropzone.Reject>
+            <Dropzone.Idle>Upload image</Dropzone.Idle>
           </Text>
           <Text align="center" size="sm" mt="xs" color="dimmed">
-            Drag'n'drop files here to upload. We can accept only <i>.pdf</i>{" "}
-            files that are less than 30mb in size.
+            Drag'n'drop images here to upload. We can only accept .jpg, .jpeg,
+            .png, .gif files that are less than 30mb in size.
           </Text>
         </div>
       </Dropzone>

@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
-import { useParams } from "react-router-dom"; // Import useParams
+import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
+import CustomDropzone from "../components/CustomDropzone.jsx";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ProfilePage = () => {
@@ -8,7 +9,7 @@ const ProfilePage = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState(null);
 
-  const { userId } = useParams(); // Extract userId from the route parameters
+  const { userId } = useParams();
   console.log(userId);
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -16,10 +17,9 @@ const ProfilePage = () => {
       const storedToken = localStorage.getItem("authToken");
       try {
         const response = await fetch(`${API_URL}/api/users/${userId}`, {
-          // Use userId from useParams
           method: "GET",
           headers: {
-            Authorization: `Bearer ${storedToken}`, // Using the auth token from context
+            Authorization: `Bearer ${storedToken}`,
             "Content-Type": "application/json",
           },
         });
@@ -37,17 +37,40 @@ const ProfilePage = () => {
     };
 
     fetchUserDetails();
-  }, [isLoggedIn]); // Include userId in the dependency array
+  }, [isLoggedIn]);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   return (
-    <div>
-      <h1>Profile Page</h1>
-      <h1>Hello, {currentUser ? currentUser.firstName : "Loading..."}</h1>
-    </div>
+    <>
+      {currentUser && (
+        <div className="profile-page">
+          <h1>
+            {currentUser.isTeacher ? "Teacher Profile" : "Student Profile"}
+          </h1>
+          <div>
+            <h2>First Name: {currentUser.firstName}</h2>
+            <h2>Last Name: {currentUser.lastName}</h2>
+            <h2>Email Address: {currentUser.email}</h2>
+            <h2>Phone Number: {currentUser.phoneNumber}</h2>{" "}
+            <img
+              src={currentUser.profilePictureUrl}
+              style={{
+                width: "300px",
+                height: "300px",
+                objectFit: "cover",
+                borderRadius: "50%",
+                overflow: "hidden",
+              }}
+              alt="Profile Picture"
+            />
+          </div>
+          <CustomDropzone />
+        </div>
+      )}
+    </>
   );
 };
 
