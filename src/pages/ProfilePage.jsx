@@ -41,7 +41,7 @@ const ProfilePage = () => {
     };
 
     fetchUserDetails();
-  }, [isLoggedIn]);
+  }, [isLoggedIn, userId]); // Add userId to the dependencies to re-fetch user details when userId changes
 
   const handleEditField = (fieldName) => {
     setEditingField(fieldName); // Set the editingField state to the clicked field name
@@ -57,15 +57,36 @@ const ProfilePage = () => {
     setTempValue(""); // Reset tempValue state
   };
 
-  const handleSaveChanges = () => {
-    // Implement your logic here to save changes to the backend
-    console.log("Save changes:", tempValue);
-    setCurrentUser({
-      ...currentUser,
-      [editingField]: tempValue, // Update the corresponding field in currentUser state
-    });
-    setEditingField(null); // Reset editingField state after saving changes
-    setTempValue(""); // Reset tempValue state
+  const handleSaveChanges = async () => {
+    try {
+      const storedToken = localStorage.getItem("authToken");
+      const response = await fetch(`${API_URL}/api/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${storedToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...currentUser,
+          [editingField]: tempValue, // Update the corresponding field with the new value
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // If the PUT request is successful, update the currentUser state
+      setCurrentUser({
+        ...currentUser,
+        [editingField]: tempValue,
+      });
+      setEditingField(null); // Reset editingField state after saving changes
+      setTempValue(""); // Reset tempValue state
+    } catch (error) {
+      console.error("Error updating user:", error);
+      setError(`Failed to update user: ${error.message}`);
+    }
   };
 
   if (error) {
