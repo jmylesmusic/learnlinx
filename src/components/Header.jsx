@@ -114,7 +114,7 @@ export function Header() {
                   </UnstyledButton>
                 </Menu.Target>
                 <Menu.Dropdown>
-                  <Menu.Item
+                  {/* <Menu.Item
                     icon={<IconHeart size={16} color={theme.colors.red[6]} />}
                   >
                     Liked posts
@@ -130,27 +130,24 @@ export function Header() {
                     }
                   >
                     Your comments
-                  </Menu.Item>
-                  <Menu.Label>Settings</Menu.Label>
+                  </Menu.Item> */}
+                  {/* <Menu.Label>Settings</Menu.Label> */}
                   <NavLink to={`/profile/${user.data.userId}`}>
                     <Menu.Item icon={<IconSettings size={16} />}>
-                      Account settings
+                      My Profile
                     </Menu.Item>
                   </NavLink>
-                  <Menu.Item icon={<IconSwitchHorizontal size={16} />}>
-                    Change account
-                  </Menu.Item>
                   <Menu.Item
                     onClick={logOutUser}
                     icon={<IconLogout size={16} />}
                   >
                     Logout
                   </Menu.Item>
-                  <Menu.Divider />
+                  {/* <Menu.Divider />
                   <Menu.Label>Danger zone</Menu.Label>
                   <Menu.Item icon={<IconPlayerPause size={16} />}>
                     Pause subscription
-                  </Menu.Item>
+                  </Menu.Item> */}
                   <Menu.Item color="red" icon={<IconTrash size={16} />}>
                     Delete account
                   </Menu.Item>

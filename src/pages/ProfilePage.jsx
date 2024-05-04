@@ -41,20 +41,20 @@ const ProfilePage = () => {
     };
 
     fetchUserDetails();
-  }, [isLoggedIn, userId]); // Add userId to the dependencies to re-fetch user details when userId changes
+  }, [isLoggedIn, userId]);
 
   const handleEditField = (fieldName) => {
-    setEditingField(fieldName); // Set the editingField state to the clicked field name
-    setTempValue(currentUser[fieldName]); // Store the current value of the field in tempValue
+    setEditingField(fieldName);
+    setTempValue(currentUser[fieldName]);
   };
 
   const handleInputChange = (e) => {
-    setTempValue(e.target.value); // Update the temporary value as the user types
+    setTempValue(e.target.value);
   };
 
   const handleRevertChanges = () => {
-    setEditingField(null); // Reset editingField state to exit editing mode
-    setTempValue(""); // Reset tempValue state
+    setEditingField(null);
+    setTempValue("");
   };
 
   const handleSaveChanges = async () => {
@@ -68,7 +68,7 @@ const ProfilePage = () => {
         },
         body: JSON.stringify({
           ...currentUser,
-          [editingField]: tempValue, // Update the corresponding field with the new value
+          [editingField]: tempValue,
         }),
       });
 
@@ -76,13 +76,12 @@ const ProfilePage = () => {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // If the PUT request is successful, update the currentUser state
       setCurrentUser({
         ...currentUser,
         [editingField]: tempValue,
       });
-      setEditingField(null); // Reset editingField state after saving changes
-      setTempValue(""); // Reset tempValue state
+      setEditingField(null);
+      setTempValue("");
     } catch (error) {
       console.error("Error updating user:", error);
       setError(`Failed to update user: ${error.message}`);
