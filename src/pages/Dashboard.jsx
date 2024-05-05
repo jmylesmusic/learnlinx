@@ -1,8 +1,18 @@
+import CurrentCourses from "../components/CurrentCourses";
+import { useState, useEffect } from "react";
+import UpcommingCourses from "../components/UpcommingCourses";
+const API_URL = import.meta.env.VITE_API_URL;
 const Dashboard = () => {
   return (
-    <div>
+    <>
       <h1>Dashboard Page</h1>
-    </div>
+      <h3>Current courses</h3>
+      <CurrentCourses />
+      <br />
+      <br />
+      <h3>Upcomming courses:</h3>
+      <UpcommingCourses/>
+    </>
   );
 };
 
