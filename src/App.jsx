@@ -16,6 +16,7 @@ import {
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Dashboard from "./pages/Dashboard";
+import DetailedCoursePage from "./pages/DetailedCoursePage";
 function App() {
   const [opened, { toggle }] = useDisclosure();
   return (
@@ -48,6 +49,7 @@ function App() {
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/students" element={<UsersList />} />
             <Route path="/profile/:userId" element={<ProfilePage />} />
+            <Route path="/courses/:courseId" element={<DetailedCoursePage />} />
           </Routes>
         </AppShell.Main>
       </AppShell>
