@@ -6,6 +6,7 @@ import {
   Stack,
   Text,
   Anchor,
+  Checkbox,
 } from "@mantine/core";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [isTeacher, setIsTeacher] = useState(false);
   // const [profilePictureUrl, setProfilePictureUrl] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
 
@@ -28,6 +30,7 @@ const SignUp = () => {
   const handleFirstName = (e) => setFirstName(e.target.value);
   const handleLastName = (e) => setLastName(e.target.value);
   const handlePhone = (e) => setPhoneNumber(e.target.value);
+  const handleTeacher = (e) => setIsTeacher(e.currentTarget.checked);
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
@@ -37,6 +40,7 @@ const SignUp = () => {
       firstName,
       lastName,
       phoneNumber,
+      isTeacher,
     };
     console.log("Request body:", requestBody);
     axios
@@ -97,6 +101,12 @@ const SignUp = () => {
             value={password}
             onChange={handlePassword}
             radius="md"
+          />
+
+          <Checkbox
+            label="Are you a teacher?"
+            checked={isTeacher}
+            onChange={handleTeacher}
           />
           {errorMessage && (
             <Text color="red" size="sm">
