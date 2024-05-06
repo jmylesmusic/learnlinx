@@ -12,9 +12,9 @@ import {
 } from "@mantine/core";
 import { IconH3 } from "@tabler/icons-react";
 
-const UpcomingCourses = () => {
+const UpcommingCourses = () => {
   const [courses, setCourses] = useState([]);
-  const getUpcomingCourses = async () => {
+  const getUpcommingCourses = async () => {
     const storedToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(
@@ -36,7 +36,7 @@ const UpcomingCourses = () => {
   };
 
   useEffect(() => {
-    getUpcomingCourses();
+    getUpcommingCourses();
   }, []);
 
   const linkProps = {
@@ -47,7 +47,7 @@ const UpcomingCourses = () => {
   const theme = useMantineTheme();
 
   return (
-    <div className="UpcomingCoursesListPage">
+    <div className="UpcommingCoursesListPage">
       {courses.length > 0 ? (
         courses.map((course, index) => (
           <Card key={course._id} withBorder radius="md" className="card">
@@ -86,4 +86,4 @@ const UpcomingCourses = () => {
   );
 };
 
-export default UpcomingCourses;
+export default UpcommingCourses;
