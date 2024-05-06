@@ -20,37 +20,26 @@ function CustomDropzone({ userId }) {
     formData.append("imageUrl", file[0]);
 
     try {
-      const response = await axios.post(
-        `${API_URL}/api/users/upload`,
-        formData
-      );
-
-      const newImageUrl = response.data.fileUrl;
-
-      // Update the user's profile picture URL on the server
       const storedToken = localStorage.getItem("authToken");
-      const updateResponse = await fetch(`${API_URL}/api/users/${userId}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${storedToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...currentUser,
-          profilePictureUrl: newImageUrl,
-        }),
-      });
-
-      if (!updateResponse.ok) {
-        throw new Error(`HTTP error! status: ${updateResponse.status}`);
-      }
-
-      // Update the client-side state if the update was successful
+      // Upload the image and get the new image URL
+      // Update the user's profile picture URL on the server
+      const updateResponse = await axios.put(
+        `${API_URL}/api/users/${userId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+            "Content-Type": "multipart/form-data", // Ensure correct content type for FormData
+          },
+        }
+      );
+      const newImageUrl = updateResponse.data.profilePictureUrl;
+      // Update the user's profile picture URL on the client-side state
       setCurrentUser({
         ...currentUser,
         profilePictureUrl: newImageUrl,
       });
-      storeProfilePictureURL(response.data.fileUrl);
+      storeProfilePictureURL(newImageUrl);
     } catch (error) {
       console.log("Error uploading photo: ", error);
     }
