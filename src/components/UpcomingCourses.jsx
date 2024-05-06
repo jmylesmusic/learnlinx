@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+import "@mantine/carousel/styles.css";
 const API_URL = import.meta.env.VITE_API_URL;
+
 import {
   Card,
   Image,
   Text,
-  ActionIcon,
   Group,
   Center,
   useMantineTheme,
@@ -14,6 +15,8 @@ import { IconH3 } from "@tabler/icons-react";
 
 const UpcomingCourses = () => {
   const [courses, setCourses] = useState([]);
+  const navigate = useNavigate();
+
   const getUpcomingCourses = async () => {
     const storedToken = localStorage.getItem("authToken");
     try {
@@ -36,29 +39,33 @@ const UpcomingCourses = () => {
     getUpcomingCourses();
   }, []);
 
-  const linkProps = {
-    href: "https://mantine.dev",
-    target: "_blank",
-    rel: "noopener noreferrer",
+  const onClickCard = (courseId) => {
+    // Navigate to CourseDetails component and pass courseId as props
+    navigate(`../courses/${courseId}`);
   };
+
   const theme = useMantineTheme();
 
   return (
     <div className="UpcomingCoursesListPage">
       {courses.length > 0 ? (
         courses.map((course, index) => (
-          <Card key={course._id} withBorder radius="md" className="card">
+          <Card
+            key={course._id}
+            withBorder
+            radius="md"
+            className="card"
+            onClick={() => onClickCard(course._id)}
+          >
             <Card.Section>
-              <a {...linkProps}>
-                <Image
-                  src="https://i.imgur.com/Cij5vdL.png"
-                  height={180}
-                  width={150}
-                />
-              </a>
+              <Image
+                src="https://i.imgur.com/Cij5vdL.png"
+                height={180}
+                width={150}
+              />
             </Card.Section>
 
-            <Text className="title" fw={500} component="a" {...linkProps}>
+            <Text className="title" fw={500}>
               {course.courseName}
             </Text>
 
