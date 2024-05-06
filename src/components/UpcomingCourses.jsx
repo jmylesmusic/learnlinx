@@ -1,32 +1,32 @@
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
+import "@mantine/carousel/styles.css";
 const API_URL = import.meta.env.VITE_API_URL;
+
 import {
   Card,
   Image,
   Text,
-  ActionIcon,
   Group,
   Center,
   useMantineTheme,
 } from "@mantine/core";
 import { IconH3 } from "@tabler/icons-react";
 
-const UpcommingCourses = () => {
+const UpcomingCourses = () => {
   const [courses, setCourses] = useState([]);
-  const getUpcommingCourses = async () => {
+  const navigate = useNavigate();
+
+  const getUpcomingCourses = async () => {
     const storedToken = localStorage.getItem("authToken");
     try {
-      const response = await fetch(
-        `${API_URL}/api/courses//upcomming-courses`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${storedToken}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_URL}/api/courses/upcoming-courses`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${storedToken}`,
+        },
+      });
       const courses = await response.json();
       console.log("*****", courses);
       if (response.ok) setCourses(courses);
@@ -36,32 +36,36 @@ const UpcommingCourses = () => {
   };
 
   useEffect(() => {
-    getUpcommingCourses();
+    getUpcomingCourses();
   }, []);
 
-  const linkProps = {
-    href: "https://mantine.dev",
-    target: "_blank",
-    rel: "noopener noreferrer",
+  const onClickCard = (courseId) => {
+    // Navigate to CourseDetails component and pass courseId as props
+    navigate(`../courses/${courseId}`);
   };
+
   const theme = useMantineTheme();
 
   return (
-    <div className="UpcommingCoursesListPage">
+    <div className="UpcomingCoursesListPage">
       {courses.length > 0 ? (
         courses.map((course, index) => (
-          <Card key={course._id} withBorder radius="md" className="card">
+          <Card
+            key={course._id}
+            withBorder
+            radius="md"
+            className="card"
+            onClick={() => onClickCard(course._id)}
+          >
             <Card.Section>
-              <a {...linkProps}>
-                <Image
-                  src="https://i.imgur.com/Cij5vdL.png"
-                  height={180}
-                  width={150}
-                />
-              </a>
+              <Image
+                src="https://i.imgur.com/Cij5vdL.png"
+                height={180}
+                width={150}
+              />
             </Card.Section>
 
-            <Text className="title" fw={500} component="a" {...linkProps}>
+            <Text className="title" fw={500}>
               {course.courseName}
             </Text>
 
@@ -86,4 +90,4 @@ const UpcommingCourses = () => {
   );
 };
 
-export default UpcommingCourses;
+export default UpcomingCourses;

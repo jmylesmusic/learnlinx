@@ -1,23 +1,16 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "@mantine/carousel/styles.css";
 import { Carousel } from "@mantine/carousel";
 import { HoverCard, Badge, Container } from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-import {
-  Card,
-  Image,
-  Text,
-  ActionIcon,
-  Group,
-  Center,
-  useMantineTheme,
-} from "@mantine/core";
-import { IconH3 } from "@tabler/icons-react";
+import { Card, Image, Text, useMantineTheme } from "@mantine/core";
 
 const CurrentCourses = () => {
   const [courses, setCourses] = useState([]);
+  const navigate = useNavigate();
 
   const getAllCourses = async () => {
     const storedToken = localStorage.getItem("authToken");
@@ -30,22 +23,22 @@ const CurrentCourses = () => {
         },
       });
       const courses = await response.json();
-      console.log("*****", courses);
       if (response.ok) setCourses(courses);
     } catch (error) {
       console.log(error);
     }
+  };
+ 
+
+  const onClickCard = (courseId) => {
+    // Navigate to CourseDetails component and pass courseId as props
+    navigate(`../courses/${courseId}`);
   };
 
   useEffect(() => {
     getAllCourses();
   }, []);
 
-  const linkProps = {
-    href: "https://mantine.dev",
-    target: "_blank",
-    rel: "noopener noreferrer",
-  };
   const theme = useMantineTheme();
 
   return (
@@ -61,18 +54,21 @@ const CurrentCourses = () => {
       {courses.length > 0 ? (
         courses.map((course, index) => (
           <Carousel.Slide key={course._id}>
-            <Card withBorder radius="md" className="card">
+            <Card
+              withBorder
+              radius="md"
+              className="card"
+              onClick={() => onClickCard(course._id)}
+            >
               <Card.Section>
-                <a {...linkProps}>
-                  <Image
-                    src="https://i.imgur.com/Cij5vdL.png"
-                    height={180}
-                    width={150}
-                  />
-                </a>
+                <Image
+                  src="https://i.imgur.com/Cij5vdL.png"
+                  height={180}
+                  width={150}
+                />
               </Card.Section>
 
-              <Text className="title" fw={500} component="a" {...linkProps}>
+              <Text className="title" fw={500}>
                 {course.courseName}
               </Text>
 
@@ -91,8 +87,11 @@ const CurrentCourses = () => {
                     </Badge>
                   </HoverCard.Target>
                   <HoverCard.Dropdown>
-                    {course.studentList.map((st) => (
-                      <Text size="sm">id:{st}</Text>
+                    {console.log(course)}
+                    {course.studentList.map((student, index) => (
+                      <Text key={index} size="sm">
+                        {student.firstName} {student.lastName}
+                      </Text>
                     ))}
                   </HoverCard.Dropdown>
                 </HoverCard>
