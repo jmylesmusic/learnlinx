@@ -1,21 +1,47 @@
-import { useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { Text, Group, Button, useMantineTheme } from "@mantine/core";
 import { Dropzone } from "@mantine/dropzone";
 import { IconCloudUpload, IconX, IconDownload } from "@tabler/icons-react";
 import classes from "../styles/DropzoneButton.module.css";
+import { AuthContext } from "../context/auth.context";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function CustomDropzone() {
   const theme = useMantineTheme();
   const openRef = useRef(null);
+  const { storeProfilePictureURL } = useContext(AuthContext);
+
+  const handleDrop = async (file) => {
+    console.log("accepted files", file[0]);
+
+    const formData = new FormData();
+    formData.append("imageUrl", file[0]);
+    console.log(formData);
+    try {
+      const response = await axios.post(
+        `${API_URL}/api/users/upload`,
+        formData
+      );
+
+      console.log(response.data);
+      storeProfilePictureURL(response.data.fileUrl);
+    } catch (error) {
+      console.log("Error uploading photo: ", error);
+    }
+  };
 
   return (
     <div className={classes.wrapper}>
       <Dropzone
+        maxFiles={1}
+        multiple={false}
         openRef={openRef}
-        onDrop={() => {}}
+        onDrop={handleDrop}
         className={classes.dropzone}
         radius="md"
-        accept={["image/jpeg", "image/png", "image/gif"]} // Accepted MIME types for images
+        accept={["image/jpeg", "image/png"]} // Accepted MIME types for images
         maxSize={30 * 1024 ** 2}
       >
         <div style={{ pointerEvents: "none" }}>

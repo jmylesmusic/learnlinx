@@ -7,9 +7,14 @@ function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [userProfileURL, setUserProfileURL] = useState(null);
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
+  };
+
+  const storeProfilePictureURL = (url) => {
+    setUserProfileURL(url);
   };
 
   const authenticateUser = async () => {
@@ -60,7 +65,9 @@ function AuthProviderWrapper(props) {
         isLoggedIn,
         isLoading,
         user,
+        userProfileURL,
         storeToken,
+        storeProfilePictureURL,
         authenticateUser,
         logOutUser,
       }}

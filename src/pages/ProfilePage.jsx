@@ -7,7 +7,8 @@ import { IconEdit, IconX, IconCheck } from "@tabler/icons-react"; // Import the 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ProfilePage = () => {
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const { isLoggedIn, user, logOutUser, userProfileURL } =
+    useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState(null);
   const [editingField, setEditingField] = useState(null); // State to track which field is being edited
@@ -189,7 +190,7 @@ const ProfilePage = () => {
               )}
             </h2>{" "}
             <img
-              src={currentUser.profilePictureUrl}
+              src={userProfileURL}
               style={{
                 width: "300px",
                 height: "300px",
