@@ -43,7 +43,8 @@ const currentUser = {
 export function Header() {
   const theme = useMantineTheme();
   const [userMenuOpened, setUserMenuOpened] = useState(false);
-  const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
+  const { isLoggedIn, user, logOutUser, userProfileURL } =
+    useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState(null);
   useEffect(() => {
     if (isLoggedIn) {
@@ -101,10 +102,10 @@ export function Header() {
                   >
                     <Group gap={7}>
                       <Avatar
-                        src={currentUser.profilePictureUrl}
+                        src={userProfileURL}
                         alt={currentUser.firstName}
                         radius="xl"
-                        size={20}
+                        size={40}
                       />
                       <Text weight={500} size="sm" mr={3}>
                         {currentUser.firstName} {currentUser.lastName}
