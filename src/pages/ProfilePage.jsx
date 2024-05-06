@@ -7,15 +7,24 @@ import { IconEdit, IconX, IconCheck } from "@tabler/icons-react"; // Import the 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ProfilePage = () => {
-  const { isLoggedIn, user, logOutUser, userProfileURL } =
-    useContext(AuthContext);
-  const [currentUser, setCurrentUser] = useState(null);
+  const {
+    isLoggedIn,
+    user,
+    logOutUser,
+    storeFirstName,
+    storeLastName,
+    storeProfilePictureURL,
+    userProfileURL,
+    currentUser,
+    setCurrentUser,
+  } = useContext(AuthContext);
+
   const [error, setError] = useState(null);
   const [editingField, setEditingField] = useState(null); // State to track which field is being edited
   const [tempValue, setTempValue] = useState(""); // State to temporarily store edited value
 
   const { userId } = useParams();
-  console.log(userId);
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       if (!isLoggedIn) return;
@@ -35,6 +44,10 @@ const ProfilePage = () => {
 
         const data = await response.json();
         setCurrentUser(data);
+        storeFirstName(data.firstName);
+        storeLastName(data.lastName);
+        storeProfilePictureURL(data.profilePictureUrl);
+        console.log(data);
       } catch (e) {
         setError(`Failed to fetch user details: ${e.message}`);
         console.error(e);
@@ -81,6 +94,13 @@ const ProfilePage = () => {
         ...currentUser,
         [editingField]: tempValue,
       });
+      if (editingField == "firstName") {
+        storeFirstName(tempValue);
+      }
+      if (editingField == "lastName") {
+        storeLastName(tempValue);
+      }
+
       setEditingField(null);
       setTempValue("");
     } catch (error) {
@@ -201,7 +221,7 @@ const ProfilePage = () => {
               alt="Profile Picture"
             />
           </div>
-          <CustomDropzone />
+          <CustomDropzone userId={userId} />
         </div>
       )}
     </>
