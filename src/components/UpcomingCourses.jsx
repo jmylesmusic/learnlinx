@@ -12,18 +12,21 @@ import {
 } from "@mantine/core";
 import { IconH3 } from "@tabler/icons-react";
 
-const UpcommingCourses = () => {
+const UpcomingCourses = () => {
   const [courses, setCourses] = useState([]);
-  const getUpcommingCourses = async () => {
+  const getUpcomingCourses = async () => {
     const storedToken = localStorage.getItem("authToken");
     try {
-      const response = await fetch(`${API_URL}/api/courses//upcomming-courses`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${storedToken}`,
-        },
-      });
+      const response = await fetch(
+        `${API_URL}/api/courses//upcomming-courses`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${storedToken}`,
+          },
+        }
+      );
       const courses = await response.json();
       console.log("*****", courses);
       if (response.ok) setCourses(courses);
@@ -33,7 +36,7 @@ const UpcommingCourses = () => {
   };
 
   useEffect(() => {
-    getUpcommingCourses();
+    getUpcomingCourses();
   }, []);
 
   const linkProps = {
@@ -44,8 +47,8 @@ const UpcommingCourses = () => {
   const theme = useMantineTheme();
 
   return (
-    <div className="UpcommingCoursesListPage">
-      {courses.length > 0 ?
+    <div className="UpcomingCoursesListPage">
+      {courses.length > 0 ? (
         courses.map((course, index) => (
           <Card key={course._id} withBorder radius="md" className="card">
             <Card.Section>
@@ -67,16 +70,20 @@ const UpcommingCourses = () => {
                 <Text fz="sm" inline>
                   {course.studentList.length}
                   {course.studentList.length === 0 ||
-                    course.studentList.length === 1  ? " student ": " students "}
-                  
+                  course.studentList.length === 1
+                    ? " student "
+                    : " students "}
                   enrolled in this class
                 </Text>
               </Center>
             </Group>
           </Card>
-        )) : <h3>There is no current course to show!</h3>}
+        ))
+      ) : (
+        <h3>There is no current course to show!</h3>
+      )}
     </div>
   );
 };
 
-export default UpcommingCourses;
+export default UpcomingCourses;
