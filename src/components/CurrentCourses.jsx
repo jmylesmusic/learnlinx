@@ -30,7 +30,6 @@ const CurrentCourses = () => {
         },
       });
       const courses = await response.json();
-      console.log("*****", courses);
       if (response.ok) setCourses(courses);
     } catch (error) {
       console.log(error);
@@ -91,8 +90,11 @@ const CurrentCourses = () => {
                     </Badge>
                   </HoverCard.Target>
                   <HoverCard.Dropdown>
-                    {course.studentList.map((st) => (
-                      <Text size="sm">id:{st}</Text>
+                    {console.log(course)}
+                    {course.studentList.map((student, index) => (
+                      <Text key={index} size="sm">
+                        {student.firstName} {student.lastName}
+                      </Text>
                     ))}
                   </HoverCard.Dropdown>
                 </HoverCard>
