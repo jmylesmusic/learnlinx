@@ -10,7 +10,7 @@ const Dashboard = () => {
       <CurrentCourses />
       <br />
       <br />
-      <h3>Upcomming courses:</h3>
+      <h3>Upcoming courses:</h3>
       <UpcommingCourses/>
     </>
   );
