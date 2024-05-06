@@ -13,6 +13,7 @@ import {
   Container,
   Group,
   Button,
+  Alert, // Import Alert from Mantine
 } from "@mantine/core";
 import classes from "../styles/AuthenticationTitle.module.css";
 const API_URL = import.meta.env.VITE_API_URL;
@@ -41,17 +42,14 @@ export function SignIn() {
       });
       if (response.ok) {
         const responseData = await response.json();
-        console.log("Successfully sent");
-        console.log(responseData.token);
         storeToken(responseData.token);
         authenticateUser();
-
         navigate("/main");
       } else {
         setErrorMessage("Invalid email or password");
       }
     } catch (error) {
-      console.log(error);
+      setErrorMessage("An error occurred, please try again later.");
     }
   };
 
@@ -69,6 +67,11 @@ export function SignIn() {
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <form onSubmit={handleSubmit}>
+          {errorMessage && (
+            <Alert color="red" mt="sm">
+              {errorMessage}
+            </Alert>
+          )}
           <TextInput
             label="Email"
             placeholder="you@mantine.dev"
