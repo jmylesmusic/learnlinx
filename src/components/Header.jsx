@@ -33,19 +33,20 @@ import classes from "../styles/HeaderTabs.module.css";
 import logo from "../images/learnlinx-logo.svg";
 const API_URL = import.meta.env.VITE_API_URL;
 
-const currentUser = {
-  name: "Jane Spoonfighter",
-  email: "janspoon@fighter.dev",
-  image:
-    "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png",
-};
-
 export function Header() {
   const theme = useMantineTheme();
   const [userMenuOpened, setUserMenuOpened] = useState(false);
-  const { isLoggedIn, user, logOutUser, userProfileURL } =
-    useContext(AuthContext);
-  const [currentUser, setCurrentUser] = useState(null);
+  const {
+    isLoggedIn,
+    user,
+    logOutUser,
+    userProfileURL,
+    userFirstName,
+    userLastName,
+    currentUser,
+    setCurrentUser,
+  } = useContext(AuthContext);
+
   useEffect(() => {
     if (isLoggedIn) {
       const storedToken = localStorage.getItem("authToken");
@@ -103,12 +104,12 @@ export function Header() {
                     <Group gap={7}>
                       <Avatar
                         src={userProfileURL}
-                        alt={currentUser.firstName}
+                        alt={userFirstName}
                         radius="xl"
                         size={40}
                       />
                       <Text weight={500} size="sm" mr={3}>
-                        {currentUser.firstName} {currentUser.lastName}
+                        {userFirstName} {userLastName}
                       </Text>
                       <IconChevronDown size={12} stroke={1.5} />
                     </Group>

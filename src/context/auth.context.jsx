@@ -7,7 +7,10 @@ function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [userProfileURL, setUserProfileURL] = useState(null);
+  const [userFirstName, setUserFirstName] = useState(null);
+  const [userLastName, setUserLastName] = useState(null);
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -15,6 +18,14 @@ function AuthProviderWrapper(props) {
 
   const storeProfilePictureURL = (url) => {
     setUserProfileURL(url);
+  };
+
+  const storeFirstName = (firstName) => {
+    setUserFirstName(firstName);
+  };
+
+  const storeLastName = (lastName) => {
+    setUserLastName(lastName);
   };
 
   const authenticateUser = async () => {
@@ -32,7 +43,6 @@ function AuthProviderWrapper(props) {
         setIsLoggedIn(true);
         setIsLoading(false);
         setUser(user);
-        console.log(user);
       } catch (error) {
         console.error("Error during authentication:", error);
         setIsLoggedIn(false);
@@ -66,10 +76,16 @@ function AuthProviderWrapper(props) {
         isLoading,
         user,
         userProfileURL,
+        userFirstName,
+        userLastName,
         storeToken,
         storeProfilePictureURL,
+        storeFirstName,
+        storeLastName,
         authenticateUser,
         logOutUser,
+        currentUser,
+        setCurrentUser,
       }}
     >
       {props.children}

@@ -42,7 +42,7 @@ const SignUp = () => {
       phoneNumber,
       isTeacher,
     };
-    console.log("Request body:", requestBody);
+
     axios
       .post(`${API_URL}/auth/signup`, requestBody)
       .then(() => {
