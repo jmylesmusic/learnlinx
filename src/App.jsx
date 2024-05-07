@@ -20,6 +20,7 @@ import Dashboard from "./pages/Dashboard";
 import DetailedCoursePage from "./pages/DetailedCoursePage";
 import MyCoursesPage from "./pages/MyCoursesPage";
 import StudentsList from "./pages/StudentsList";
+
 function App() {
   const [opened, { toggle }] = useDisclosure();
   return (
