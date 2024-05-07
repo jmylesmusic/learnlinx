@@ -45,6 +45,9 @@ export function Header() {
     userLastName,
     currentUser,
     setCurrentUser,
+    storeFirstName,
+    storeLastName,
+    storeProfilePictureURL,
   } = useContext(AuthContext);
 
   useEffect(() => {
@@ -62,6 +65,10 @@ export function Header() {
         .then((response) => response.json())
         .then((data) => {
           setCurrentUser(data);
+          storeFirstName(data.firstName);
+          storeLastName(data.lastName);
+          storeProfilePictureURL(data.profilePictureUrl);
+
           console.log(data); // Updated to log the data once it's set
         })
         .catch((error) => console.error("Failed to load user data:", error));
