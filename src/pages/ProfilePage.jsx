@@ -221,7 +221,7 @@ const ProfilePage = () => {
               alt="Profile Picture"
             />
           </div>
-          <CustomDropzone userId={userId} />
+          <CustomDropzone />
         </div>
       )}
     </>
