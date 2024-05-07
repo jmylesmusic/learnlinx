@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
-import { Button } from "@mantine/core";
+import { Button, Modal } from "@mantine/core";
 import CustomDropzone from "../components/CustomDropzone.jsx";
 import { IconEdit, IconX, IconCheck } from "@tabler/icons-react"; // Import the necessary icons
 const API_URL = import.meta.env.VITE_API_URL;
@@ -22,6 +22,8 @@ const ProfilePage = () => {
   const [error, setError] = useState(null);
   const [editingField, setEditingField] = useState(null); // State to track which field is being edited
   const [tempValue, setTempValue] = useState(""); // State to temporarily store edited value
+  const [deleteModalOpened, setDeleteModalOpened] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const { userId } = useParams();
 
@@ -112,6 +114,35 @@ const ProfilePage = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+  const handleDeleteAccount = async () => {
+    if (!confirmDelete) {
+      // First confirmation
+      setConfirmDelete(true);
+    } else {
+      // Second confirmation, proceed with deletion
+      const storedToken = localStorage.getItem("authToken");
+      try {
+        const response = await fetch(`${API_URL}/api/users/${userId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        logOutUser();
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        setError(`Failed to delete user: ${error.message}`);
+      } finally {
+        setDeleteModalOpened(false);
+        setConfirmDelete(false); // Reset confirmation state
+      }
+    }
+  };
 
   return (
     <>
@@ -222,6 +253,37 @@ const ProfilePage = () => {
             />
           </div>
           <CustomDropzone />
+
+          <Button color="red" onClick={() => setDeleteModalOpened(true)}>
+            Delete Account
+          </Button>
+          <Modal
+            opened={deleteModalOpened}
+            onClose={() => {
+              setDeleteModalOpened(false);
+              setConfirmDelete(false);
+            }}
+            title="Confirm Account Deletion"
+          >
+            <p>Are you sure you want to delete your account?</p>
+            {confirmDelete ? (
+              <p>Please confirm again to delete your account permanently.</p>
+            ) : null}
+            <Button color="red" onClick={handleDeleteAccount}>
+              {confirmDelete ? "Confirm Delete" : "Delete Account"}
+            </Button>
+            <Button
+              color="green"
+              onClick={() => {
+                setDeleteModalOpened(false);
+                setConfirmDelete(false);
+              }}
+              style={{ marginLeft: "10px" }}
+            >
+              Keep my account
+            </Button>
+          </Modal>
+
         </div>
       )}
     </>
