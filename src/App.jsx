@@ -18,6 +18,8 @@ import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Dashboard from "./pages/Dashboard";
 import DetailedCoursePage from "./pages/DetailedCoursePage";
+import MyCoursesPage from "./pages/MyCoursesPage";
+import StudentsList from "./pages/StudentsList";
 function App() {
   const [opened, { toggle }] = useDisclosure();
   return (
@@ -53,7 +55,8 @@ function App() {
             />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/courses" element={<Courses />} />
+            <Route path="/courses" element={<MyCoursesPage />} />
+
             <Route
               path="/calendar"
               element={
@@ -66,7 +69,7 @@ function App() {
               path="/students"
               element={
                 <IsPrivate>
-                  <UsersList />
+                  <StudentsList />
                 </IsPrivate>
               }
             />

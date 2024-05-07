@@ -40,7 +40,6 @@ const UpcomingCourses = () => {
   }, []);
 
   const onClickCard = (courseId) => {
-    // Navigate to CourseDetails component and pass courseId as props
     navigate(`../courses/${courseId}`);
   };
 
@@ -84,7 +83,7 @@ const UpcomingCourses = () => {
           </Card>
         ))
       ) : (
-        <h3>There is no current course to show!</h3>
+        <h3>There is no course to show!</h3>
       )}
     </div>
   );
