@@ -3,7 +3,7 @@ import { Group, Code } from "@mantine/core";
 import {
   IconCalendarClock,
   IconSchool,
-  IconSettings,
+  IconBrandZoom,
   IconLayoutDashboard,
   IconFriends,
 } from "@tabler/icons-react";
@@ -16,7 +16,7 @@ const data = [
   { link: "/courses", label: "Courses", icon: IconSchool },
   { link: "/calendar", label: "Calendar", icon: IconCalendarClock },
   { link: "/students", label: "Students", icon: IconFriends },
-  { link: "/settings", label: "Settings", icon: IconSettings },
+  { link: "/videocall", label: "Video Call", icon: IconBrandZoom },
 ];
 
 export function Navbar() {
