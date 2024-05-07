@@ -7,19 +7,18 @@ import {
   SignUp,
   Navbar,
   Header,
-  UsersList,
-  Courses,
   Calendar,
-  CustomDropzone,
   ProfilePage,
   IsPrivate,
+  IsPublic,
+  Dashboard,
+  DetailedCoursePage,
+  MyCoursesPage,
+  StudentsList,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import Dashboard from "./pages/Dashboard";
-import DetailedCoursePage from "./pages/DetailedCoursePage";
-import MyCoursesPage from "./pages/MyCoursesPage";
-import StudentsList from "./pages/StudentsList";
+
 function App() {
   const [opened, { toggle }] = useDisclosure();
   return (
@@ -44,7 +43,14 @@ function App() {
 
         <AppShell.Main>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <IsPublic>
+                  <Home />
+                </IsPublic>
+              }
+            />
             <Route
               path="/main"
               element={
@@ -55,7 +61,14 @@ function App() {
             />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/courses" element={<MyCoursesPage />} />
+            <Route
+              path="/courses"
+              element={
+                <IsPrivate>
+                  <MyCoursesPage />
+                </IsPrivate>
+              }
+            />
 
             <Route
               path="/calendar"

@@ -10,3 +10,7 @@ export { default as SignUp } from "./SignUp";
 export { default as Header } from "../components/Header";
 export { default as Navbar } from "../components/Navbar";
 export { default as IsPrivate } from "../components/IsPrivate";
+export { default as IsPublic } from "../components/IsPublic";
+export { default as DetailedCoursePage } from "../pages/DetailedCoursePage";
+export { default as MyCoursesPage } from "../pages/MyCoursesPage";
+export { default as StudentsList } from "../pages/StudentsList";
