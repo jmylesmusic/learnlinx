@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import { Calendar } from "@mantine/dates";
-import { Indicator, Container, Text } from "@mantine/core";
+import { Indicator, Container, Text, Title } from "@mantine/core";
 import "@mantine/dates/styles.css";
 
 function CalendarComponent() {
@@ -37,17 +37,22 @@ function CalendarComponent() {
     if (event) {
       return (
         <Container>
+          <Title order={4}>{dayjs(selectedDate).format("MMMM D, YYYY")}</Title>
           <Text size="lg" weight={500}>
-            {event.time}
-          </Text>
-          <Text size="lg" weight={500}>
-            {event.title}
+            {event.time} - {event.title}
           </Text>
           <Text size="sm">{event.description}</Text>
         </Container>
       );
     }
-    return <Text>No events on this day.</Text>;
+    return (
+      <Container>
+        <Title order={4}>{dayjs(selectedDate).format("MMMM D, YYYY")}</Title>
+        <Text size="lg" weight={500}>
+          No events
+        </Text>
+      </Container>
+    );
   };
 
   return (
