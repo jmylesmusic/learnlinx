@@ -87,7 +87,7 @@ const Lastcourses = () => {
       {courses.length > 0 ? (
         <Table.Tbody> {rows} </Table.Tbody>
     ) : (
-        <h3>There is no current course to show!</h3>
+        <h3>There is no course to show!</h3>
       )}
       </Table>
     </Table.ScrollContainer>
