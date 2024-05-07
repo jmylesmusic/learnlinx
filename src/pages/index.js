@@ -2,7 +2,7 @@ export { default as Home } from "../pages/Home";
 export { default as UsersList } from "../pages/StudentsList";
 export { default as Courses } from "../components/CurrentCourses";
 export { default as CalendarPage } from "./CalendarPage";
-export { default as CalendarComponent } from "../components/CalendarComponent";
+export { default as SmallCalendarComponent } from "../components/SmallCalendarComponent";
 export { default as Dashboard } from "../pages/Dashboard";
 export { default as ProfilePage } from "../pages/ProfilePage";
 export { default as SignIn } from "../components/SignIn";

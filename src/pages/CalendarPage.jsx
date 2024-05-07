@@ -1,8 +1,8 @@
-import CalendarComponent from "../components/CalendarComponent.jsx";
+import SmallCalendarComponent from "../components/SmallCalendarComponent.jsx";
 const CalendarPage = () => {
   return (
     <div>
-      <CalendarComponent />
+      <SmallCalendarComponent />
     </div>
   );
 };

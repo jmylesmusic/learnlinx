@@ -4,7 +4,7 @@ import { Calendar } from "@mantine/dates";
 import { Indicator, Container, Text, Title } from "@mantine/core";
 import "@mantine/dates/styles.css";
 
-function CalendarComponent() {
+function SmallCalendarComponent() {
   const [selectedDate, setSelectedDate] = useState(null);
 
   // Enhanced events data structure to allow multiple events per day
@@ -110,4 +110,4 @@ function CalendarComponent() {
   );
 }
 
-export default CalendarComponent;
+export default SmallCalendarComponent;
