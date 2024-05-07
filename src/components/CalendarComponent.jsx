@@ -1,41 +1,83 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import { Calendar } from "@mantine/dates";
+import { Indicator, Container, Text } from "@mantine/core";
 import "@mantine/dates/styles.css";
 
 function CalendarComponent() {
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const handleDateSelection = (date) => {
-    // Convert the date object to a standardized format or compare date parts directly
-    const clickedDate = dayjs(date).startOf("day");
-    const isSelected =
-      selectedDate && dayjs(selectedDate).isSame(clickedDate, "day");
+  // Sample events data
+  const events = {
+    "2024-05-15": {
+      title: "Meeting with team",
+      description: "Weekly sync with the team at office.",
+      time: "18:00",
+    },
+    "2024-05-20": {
+      title: "Doctor Appointment",
+      description: "Annual health check-up at Dr. Smith’s Clinic.",
+      time: "18:00",
+    },
+    "2024-05-22": {
+      title: "Conference",
+      description: "Tech conference about modern web technologies.",
+      time: "18:00",
+    },
+  };
 
-    if (isSelected) {
-      setSelectedDate(null); // If the selected date is clicked again, clear the selection
-    } else {
-      setSelectedDate(clickedDate.toDate()); // Store the date as a Date object
+  const handleDateSelection = (date) => {
+    const clickedDate = dayjs(date).startOf("day").toDate();
+    setSelectedDate(clickedDate);
+  };
+
+  const renderEventDetails = () => {
+    const dateString = dayjs(selectedDate).format("YYYY-MM-DD");
+    const event = events[dateString];
+    if (event) {
+      return (
+        <Container>
+          <Text size="lg" weight={500}>
+            {event.time}
+          </Text>
+          <Text size="lg" weight={500}>
+            {event.title}
+          </Text>
+          <Text size="sm">{event.description}</Text>
+        </Container>
+      );
     }
+    return <Text>No events on this day.</Text>;
   };
 
   return (
-    <Calendar
-      getDayProps={(date) => {
-        const dayProps = {
+    <>
+      <Calendar
+        dayStyle={(date) => ({
+          backgroundColor:
+            selectedDate &&
+            dayjs(selectedDate).isSame(dayjs(date).startOf("day"), "day")
+              ? "lightblue"
+              : undefined,
+        })}
+        renderDay={(date) => {
+          const dateString = dayjs(date).format("YYYY-MM-DD");
+          const event = events[dateString];
+          if (event) {
+            return (
+              <Indicator size={6} color="red">
+                {dayjs(date).date()}
+              </Indicator>
+            );
+          }
+          return dayjs(date).date();
+        }}
+        getDayProps={(date) => ({
           onClick: () => handleDateSelection(date),
-          style: {
-            // Check if this day is selected and apply a style or class conditionally
-            backgroundColor:
-              selectedDate &&
-              dayjs(selectedDate).isSame(dayjs(date).startOf("day"), "day")
-                ? "lightblue"
-                : undefined,
-          },
-        };
-        return dayProps;
-      }}
-    />
+        })}
+      />
+      {selectedDate && renderEventDetails()}
+    </>
   );
 }
 
