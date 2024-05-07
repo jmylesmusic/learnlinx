@@ -1,21 +1,60 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import { Text, Group, Button, useMantineTheme } from "@mantine/core";
 import { Dropzone } from "@mantine/dropzone";
 import { IconCloudUpload, IconX, IconDownload } from "@tabler/icons-react";
 import classes from "../styles/DropzoneButton.module.css";
+import { AuthContext } from "../context/auth.context";
+import axios from "axios";
 
-function CustomDropzone() {
+const API_URL = import.meta.env.VITE_API_URL;
+
+function CustomDropzone({ userId }) {
   const theme = useMantineTheme();
   const openRef = useRef(null);
+
+  const { storeProfilePictureURL, currentUser, setCurrentUser } =
+    useContext(AuthContext);
+
+  const handleDrop = async (file) => {
+    const formData = new FormData();
+    formData.append("imageUrl", file[0]);
+
+    try {
+      const storedToken = localStorage.getItem("authToken");
+      // Upload the image and get the new image URL
+      // Update the user's profile picture URL on the server
+      const updateResponse = await axios.put(
+        `${API_URL}/api/users/${userId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+            "Content-Type": "multipart/form-data", // Ensure correct content type for FormData
+          },
+        }
+      );
+      const newImageUrl = updateResponse.data.profilePictureUrl;
+      // Update the user's profile picture URL on the client-side state
+      setCurrentUser({
+        ...currentUser,
+        profilePictureUrl: newImageUrl,
+      });
+      storeProfilePictureURL(newImageUrl);
+    } catch (error) {
+      console.log("Error uploading photo: ", error);
+    }
+  };
 
   return (
     <div className={classes.wrapper}>
       <Dropzone
+        maxFiles={1}
+        multiple={false}
         openRef={openRef}
-        onDrop={() => {}}
+        onDrop={handleDrop}
         className={classes.dropzone}
         radius="md"
-        accept={["image/jpeg", "image/png", "image/gif"]} // Accepted MIME types for images
+        accept={["image/jpeg", "image/png"]} // Accepted MIME types for images
         maxSize={30 * 1024 ** 2}
       >
         <div style={{ pointerEvents: "none" }}>

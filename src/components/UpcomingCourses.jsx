@@ -20,7 +20,7 @@ const UpcomingCourses = () => {
   const getUpcomingCourses = async () => {
     const storedToken = localStorage.getItem("authToken");
     try {
-      const response = await fetch(`${API_URL}/api/courses//upcoming-courses`, {
+      const response = await fetch(`${API_URL}/api/courses/upcoming-courses`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -12,13 +12,14 @@ import {
   Calendar,
   CustomDropzone,
   ProfilePage,
+  IsPrivate,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Dashboard from "./pages/Dashboard";
 import DetailedCoursePage from "./pages/DetailedCoursePage";
 import MyCoursesPage from "./pages/MyCoursesPage";
-import StudentsList from "./pages/StudentsList"
+import StudentsList from "./pages/StudentsList";
 function App() {
   const [opened, { toggle }] = useDisclosure();
   return (
@@ -44,14 +45,50 @@ function App() {
         <AppShell.Main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/main" element={<Dashboard />} />
+            <Route
+              path="/main"
+              element={
+                <IsPrivate>
+                  <Dashboard />
+                </IsPrivate>
+              }
+            />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/courses" element={<MyCoursesPage />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/students" element={<StudentsList />} />
-            <Route path="/profile/:userId" element={<ProfilePage />} />
-            <Route path="/courses/:courseId" element={<DetailedCoursePage />} />
+
+            <Route
+              path="/calendar"
+              element={
+                <IsPrivate>
+                  <Calendar />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/students"
+              element={
+                <IsPrivate>
+                  <StudentsList />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/profile/:userId"
+              element={
+                <IsPrivate>
+                  <ProfilePage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/courses/:courseId"
+              element={
+                <IsPrivate>
+                  <DetailedCoursePage />
+                </IsPrivate>
+              }
+            />
           </Routes>
         </AppShell.Main>
       </AppShell>
