@@ -7,7 +7,7 @@ import {
   SignUp,
   Navbar,
   Header,
-  Calendar,
+  CalendarPage,
   ProfilePage,
   IsPrivate,
   IsPublic,
@@ -74,7 +74,7 @@ function App() {
               path="/calendar"
               element={
                 <IsPrivate>
-                  <Calendar />
+                  <CalendarPage />
                 </IsPrivate>
               }
             />
