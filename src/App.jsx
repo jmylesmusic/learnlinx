@@ -7,12 +7,14 @@ import {
   SignUp,
   Navbar,
   Header,
-  UsersList,
-  Courses,
-  Calendar,
-  CustomDropzone,
+  CalendarPage,
   ProfilePage,
   IsPrivate,
+  IsPublic,
+  Dashboard,
+  DetailedCoursePage,
+  MyCoursesPage,
+  StudentsList,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -45,7 +47,14 @@ function App() {
 
         <AppShell.Main>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <IsPublic>
+                  <Home />
+                </IsPublic>
+              }
+            />
             <Route
               path="/main"
               element={
@@ -56,13 +65,20 @@ function App() {
             />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/courses" element={<MyCoursesPage />} />
+            <Route
+              path="/courses"
+              element={
+                <IsPrivate>
+                  <MyCoursesPage />
+                </IsPrivate>
+              }
+            />
 
             <Route
               path="/calendar"
               element={
                 <IsPrivate>
-                  <Calendar />
+                  <CalendarPage />
                 </IsPrivate>
               }
             />
