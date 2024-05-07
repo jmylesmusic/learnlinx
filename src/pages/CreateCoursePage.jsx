@@ -23,9 +23,12 @@ import React, { useState } from "react";
 import { useForm } from "@mantine/form";
 import { Button, Group, TextInput } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
+import { IconX, IconCheck } from '@tabler/icons-react';
 
-const CreateCoursePage = ({ course, toggle, notifications }) => {
+const CreateCoursePage = ({ course, notifications }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const xIcon = <IconX style={{ width: rem(20), height: rem(20) }} />;
+  const checkIcon = <IconCheck style={{ width: rem(20), height: rem(20) }} />;
   const form = useForm({
     initialValues: {
       courseName: course.courseName ?? "",
@@ -71,13 +74,21 @@ const CreateCoursePage = ({ course, toggle, notifications }) => {
               );
 
               if (response.ok) {
-                console.log("Change the course informations")
                
+                
+                <Notification icon={checkIcon} color="teal" title="All good!" mt="md">
+                Everything is fine
+              </Notification>
                 // notifications.show({
                 //   title: "Change the course informations",
                 //   message:
                 //     "Hey there, you succesfuly changed the course informations",
                 // });
+              }
+              else{
+                <Notification icon={xIcon} color="red" title="Bummer!">
+        Something went wrong
+      </Notification>
               }
             } catch (error) {
               console.log(" Error by updating the course ", error);
@@ -92,6 +103,24 @@ const CreateCoursePage = ({ course, toggle, notifications }) => {
             value={form.values.courseName}
             onChange={handleNameChange}
           />
+
+//           <DateInput
+            label="Start date"
+            placeholder="Start date"
+            withAsterisk
+            mt="md"
+            key={form.key("startDate")}
+            value={startDate}
+            onChange={(value) => setStartDate(value)}
+          />
+          <DateInput
+            label="End date"
+            placeholder="End date"
+            mt="md"
+            key={form.key("endDate")}
+            value={endDate}
+            onChange={(value) => setEndDate(value)}
+          /> 
 
           <Group justify="flex-end" mt="md">
             <Button type="submit">Save</Button>
