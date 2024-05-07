@@ -9,3 +9,4 @@ export { default as CustomDropzone } from "../components/CustomDropzone";
 export { default as SignUp } from "./SignUp";
 export { default as Header } from "../components/Header";
 export { default as Navbar } from "../components/Navbar";
+export { default as IsPrivate } from "../components/IsPrivate";
