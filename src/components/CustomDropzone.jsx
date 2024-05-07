@@ -8,23 +8,23 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function CustomDropzone({ userId }) {
+function CustomDropzone() {
   const theme = useMantineTheme();
   const openRef = useRef(null);
 
-  const { storeProfilePictureURL, currentUser, setCurrentUser } =
+  const { storeProfilePictureURL, currentUser, setCurrentUser, user } =
     useContext(AuthContext);
 
   const handleDrop = async (file) => {
     const formData = new FormData();
     formData.append("imageUrl", file[0]);
-
+    console.log(user);
     try {
       const storedToken = localStorage.getItem("authToken");
       // Upload the image and get the new image URL
       // Update the user's profile picture URL on the server
       const updateResponse = await axios.put(
-        `${API_URL}/api/users/${userId}`,
+        `${API_URL}/api/users/${user.data.userId}`,
         formData,
         {
           headers: {
