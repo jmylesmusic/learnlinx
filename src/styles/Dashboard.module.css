@@ -1,0 +1,23 @@
+/* Dashboard.module.css */
+.Container.dashboard-flex-container {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: space-around !important;
+  align-items: stretch !important;
+}
+
+.Container.dashboard-flex-container .dashboard-flex-item {
+  flex: 1 1 50% !important;
+  box-sizing: border-box !important;
+  padding: 20px !important;
+}
+
+@media (max-width: 600px) {
+  .Container.dashboard-flex-container {
+    flex-direction: column !important;
+  }
+
+  .Container.dashboard-flex-container .dashboard-flex-item {
+    flex: 1 1 100% !important;
+  }
+}

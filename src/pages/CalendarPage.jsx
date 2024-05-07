@@ -1,8 +1,8 @@
-import SmallCalendarComponent from "../components/SmallCalendarComponent.jsx";
+import LargeCalendarComponent from "../components/LargeCalendarComponent";
 const CalendarPage = () => {
   return (
     <div>
-      <SmallCalendarComponent />
+      <LargeCalendarComponent />
     </div>
   );
 };
