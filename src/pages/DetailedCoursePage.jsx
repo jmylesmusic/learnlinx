@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Text, Modal, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import CreateCoursePage from "./CreateCoursePage";
+import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const DetailedCoursePage = () => {
@@ -45,7 +45,7 @@ const DetailedCoursePage = () => {
   return (
     <>
       <Modal opened={opened} onClose={close} title="Edit Course" centered>
-        <CreateCoursePage course={course} />
+        <EditCourse course={course} />
       </Modal>
       <div>
         <h1>Course Detail Page</h1>
