@@ -1,11 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Card, Image, Text, useMantineTheme } from "@mantine/core";
+import { Text, Modal, Button } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const DetailedCoursePage = () => {
   const [course, setCourse] = useState([]);
   const { courseId } = useParams();
+  const [opened, { open, close }] = useDisclosure(false);
 
   const getCourse = async () => {
     const storedToken = localStorage.getItem("authToken");
@@ -40,26 +43,33 @@ const DetailedCoursePage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Course Detail Page</h1>
-      <p>Course ID: {courseId}</p>
-      <p>course Name: {course.courseName}</p>
-      <p>start Date: {formatDate(course.startDate)}</p>
-      <p>end Date: {formatDate(course.endDate)}</p>
-      <p>description: {course.description}</p>
-      <a>zoomLink: {course.zoomLink}</a>
-      
-      <p>
-        Teacher: { course.teacher && course.teacher.firstName} {course.teacher && course.teacher.lastName}
-      </p>
-      <h4>Students list:</h4>
-      {course.studentList &&
-        course.studentList.map((student, index) => (
-          <Text key={index} size="sm">
-            {student.firstName} {student.lastName}
-          </Text>
-        ))}
-    </div>
+    <>
+      <Modal opened={opened} onClose={close} title="Edit Course" centered>
+        <EditCourse course={course} />
+      </Modal>
+      <div>
+        <h1>Course Detail Page</h1>
+        <p>Course ID: {courseId}</p>
+        <p>course Name: {course.courseName}</p>
+        <p>start Date: {formatDate(course.startDate)}</p>
+        <p>end Date: {formatDate(course.endDate)}</p>
+        <p>description: {course.description}</p>
+        <a>zoomLink: {course.zoomLink}</a>
+
+        <p>
+          Teacher: {course.teacher && course.teacher.firstName}{" "}
+          {course.teacher && course.teacher.lastName}
+        </p>
+        <h4>Students list:</h4>
+        {course.studentList &&
+          course.studentList.map((student, index) => (
+            <Text key={index} size="sm">
+              {student.firstName} {student.lastName}
+            </Text>
+          ))}
+        <Button onClick={open}>Edit course</Button>
+      </div>
+    </>
   );
 };
 
