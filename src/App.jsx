@@ -20,12 +20,9 @@ import {
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-<<<<<<< HEAD
 import React, { useContext } from "react";
 import { AuthContext } from "./context/auth.context";
-=======
 import CreateNewCourse from "./components/CreateNewCourse";
->>>>>>> Saeideh-Bahadoran
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
