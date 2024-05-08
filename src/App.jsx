@@ -18,6 +18,7 @@ import {
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import CreateNewCourse from "./components/CreateNewCourse";
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -99,6 +100,14 @@ function App() {
               element={
                 <IsPrivate>
                   <DetailedCoursePage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/create-new-course"
+              element={
+                <IsPrivate>
+                  <CreateNewCourse />
                 </IsPrivate>
               }
             />
