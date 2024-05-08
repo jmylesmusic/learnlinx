@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 import { IconCheck } from "@tabler/icons-react";
 
 import { notifications } from "@mantine/notifications";
+import AllUsers from "../components/AllUsers";
 
 const DetailedCoursePage = () => {
   const checkIcon = <IconCheck style={{ width: "20rem", height: "20rem" }} />;
@@ -15,7 +16,7 @@ const DetailedCoursePage = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const getCourse = async () => {
-    console.log('*************getCourse')
+    console.log("*************getCourse");
     const storedToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(`${API_URL}/api/courses/${courseId}`, {
@@ -78,6 +79,7 @@ const DetailedCoursePage = () => {
           {course.teacher && course.teacher.lastName}
         </p>
         <Button onClick={open}>Edit course</Button>
+        <AllUsers />
         <h4>Students list:</h4>
         {course.studentList &&
           course.studentList.map((student, index) => (
@@ -85,7 +87,6 @@ const DetailedCoursePage = () => {
               {student.firstName} {student.lastName}
             </Text>
           ))}
-       
       </div>
     </>
   );
