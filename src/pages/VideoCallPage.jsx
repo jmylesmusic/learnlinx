@@ -1,4 +1,3 @@
-import { DailyProvider } from "@daily-co/daily-react";
 import VideoCall from "../appVideoCall/AppVideoCall";
 
 const VideoCallPage = () => {
