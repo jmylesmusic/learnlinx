@@ -15,13 +15,10 @@ import {
   DetailedCoursePage,
   MyCoursesPage,
   StudentsList,
+  VideoCallPage,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import Dashboard from "./pages/Dashboard";
-import DetailedCoursePage from "./pages/DetailedCoursePage";
-import MyCoursesPage from "./pages/MyCoursesPage";
-import StudentsList from "./pages/StudentsList";
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
@@ -103,6 +100,14 @@ function App() {
               element={
                 <IsPrivate>
                   <DetailedCoursePage />
+                </IsPrivate>
+              }
+            />
+            <Route
+              path="/videocall"
+              element={
+                <IsPrivate>
+                  <VideoCallPage />
                 </IsPrivate>
               }
             />
