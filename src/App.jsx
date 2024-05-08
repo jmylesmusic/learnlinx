@@ -34,7 +34,7 @@ function App() {
         navbar={
           user
             ? {
-                width: 300,
+                width: 200,
                 breakpoint: "md",
                 collapsed: { mobile: !opened },
               }
