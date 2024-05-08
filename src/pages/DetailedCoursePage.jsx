@@ -73,18 +73,19 @@ const DetailedCoursePage = () => {
       </Modal>
       <div>
         <h1>Course Detail Page</h1>
-        <p>Course ID: {courseId}</p>
-        <p>course Name: {course.courseName}</p>
-        <p>start Date: {formatDate(course.startDate)}</p>
-        <p>end Date: {formatDate(course.endDate)}</p>
-        <p>description: {course.description}</p>
-        <a>zoomLink: {course.zoomLink}</a>
+        {/* <p>Course ID: {courseId}</p> */}
+        <p>Course Name: {course.courseName}</p>
+        <p>Start Date: {formatDate(course.startDate)}</p>
+        <p>End Date: {formatDate(course.endDate)}</p>
+        <p>Description: {course.description}</p>
+        {/* <a>Zoom Link: {course.zoomLink}</a> */}
 
         <p>
           Teacher: {course.teacher && course.teacher.firstName}{" "}
           {course.teacher && course.teacher.lastName}
         </p>
         <Button onClick={open}>Edit course</Button>
+        <br />
 
         <Button onClick={handleNavigateToVideoCall}>Join Video Call</Button>
 
