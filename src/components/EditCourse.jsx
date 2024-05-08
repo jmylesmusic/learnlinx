@@ -6,7 +6,6 @@ import { DateInput } from "@mantine/dates";
 const EditCourse = ({ course, close, save }) => {
   console.log(course);
   const form = useForm({
-    mode: "uncontrolled",
     initialValues: {
       courseName: course.courseName ?? "",
       startDate:
@@ -25,18 +24,13 @@ const EditCourse = ({ course, close, save }) => {
     close();
   };
 
-  // const handleNameChange = (event) => {
-  //   form.setValues({
-  //     ...form.values,
-  //     courseName: event.currentTarget.value,
-  //   });
-  // };
-
   return (
     <>
       <form
         onSubmit={form.onSubmit(async () => {
           const storedToken = localStorage.getItem("authToken");
+
+          console.log(form.values);
 
           try {
             const response = await fetch(

@@ -15,6 +15,7 @@ const DetailedCoursePage = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const getCourse = async () => {
+    console.log('*************getCourse')
     const storedToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(`${API_URL}/api/courses/${courseId}`, {
@@ -76,6 +77,7 @@ const DetailedCoursePage = () => {
           Teacher: {course.teacher && course.teacher.firstName}{" "}
           {course.teacher && course.teacher.lastName}
         </p>
+        <Button onClick={open}>Edit course</Button>
         <h4>Students list:</h4>
         {course.studentList &&
           course.studentList.map((student, index) => (
@@ -83,7 +85,7 @@ const DetailedCoursePage = () => {
               {student.firstName} {student.lastName}
             </Text>
           ))}
-        <Button onClick={open}>Edit course</Button>
+       
       </div>
     </>
   );
