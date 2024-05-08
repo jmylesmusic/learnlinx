@@ -1,8 +1,9 @@
 import cx from "clsx";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
-import { Table, ScrollArea } from "@mantine/core";
+import { Table, ScrollArea, useMantineTheme } from "@mantine/core";
 import classes from "../styles/TableScrollArea.module.css";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export function EventTable() {
@@ -11,6 +12,7 @@ export function EventTable() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const theme = useMantineTheme();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
@@ -52,8 +54,6 @@ export function EventTable() {
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
-
-  // Function to sort data by date and time
   const sortEventsByDateAndTime = (data) => {
     return data.sort((a, b) => {
       // First compare the dates
@@ -80,13 +80,26 @@ export function EventTable() {
   const sortedAndFilteredData = sortEventsByDateAndTime(filterPastEvents(data));
 
   // Then map over the sorted and filtered data to create table rows
-  const rows = sortedAndFilteredData.map((row) => (
-    <Table.Tr key={row._id}>
-      <Table.Td>{formatDate(row.date)}</Table.Td>
-      <Table.Td>{row.timeStart}</Table.Td>
-      <Table.Td>{row.eventTitle}</Table.Td>
-    </Table.Tr>
-  ));
+
+  const rows = sortedAndFilteredData.map((event) => {
+    const colorKey =
+      event.color in theme.colors
+        ? theme.colors[event.color][1]
+        : theme.colors.red[1];
+    return (
+      <Table.Tr key={event._id}>
+        <Table.Td style={{ backgroundColor: colorKey }}>
+          {formatDate(event.date)}
+        </Table.Td>
+        <Table.Td style={{ backgroundColor: colorKey }}>
+          {event.timeStart}
+        </Table.Td>
+        <Table.Td style={{ backgroundColor: colorKey }}>
+          {event.eventTitle}
+        </Table.Td>
+      </Table.Tr>
+    );
+  });
 
   return (
     <ScrollArea
