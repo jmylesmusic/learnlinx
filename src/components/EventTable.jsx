@@ -53,7 +53,34 @@ export function EventTable() {
     return `${year}-${month}-${day}`;
   };
 
-  const rows = data.map((row) => (
+  // Function to sort data by date and time
+  const sortEventsByDateAndTime = (data) => {
+    return data.sort((a, b) => {
+      // First compare the dates
+      const dateComparison = new Date(a.date) - new Date(b.date);
+      if (dateComparison !== 0) {
+        return dateComparison;
+      }
+      // If dates are the same, compare times
+      const timeA = a.timeStart.split(":").map(Number); // Convert "hh:mm" to [hh, mm]
+      const timeB = b.timeStart.split(":").map(Number);
+      // Compare hours first, then minutes if hours are the same
+      return timeA[0] - timeB[0] || timeA[1] - timeB[1];
+    });
+  };
+
+  // Filtering events that are today or earlier
+  const filterPastEvents = (data) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time to 00:00:00 to compare only dates
+    return data.filter((item) => new Date(item.date) >= today);
+  };
+
+  // Sorting and filtering the data
+  const sortedAndFilteredData = sortEventsByDateAndTime(filterPastEvents(data));
+
+  // Then map over the sorted and filtered data to create table rows
+  const rows = sortedAndFilteredData.map((row) => (
     <Table.Tr key={row._id}>
       <Table.Td>{formatDate(row.date)}</Table.Td>
       <Table.Td>{row.timeStart}</Table.Td>
