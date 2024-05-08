@@ -114,7 +114,7 @@ function App() {
               }
             />
             <Route
-              path="/videocall"
+              path="/video-call/:courseId"
               element={
                 <IsPrivate>
                   <VideoCallPage />

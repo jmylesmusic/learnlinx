@@ -1,15 +1,15 @@
 import "./HomeScreen.css";
 
-export default function HomeScreen({ createCall, startHairCheck }) {
+export default function HomeScreen({ createCall, startHairCheck, courseId }) {
   const startDemo = () => {
-    createCall().then((url) => {
+    createCall(courseId).then((url) => {
       startHairCheck(url);
     });
   };
 
   return (
     <div className="home-screen">
-      <h1>Daily React Video Class</h1>
+      <h1>Video Class</h1>
       <p>Start a video class by clicking in the button below! </p>
       <button onClick={startDemo} type="button">
         Click to start a call
