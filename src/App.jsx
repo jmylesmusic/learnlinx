@@ -122,6 +122,14 @@ function App() {
                 </IsPrivate>
               }
             />
+            <Route
+              path="/create-new-course"
+              element={
+                <IsPrivate>
+                  <CreateNewCourse />
+                </IsPrivate>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AppShell.Main>
