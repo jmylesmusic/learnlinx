@@ -16,3 +16,4 @@ export { default as MyCoursesPage } from "../pages/MyCoursesPage";
 export { default as StudentsList } from "../pages/StudentsList";
 export { default as CurrentCourses } from "../components/CurrentCourses";
 export { default as VideoCallPage } from "../pages/VideoCallPage";
+export { default as NotFound } from "../pages/NotFound";

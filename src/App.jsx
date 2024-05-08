@@ -16,6 +16,7 @@ import {
   MyCoursesPage,
   StudentsList,
   VideoCallPage,
+  NotFound,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -111,6 +112,7 @@ function App() {
                 </IsPrivate>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AppShell.Main>
       </AppShell>
