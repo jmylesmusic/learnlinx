@@ -2,6 +2,7 @@ import CurrentCourses from "../components/CurrentCourses";
 import { useState, useEffect } from "react";
 import UpcomingCourses from "../components/UpcomingCourses";
 import SmallCalendarComponent from "../components/SmallCalendarComponent";
+import EventTable from "../components/EventTable";
 import { Container, SimpleGrid } from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -25,6 +26,7 @@ const Dashboard = () => {
           </div>
           <div>
             <SmallCalendarComponent />
+            <EventTable />
           </div>
         </SimpleGrid>
       </Container>
