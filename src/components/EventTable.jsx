@@ -1,24 +1,12 @@
 import cx from "clsx";
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
 import { Table, ScrollArea } from "@mantine/core";
 import classes from "../styles/TableScrollArea.module.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export function EventTable() {
-  const {
-    isLoggedIn,
-    user,
-    logOutUser,
-    storeFirstName,
-    storeLastName,
-    storeProfilePictureURL,
-    userProfileURL,
-    currentUser,
-    setCurrentUser,
-  } = useContext(AuthContext);
-  const { userId } = useParams();
+  const { isLoggedIn } = useContext(AuthContext);
   const [scrolled, setScrolled] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
