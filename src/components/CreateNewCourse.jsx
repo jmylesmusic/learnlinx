@@ -2,16 +2,17 @@ import { Button, Group, TextInput, Textarea, Box } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import React, { useState } from "react";
 import { DateInput } from "@mantine/dates";
+import { useNavigate } from "react-router-dom";
 
 const CreateNewCourse = () => {
-const [course, setCourse] = useState([]);
+  const [course, setCourse] = useState([]);
+  const navigate = useNavigate();
   const [courseName, setCourseName] = useState("");
   const [coursePictureUrl, setCoursePictureUrl] = useState("");
   const [studentList, setStudentList] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [description, setDescription] = useState();
-
 
   const form = useForm({
     initialValues: {
@@ -29,33 +30,35 @@ const [course, setCourse] = useState([]);
     <>
       <h1>Create New Course Page</h1>
       <Box maw={340} mx="auto">
-        <form onSubmit={form.onSubmit(async () => {
-          const storedToken = localStorage.getItem("authToken");
+        <form
+          onSubmit={form.onSubmit(async () => {
+            const storedToken = localStorage.getItem("authToken");
 
-          console.log(form.values);
+            console.log(form.values);
 
-          try {
-            const response = await fetch(
-              `${import.meta.env.VITE_API_URL}/api/courses`,
-              {
-                method: "POST",
+            try {
+              const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/courses`,
+                {
+                  method: "POST",
 
-                headers: {
-                  Authorization: `Bearer ${storedToken}`,
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(form.values), 
+                  headers: {
+                    Authorization: `Bearer ${storedToken}`,
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(form.values),
+                }
+              );
+
+              if (response.ok) {
+                console.log(" OK ");
+                navigate(`../courses`);
               }
-            );
-
-            if (response.ok) {
-              
-                console.log(" OK "); 
+            } catch (error) {
+              console.log(" Error by updating the course ", error);
             }
-          } catch (error) {
-            console.log(" Error by updating the course ", error);
-          }
-        })}>
+          })}
+        >
           <TextInput
             withAsterisk
             label="Course name"
