@@ -1,16 +1,21 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Text, Modal, Button } from "@mantine/core";
+import { Text, Modal, Button, Notification } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
+import { IconCheck } from "@tabler/icons-react";
+
+import { notifications } from "@mantine/notifications";
 
 const DetailedCoursePage = () => {
+  const checkIcon = <IconCheck style={{ width: "20rem", height: "20rem" }} />;
   const [course, setCourse] = useState([]);
   const { courseId } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
 
   const getCourse = async () => {
+    console.log('*************getCourse')
     const storedToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(`${API_URL}/api/courses/${courseId}`, {
@@ -45,7 +50,19 @@ const DetailedCoursePage = () => {
   return (
     <>
       <Modal opened={opened} onClose={close} title="Edit Course" centered>
-        <EditCourse course={course} />
+        <EditCourse
+          course={course}
+          close={close}
+          save={() => {
+            close();
+            getCourse();
+            notifications.show({
+              icon: checkIcon,
+              autoClose: 4000,
+              message: "You succesfuly changed the course informations",
+            });
+          }}
+        />
       </Modal>
       <div>
         <h1>Course Detail Page</h1>
@@ -60,6 +77,7 @@ const DetailedCoursePage = () => {
           Teacher: {course.teacher && course.teacher.firstName}{" "}
           {course.teacher && course.teacher.lastName}
         </p>
+        <Button onClick={open}>Edit course</Button>
         <h4>Students list:</h4>
         {course.studentList &&
           course.studentList.map((student, index) => (
@@ -67,7 +85,7 @@ const DetailedCoursePage = () => {
               {student.firstName} {student.lastName}
             </Text>
           ))}
-        <Button onClick={open}>Edit course</Button>
+       
       </div>
     </>
   );
