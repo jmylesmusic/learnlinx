@@ -1,7 +1,7 @@
 import cx from "clsx";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   Autocomplete,
   Container,
@@ -68,8 +68,6 @@ export function Header() {
           storeFirstName(data.firstName);
           storeLastName(data.lastName);
           storeProfilePictureURL(data.profilePictureUrl);
-
-          console.log(data); // Updated to log the data once it's set
         })
         .catch((error) => console.error("Failed to load user data:", error));
     }
