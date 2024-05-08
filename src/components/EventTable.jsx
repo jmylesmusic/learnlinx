@@ -55,9 +55,9 @@ export function EventTable() {
 
   const rows = data.map((row) => (
     <Table.Tr key={row._id}>
-      <Table.Td>{row.eventTitle}</Table.Td>
       <Table.Td>{formatDate(row.date)}</Table.Td>
       <Table.Td>{row.timeStart}</Table.Td>
+      <Table.Td>{row.eventTitle}</Table.Td>
     </Table.Tr>
   ));
 
@@ -66,14 +66,14 @@ export function EventTable() {
       h={300}
       onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
     >
-      <Table miw={700}>
+      <Table>
         <Table.Thead
           className={cx(classes.header, { [classes.scrolled]: scrolled })}
         >
           <Table.Tr>
-            <Table.Th>Course</Table.Th>
             <Table.Th>Date</Table.Th>
             <Table.Th>Start Time</Table.Th>
+            <Table.Th>Course</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>

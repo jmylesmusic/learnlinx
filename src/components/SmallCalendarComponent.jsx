@@ -1,111 +1,90 @@
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/auth.context.jsx";
 import { Calendar } from "@mantine/dates";
-import { Indicator, Container, Text, Title } from "@mantine/core";
+import { Indicator, Text, Title, HoverCard } from "@mantine/core";
 import "@mantine/dates/styles.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function SmallCalendarComponent() {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const { isLoggedIn } = useContext(AuthContext);
+  const [events, setEvents] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Enhanced events data structure to allow multiple events per day
-  const events = {
-    "2024-05-15": [
-      {
-        title: "Meeting with team",
-        description: "Weekly sync with the team at office.",
-        time: "09:00",
-      },
-      {
-        title: "Client Call",
-        description: "Discussion with major client about project updates.",
-        time: "14:00",
-      },
-    ],
-    "2024-05-20": [
-      {
-        title: "Doctor Appointment",
-        description: "Annual health check-up at Dr. Smith’s Clinic.",
-        time: "10:00",
-      },
-    ],
-    "2024-05-22": [
-      {
-        title: "Conference",
-        description: "Tech conference about modern web technologies.",
-        time: "08:00",
-      },
-      {
-        title: "Workshop",
-        description: "Interactive workshop on web design.",
-        time: "15:00",
-      },
-    ],
-  };
+  useEffect(() => {
+    const storedToken = localStorage.getItem("authToken");
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/events`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+            "Content-Type": "application/json",
+          },
+        });
 
-  const handleDateSelection = (date) => {
-    const clickedDate = dayjs(date).startOf("day").toDate();
-    setSelectedDate(clickedDate);
-  };
+        if (!response.ok) {
+          throw new Error("Failed to fetch events");
+        }
 
-  // Updated renderEventDetails function to handle multiple events per day
-  const renderEventDetails = () => {
-    const dateString = dayjs(selectedDate).format("YYYY-MM-DD");
-    const dayEvents = events[dateString];
-    if (dayEvents && dayEvents.length > 0) {
-      // Sort events by time
-      dayEvents.sort((a, b) => (a.time > b.time ? 1 : -1));
+        const eventsData = await response.json();
+        const formattedEvents = eventsData.reduce((acc, event) => {
+          const dateKey = dayjs(event.date).format("YYYY-MM-DD");
+          acc[dateKey] = acc[dateKey] || [];
+          acc[dateKey].push(event);
+          return acc;
+        }, {});
+        setEvents(formattedEvents);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      return (
-        <Container>
-          <Title order={4}>{dayjs(selectedDate).format("MMMM D, YYYY")}</Title>
-          {dayEvents.map((event, index) => (
-            <div key={index}>
-              <Text size="lg" weight={500}>
-                {event.time} - {event.title}
-              </Text>
-              <Text size="sm">{event.description}</Text>
-            </div>
-          ))}
-        </Container>
-      );
+    if (isLoggedIn) {
+      fetchEvents();
     }
-    return (
-      <Container>
-        <Title order={4}>{dayjs(selectedDate).format("MMMM D, YYYY")}</Title>
-        <Text size="lg" weight={500}>
-          No events
+  }, [isLoggedIn]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  const renderEventDetails = (dayEvents) => (
+    <div>
+      <Title order={5}>{dayjs(dayEvents[0].date).format("MMMM D, YYYY")}</Title>
+      {dayEvents.map((event, index) => (
+        <Text key={index} size="sm">
+          {event.timeStart} - {event.eventTitle}
         </Text>
-      </Container>
-    );
-  };
+      ))}
+    </div>
+  );
 
   return (
     <>
       <Calendar
-        dayStyle={(date) => ({
-          backgroundColor:
-            selectedDate &&
-            dayjs(selectedDate).isSame(dayjs(date).startOf("day"), "day")
-              ? "lightblue"
-              : undefined,
-        })}
         renderDay={(date) => {
           const dateString = dayjs(date).format("YYYY-MM-DD");
           const dayEvents = events[dateString];
           if (dayEvents && dayEvents.length > 0) {
             return (
-              <Indicator size={6} color="red">
-                {dayjs(date).date()}
-              </Indicator>
+              <HoverCard width={240} position="bottom" withArrow>
+                <HoverCard.Target>
+                  <Indicator size={6} color="red">
+                    {dayjs(date).date()}
+                  </Indicator>
+                </HoverCard.Target>
+                <HoverCard.Dropdown>
+                  {renderEventDetails(dayEvents)}
+                </HoverCard.Dropdown>
+              </HoverCard>
             );
           }
           return dayjs(date).date();
         }}
-        getDayProps={(date) => ({
-          onClick: () => handleDateSelection(date),
-        })}
       />
-      {selectedDate && renderEventDetails()}
     </>
   );
 }
