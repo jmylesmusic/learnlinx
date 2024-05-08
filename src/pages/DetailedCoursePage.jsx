@@ -5,12 +5,14 @@ import { useDisclosure } from "@mantine/hooks";
 import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
 import { IconCheck } from "@tabler/icons-react";
+import VideoCall from "../appVideoCall/AppVideoCall";
 
 import { notifications } from "@mantine/notifications";
 import AllUsers from "../components/AllUsers";
 
 const DetailedCoursePage = () => {
   const checkIcon = <IconCheck style={{ width: "20rem", height: "20rem" }} />;
+  const navigate = useNavigate();
   const [course, setCourse] = useState([]);
   const { courseId } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
@@ -48,6 +50,10 @@ const DetailedCoursePage = () => {
     getCourse();
   }, []);
 
+  const handleNavigateToVideoCall = () => {
+    navigate(`/video-call/${courseId}`); // Assuming you have a route setup for this path
+  };
+
   return (
     <>
       <Modal opened={opened} onClose={close} title="Edit Course" centered>
@@ -79,7 +85,10 @@ const DetailedCoursePage = () => {
           {course.teacher && course.teacher.lastName}
         </p>
         <Button onClick={open}>Edit course</Button>
-        <AllUsers  course={course}/>
+
+        <Button onClick={handleNavigateToVideoCall}>Join Video Call</Button>
+
+        <AllUsers course={course} />
         <h4>Students list:</h4>
         {course.studentList &&
           course.studentList.map((student, index) => (
