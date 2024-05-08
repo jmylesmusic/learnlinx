@@ -85,7 +85,7 @@ const AllUsers = ({ course }) => {
         onOptionSubmit={(value) => onDropDownChange(value)}
       />
       <Button onClick={handleAddToStudentList} disabled={isLoading}>
-        {isLoading ? "Adding..." : "Add to the list"}
+        {isLoading ? "Adding..." : "Add Student"}
       </Button>
     </>
   );

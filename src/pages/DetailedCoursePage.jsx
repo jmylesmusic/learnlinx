@@ -84,7 +84,7 @@ const DetailedCoursePage = () => {
           Teacher: {course.teacher && course.teacher.firstName}{" "}
           {course.teacher && course.teacher.lastName}
         </p>
-        <Button onClick={open}>Edit course</Button>
+        <Button onClick={open}>Edit Course</Button>
         <br />
 
         <Button onClick={handleNavigateToVideoCall}>Join Video Call</Button>
