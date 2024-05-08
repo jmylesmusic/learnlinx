@@ -7,7 +7,7 @@ import {
   IconLayoutDashboard,
   IconFriends,
 } from "@tabler/icons-react";
-import { MantineLogo } from "@mantinex/mantine-logo";
+
 import { NavLink, Route, Router } from "react-router-dom";
 import classes from "../styles/NavbarSimpleColored.module.css";
 
