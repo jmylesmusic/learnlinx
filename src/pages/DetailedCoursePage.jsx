@@ -79,7 +79,7 @@ const DetailedCoursePage = () => {
           {course.teacher && course.teacher.lastName}
         </p>
         <Button onClick={open}>Edit course</Button>
-        <AllUsers />
+        <AllUsers  course={course}/>
         <h4>Students list:</h4>
         {course.studentList &&
           course.studentList.map((student, index) => (
