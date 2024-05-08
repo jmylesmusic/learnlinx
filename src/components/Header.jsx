@@ -157,9 +157,6 @@ export function Header() {
                   <Menu.Item icon={<IconPlayerPause size={16} />}>
                     Pause subscription
                   </Menu.Item> */}
-                  <Menu.Item color="red" icon={<IconTrash size={16} />}>
-                    Delete account
-                  </Menu.Item>
                 </Menu.Dropdown>
               </Menu>
             )
