@@ -80,9 +80,9 @@ const CreateCoursePage = ({ course, notifications }) => {
                 Everything is fine
               </Notification>
                 // notifications.show({
-                //   title: "Change the course informations",
+                //   title: "Change the course information",
                 //   message:
-                //     "Hey there, you succesfuly changed the course informations",
+                //     "Hey there, you succesfuly changed the course information",
                 // });
               }
               else{
