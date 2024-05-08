@@ -16,21 +16,30 @@ import {
   MyCoursesPage,
   StudentsList,
   VideoCallPage,
+  NotFound,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import React, { useContext } from "react";
+import { AuthContext } from "./context/auth.context";
 
 function App() {
   const [opened, { toggle }] = useDisclosure();
+  const { user } = useContext(AuthContext); // Assumes context provides user state
+
   return (
     <>
       <AppShell
         header={{ height: 60 }}
-        navbar={{
-          width: 300,
-          breakpoint: "md",
-          collapsed: { mobile: !opened },
-        }}
+        navbar={
+          user
+            ? {
+                width: 300,
+                breakpoint: "md",
+                collapsed: { mobile: !opened },
+              }
+            : undefined
+        } // Conditionally set navbar property
         padding="md"
       >
         <AppShell.Header>
@@ -38,9 +47,11 @@ function App() {
           <Header />
         </AppShell.Header>
 
-        <AppShell.Navbar>
-          <Navbar />
-        </AppShell.Navbar>
+        {user && (
+          <AppShell.Navbar>
+            <Navbar />
+          </AppShell.Navbar>
+        )}
 
         <AppShell.Main>
           <Routes>
@@ -70,7 +81,6 @@ function App() {
                 </IsPrivate>
               }
             />
-
             <Route
               path="/calendar"
               element={
@@ -111,6 +121,7 @@ function App() {
                 </IsPrivate>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AppShell.Main>
       </AppShell>
