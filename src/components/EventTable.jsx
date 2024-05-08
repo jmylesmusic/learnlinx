@@ -1,24 +1,12 @@
 import cx from "clsx";
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
 import { Table, ScrollArea } from "@mantine/core";
 import classes from "../styles/TableScrollArea.module.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export function EventTable() {
-  const {
-    isLoggedIn,
-    user,
-    logOutUser,
-    storeFirstName,
-    storeLastName,
-    storeProfilePictureURL,
-    userProfileURL,
-    currentUser,
-    setCurrentUser,
-  } = useContext(AuthContext);
-  const { userId } = useParams();
+  const { isLoggedIn } = useContext(AuthContext);
   const [scrolled, setScrolled] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -67,9 +55,9 @@ export function EventTable() {
 
   const rows = data.map((row) => (
     <Table.Tr key={row._id}>
-      <Table.Td>{row.eventTitle}</Table.Td>
       <Table.Td>{formatDate(row.date)}</Table.Td>
       <Table.Td>{row.timeStart}</Table.Td>
+      <Table.Td>{row.eventTitle}</Table.Td>
     </Table.Tr>
   ));
 
@@ -78,14 +66,14 @@ export function EventTable() {
       h={300}
       onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
     >
-      <Table miw={700}>
+      <Table>
         <Table.Thead
           className={cx(classes.header, { [classes.scrolled]: scrolled })}
         >
           <Table.Tr>
-            <Table.Th>Course</Table.Th>
             <Table.Th>Date</Table.Th>
             <Table.Th>Start Time</Table.Th>
+            <Table.Th>Course</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>{rows}</Table.Tbody>
