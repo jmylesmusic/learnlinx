@@ -1,7 +1,18 @@
-import { useContext, useRef } from "react";
-import { Text, Group, Button, useMantineTheme } from "@mantine/core";
+import { useContext, useRef, useState } from "react";
+import {
+  Text,
+  Group,
+  Button,
+  useMantineTheme,
+  Notification,
+} from "@mantine/core";
 import { Dropzone } from "@mantine/dropzone";
-import { IconCloudUpload, IconX, IconDownload } from "@tabler/icons-react";
+import {
+  IconCloudUpload,
+  IconX,
+  IconDownload,
+  IconAlertCircle,
+} from "@tabler/icons-react";
 import classes from "../styles/DropzoneButton.module.css";
 import { AuthContext } from "../context/auth.context";
 import axios from "axios";
@@ -11,6 +22,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 function CustomDropzone() {
   const theme = useMantineTheme();
   const openRef = useRef(null);
+  const [error, setError] = useState("");
 
   const { storeProfilePictureURL, currentUser, setCurrentUser, user } =
     useContext(AuthContext);
@@ -18,35 +30,45 @@ function CustomDropzone() {
   const handleDrop = async (file) => {
     const formData = new FormData();
     formData.append("imageUrl", file[0]);
-    console.log(user);
     try {
       const storedToken = localStorage.getItem("authToken");
-      // Upload the image and get the new image URL
-      // Update the user's profile picture URL on the server
       const updateResponse = await axios.put(
         `${API_URL}/api/users/${user.data.userId}`,
         formData,
         {
           headers: {
             Authorization: `Bearer ${storedToken}`,
-            "Content-Type": "multipart/form-data", // Ensure correct content type for FormData
+            "Content-Type": "multipart/form-data",
           },
         }
       );
       const newImageUrl = updateResponse.data.profilePictureUrl;
-      // Update the user's profile picture URL on the client-side state
       setCurrentUser({
         ...currentUser,
         profilePictureUrl: newImageUrl,
       });
       storeProfilePictureURL(newImageUrl);
     } catch (error) {
-      console.log("Error uploading photo: ", error);
+      setError(
+        "Error uploading photo: " + error.response.data.message ||
+          "Unexpected error occurred"
+      );
     }
   };
 
   return (
     <div className={classes.wrapper}>
+      {error && (
+        <Notification
+          icon={<IconAlertCircle size={18} />}
+          color="red"
+          onClose={() => setError("")}
+          title="Upload Failed"
+        >
+          {error}
+        </Notification>
+      )}
+
       <Dropzone
         maxFiles={1}
         multiple={false}
@@ -54,21 +76,21 @@ function CustomDropzone() {
         onDrop={handleDrop}
         className={classes.dropzone}
         radius="md"
-        accept={["image/jpeg", "image/png"]} // Accepted MIME types for images
+        accept={["image/jpeg", "image/png"]}
         maxSize={30 * 1024 ** 2}
       >
         <div style={{ pointerEvents: "none" }}>
           <Group justify="center">
             <Dropzone.Accept>
               <IconDownload
-                style={{ width: 50, height: 50 }} // removed the rem function for simplicity
+                style={{ width: 50, height: 50 }}
                 color={theme.colors.blue[6]}
                 stroke={1.5}
               />
             </Dropzone.Accept>
             <Dropzone.Reject>
               <IconX
-                style={{ width: 50, height: 50 }} // removed the rem function for simplicity
+                style={{ width: 50, height: 50 }}
                 color={theme.colors.red[6]}
                 stroke={1.5}
               />
