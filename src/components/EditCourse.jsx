@@ -4,7 +4,6 @@ import { Button, Group, TextInput, Textarea } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 
 const EditCourse = ({ course, close, save }) => {
-  console.log(course);
   const form = useForm({
     initialValues: {
       courseName: course.courseName ?? "",

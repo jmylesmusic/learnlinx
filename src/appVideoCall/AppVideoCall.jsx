@@ -1,6 +1,7 @@
 import "./AppVideoCall.css";
 
 import { useEffect, useState, useCallback } from "react";
+import { useParams } from "react-router-dom";
 import DailyIframe from "@daily-co/daily-js";
 import { DailyAudio, DailyProvider } from "@daily-co/daily-react";
 
@@ -21,23 +22,33 @@ const STATE_JOINED = "STATE_JOINED";
 const STATE_LEAVING = "STATE_LEAVING";
 const STATE_ERROR = "STATE_ERROR";
 const STATE_HAIRCHECK = "STATE_HAIRCHECK";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function App() {
   const [appState, setAppState] = useState(STATE_IDLE);
   const [roomUrl, setRoomUrl] = useState(null);
   const [callObject, setCallObject] = useState(null);
   const [apiError, setApiError] = useState(false);
+  const { courseId } = useParams();
 
   /**
    * Create a new call room. This function will return the newly created room URL.
    * We'll need this URL when pre-authorizing (https://docs.daily.co/reference/rn-daily-js/instance-methods/pre-auth)
    * or joining (https://docs.daily.co/reference/rn-daily-js/instance-methods/join) a call.
    */
-  const createCall = useCallback(() => {
+  const createCall = useCallback((courseId) => {
     setAppState(STATE_CREATING);
     return api
       .createRoom()
-      .then((room) => room.url)
+      .then((room) => {
+        console.log("API Response:", room); // Debugging: check the API response
+        const url = room.url;
+        console.log("Room URL:", url); // Debugging: confirm the URL is what you expect
+        if (courseId) {
+          updateCourseZoomLink(courseId, url);
+        }
+        return url;
+      })
       .catch((error) => {
         console.error("Error creating room", error);
         setRoomUrl(null);
@@ -45,6 +56,28 @@ export default function App() {
         setApiError(true);
       });
   }, []);
+
+  const updateCourseZoomLink = (courseId, zoomLink) => {
+    const storedToken = localStorage.getItem("authToken");
+    console.log(API_URL);
+    fetch(`${API_URL}/api/courses/${courseId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${storedToken}`,
+      },
+      body: JSON.stringify({
+        zoomLink: zoomLink, // Ensure the payload is structured as expected by your backend
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Course updated successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error updating course", error);
+      });
+  };
 
   /**
    * We've created a room, so let's start the hair check. We won't be joining the call yet.
@@ -208,7 +241,11 @@ export default function App() {
 
     // The default view is the HomeScreen, from where we start the demo.
     return (
-      <HomeScreen createCall={createCall} startHairCheck={startHairCheck} />
+      <HomeScreen
+        courseId={courseId}
+        createCall={createCall}
+        startHairCheck={startHairCheck}
+      />
     );
   };
 
