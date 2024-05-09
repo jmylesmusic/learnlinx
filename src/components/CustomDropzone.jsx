@@ -15,11 +15,13 @@ import {
 } from "@tabler/icons-react";
 import classes from "../styles/DropzoneButton.module.css";
 import { AuthContext } from "../context/auth.context";
+import { courseContext } from "../context/course.context";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-function CustomDropzone() {
+function CustomDropzone({ modalType }) {
   const theme = useMantineTheme();
   const openRef = useRef(null);
   const [error, setError] = useState("");
@@ -27,27 +29,49 @@ function CustomDropzone() {
   const { storeProfilePictureURL, currentUser, setCurrentUser, user } =
     useContext(AuthContext);
 
+  const { course, setCourse, setOldPictureURL } = useContext(courseContext);
+
+  const { Id } = useParams();
+  console.log(course._id);
+
   const handleDrop = async (file) => {
     const formData = new FormData();
     formData.append("imageUrl", file[0]);
     try {
       const storedToken = localStorage.getItem("authToken");
-      const updateResponse = await axios.put(
-        `${API_URL}/api/users/${user.data.userId}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      const newImageUrl = updateResponse.data.profilePictureUrl;
-      setCurrentUser({
-        ...currentUser,
-        profilePictureUrl: newImageUrl,
-      });
-      storeProfilePictureURL(newImageUrl);
+
+      if (modalType == "user") {
+        const updateResponse = await axios.put(
+          `${API_URL}/api/users/${user.data.userId}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${storedToken}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        const newImageUrl = updateResponse.data.profilePictureUrl;
+        setCurrentUser({
+          ...currentUser,
+          profilePictureUrl: newImageUrl,
+        });
+        storeProfilePictureURL(newImageUrl);
+      } else if (modalType == "course") {
+        const updateResponse = await axios.put(
+          `${API_URL}/api/courses/${course._id}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${storedToken}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        const newImageUrl = updateResponse.data.coursePictureUrl;
+        setOldPictureURL(course.coursePictureUrl);
+        setCourse({ ...course, coursePictureUrl: newImageUrl });
+      }
     } catch (error) {
       setError(
         "Error uploading photo: " + error.response.data.message ||
