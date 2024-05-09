@@ -23,7 +23,8 @@ export function SignIn() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+  const { storeToken, authenticateUser, setIsTeacher } =
+    useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -43,6 +44,8 @@ export function SignIn() {
       if (response.ok) {
         const responseData = await response.json();
         storeToken(responseData.token);
+        console.log(responseData);
+        setIsTeacher(responseData.isTeacher);
         authenticateUser();
         navigate("/main");
       } else {
