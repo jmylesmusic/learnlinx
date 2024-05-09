@@ -1,6 +1,16 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { Text, Modal, Button, Group, Table, Avatar } from "@mantine/core";
+import {
+  Text,
+  Modal,
+  Button,
+  Group,
+  Table,
+  Avatar,
+  Title,
+  Container,
+  Flex,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
@@ -88,7 +98,7 @@ const DetailedCoursePage = () => {
       : [];
 
   const handleNavigateToVideoCall = () => {
-    navigate(`/video-call/${courseId}`); // Assuming you have a route setup for this path
+    navigate(`/video-call/${courseId}`);
   };
 
   return (
@@ -109,56 +119,110 @@ const DetailedCoursePage = () => {
         />
       </Modal>
       <div>
-        <h1>Course details Page</h1>
+        <Title bg={"red"} c={"white"} order={3} mb={24}>
+          Course details
+        </Title>
         {course ? (
-          <>
-            {course.coursePictureUrl && (
-              <img
-                src={course.coursePictureUrl}
+          <Flex direction={["column", "column", "row"]} wrap="wrap">
+            <Container mx={[0, 0, 16]} mb={16}>
+              <Container
+                mb={16}
                 style={{
-                  width: "300px",
-                  height: "300px",
-                  objectFit: "cover",
-                  borderRadius: "50%",
-                  overflow: "hidden",
+                  border: "solid 1px #1C7ED6",
+                  borderRadius: "5px",
+                  textAlign: "left",
                 }}
-                alt="Profile Picture"
-              />
-            )}
+              >
+                <p style={{ textAlign: "left", fontSize: "18px" }}>
+                  Course Name:
+                  <span style={{ fontWeight: "600" }}>
+                    {" "}
+                    {course.courseName}
+                  </span>
+                </p>
+                <p style={{ textAlign: "left", fontSize: "18px" }}>
+                  Start Date:
+                  <span style={{ fontWeight: "600" }}>
+                    {" "}
+                    {formatDate(course.startDate)}
+                  </span>
+                </p>
+                <p style={{ textAlign: "left", fontSize: "18px" }}>
+                  End Date:
+                  <span style={{ fontWeight: "600" }}>
+                    {" "}
+                    {formatDate(course.endDate)}
+                  </span>
+                </p>
+                <p style={{ textAlign: "left", fontSize: "18px" }}>
+                  Description:
+                  <span style={{ fontWeight: "600" }}>
+                    {" "}
+                    {course.description}
+                  </span>
+                </p>
+                {/* <a>Room Link: {course.zoomLink}</a> */}
 
-            <p>Course Name: {course.courseName}</p>
-            <p>Start Date: {formatDate(course.startDate)}</p>
-            <p>End Date: {formatDate(course.endDate)}</p>
-            <p>Description: {course.description}</p>
-            <a>Room Link: {course.zoomLink}</a>
+                <p style={{ textAlign: "left", fontSize: "18px" }}>
+                  Teacher:
+                  <span style={{ fontWeight: "600" }}>
+                    {" "}
+                    {course.teacher && course.teacher.firstName}{" "}
+                    {course.teacher && course.teacher.lastName}
+                  </span>
+                </p>
+              </Container>
+              <Container
+                style={{ border: "solid 1px #1C7ED6", borderRadius: "5px" }}
+              >
+                <Title bg={"red"} c={"white"} order={3} mb={"24px"} w={"100%"}>
+                  Students list
+                </Title>
+                <AllUsers course={course} />
 
-            <p>
-              Teacher: {course.teacher && course.teacher.firstName}{" "}
-              {course.teacher && course.teacher.lastName}
-            </p>
+                {rows && (
+                  <Table.ScrollContainer minWidth={800}>
+                    <Table verticalSpacing="md">
+                      <Table.Tbody>{rows}</Table.Tbody>
+                    </Table>
+                  </Table.ScrollContainer>
+                )}
+              </Container>
+            </Container>
+            <Container
+              mx={16}
+              w={300}
+              style={{ border: "solid 1px #1C7ED6", borderRadius: "5px" }}
+            >
+              <Container h={400}>
+                {course.coursePictureUrl && (
+                  <img
+                    src={course.coursePictureUrl}
+                    style={{
+                      width: "300px",
+                      height: "300px",
+                      objectFit: "cover",
+                      borderRadius: "50%",
+                      overflow: "hidden",
+                    }}
+                    alt="Profile Picture"
+                  />
+                )}
+              </Container>
 
-            {isTeacher && (
-              <>
-                <Button onClick={open}>Edit course</Button>
-                <Button onClick={handleNavigateToVideoCall}>
-                  Start Video Call
-                </Button>
-              </>
-            )}
-            <AllUsers course={course} />
-            <h4>Students list:</h4>
-            {rows && (
-              <Table.ScrollContainer minWidth={800}>
-                <Table verticalSpacing="md">
-                  <Table.Tbody>{rows}</Table.Tbody>
-                </Table>
-              </Table.ScrollContainer>
-            )}
-
-            <AddEvent courseId={courseId} />
-          </>
+              {isTeacher && (
+                <Flex direction={"column"} px={"50px"} gap={"16px"}>
+                  <Button onClick={open}>Edit course</Button>
+                  <Button variant="outline" onClick={handleNavigateToVideoCall}>
+                    Start Video Call
+                  </Button>
+                  <AddEvent courseId={courseId} />
+                </Flex>
+              )}
+            </Container>
+          </Flex>
         ) : (
-          <p>Loading course details...</p> // Provide a loading state or message
+          <p>Loading course details...</p>
         )}
       </div>
     </>
