@@ -6,6 +6,7 @@ import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
 import { IconCheck } from "@tabler/icons-react";
 import { courseContext } from "../context/course.context.jsx";
+import { AuthContext } from "../context/auth.context";
 
 import AddEvent from "../components/AddEvent";
 import { notifications } from "@mantine/notifications";
@@ -13,6 +14,7 @@ import AllUsers from "../components/AllUsers";
 
 const DetailedCoursePage = () => {
   const { course, setCourse, oldPictureURL } = useContext(courseContext);
+  const { isTeacher } = useContext(AuthContext);
 
   const checkIcon = <IconCheck style={{ width: "20rem", height: "20rem" }} />;
   const navigate = useNavigate();
@@ -89,7 +91,7 @@ const DetailedCoursePage = () => {
                 alt="Profile Picture"
               />
             )}
-            <p>Course ID: {courseId}</p>
+
             <p>Course Name: {course.courseName}</p>
             <p>Start Date: {formatDate(course.startDate)}</p>
             <p>End Date: {formatDate(course.endDate)}</p>
@@ -100,10 +102,15 @@ const DetailedCoursePage = () => {
               Teacher: {course.teacher && course.teacher.firstName}{" "}
               {course.teacher && course.teacher.lastName}
             </p>
-            <Button onClick={open}>Edit course</Button>
 
-            <Button onClick={handleNavigateToVideoCall}>Join Video Call</Button>
-
+            {isTeacher && (
+              <>
+                <Button onClick={open}>Edit course</Button>
+                <Button onClick={handleNavigateToVideoCall}>
+                  Start Video Call
+                </Button>
+              </>
+            )}
             <AllUsers course={course} />
             <h4>Students list:</h4>
             {course.studentList &&

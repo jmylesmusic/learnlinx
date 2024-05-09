@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 import { courseContext } from "../context/course.context.jsx";
+import { AuthContext } from "../context/auth.context";
 
 const AllUsers = ({ course }) => {
   const [userOptions, setUserOptions] = useState([]);
@@ -11,6 +12,7 @@ const AllUsers = ({ course }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { setCourse } = useContext(courseContext);
+  const { isTeacher } = useContext(AuthContext);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -81,17 +83,22 @@ const AllUsers = ({ course }) => {
 
   return (
     <>
-      <Autocomplete
-        data={userOptions}
-        renderOption={renderAutocompleteOption}
-        maxDropdownHeight={300}
-        label="Add a new Student"
-        placeholder="choose a Student"
-        onOptionSubmit={(value) => onDropDownChange(value)}
-      />
-      <Button onClick={handleAddToStudentList} disabled={isLoading}>
-        {isLoading ? "Adding..." : "Add Student"}
-      </Button>
+      {isTeacher && (
+        <>
+          <Autocomplete
+            data={userOptions}
+            renderOption={renderAutocompleteOption}
+            maxDropdownHeight={300}
+            label="Add a new Student"
+            placeholder="choose a Student"
+            onOptionSubmit={(value) => onDropDownChange(value)}
+          />
+
+          <Button onClick={handleAddToStudentList} disabled={isLoading}>
+            {isLoading ? "Adding..." : "Add Student"}
+          </Button>
+        </>
+      )}
     </>
   );
 };
