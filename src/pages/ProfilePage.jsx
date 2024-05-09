@@ -155,10 +155,9 @@ const ProfilePage = () => {
             {currentUser.isTeacher ? "Teacher Profile" : "Student Profile"}
           </div>
           <img
+            className="profile-picture"
             src={userProfileURL}
             style={{
-              width: "300px",
-              height: "300px",
               objectFit: "cover",
               borderRadius: "50%",
               overflow: "hidden",
@@ -166,7 +165,7 @@ const ProfilePage = () => {
             alt="Profile Picture"
           />
           <div>
-            <h2>
+            <div className="user-first">
               First Name:{" "}
               {editingField === "firstName" ? (
                 <>
@@ -187,8 +186,8 @@ const ProfilePage = () => {
                   />
                 </span>
               )}
-            </h2>
-            <h2>
+            </div>
+            <div className="user-last">
               Last Name:{" "}
               {editingField === "lastName" ? (
                 <>
@@ -209,7 +208,7 @@ const ProfilePage = () => {
                   />
                 </span>
               )}
-            </h2>
+            </div>
             <h2>
               Email Address:{" "}
               {editingField === "email" ? (
