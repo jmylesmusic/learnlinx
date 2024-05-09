@@ -72,7 +72,7 @@ const DetailedCoursePage = () => {
             notifications.show({
               icon: checkIcon,
               autoClose: 4000,
-              message: "You succesfuly changed the course informations",
+              message: "You succesfuly changed the course information",
             });
           }}
         />
