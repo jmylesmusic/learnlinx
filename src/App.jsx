@@ -17,6 +17,7 @@ import {
   StudentsList,
   VideoCallPage,
   NotFound,
+  ForgotPassword,
 } from "./pages";
 import { AppShell, Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -71,8 +72,23 @@ function App() {
                 </IsPrivate>
               }
             />
-            <Route path="/signin" element={<SignIn />} />
+            <Route
+              path="/signin"
+              element={
+                <IsPublic>
+                  <SignIn />
+                </IsPublic>
+              }
+            />
             <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/forgotpassword"
+              element={
+                <IsPublic>
+                  <ForgotPassword />
+                </IsPublic>
+              }
+            />
             <Route
               path="/courses"
               element={

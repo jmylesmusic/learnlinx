@@ -1,7 +1,8 @@
 import { Autocomplete, Avatar, Button, Group, Text } from "@mantine/core";
-import { useState, useEffect } from "react";
-import { StudentsList } from "../pages";
+import { useState, useEffect, useContext } from "react";
+
 const API_URL = import.meta.env.VITE_API_URL;
+import { courseContext } from "../context/course.context.jsx";
 
 const AllUsers = ({ course }) => {
   const [userOptions, setUserOptions] = useState([]);
@@ -9,8 +10,11 @@ const AllUsers = ({ course }) => {
   const [selectedUser, setSelectedUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
+  const { setCourse } = useContext(courseContext);
+
+  const storedToken = localStorage.getItem("authToken");
+
   const getAllUsers = async () => {
-    const storedToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(`${API_URL}/api/users/all-users`, {
         method: "GET",
@@ -48,6 +52,7 @@ const AllUsers = ({ course }) => {
     setIsLoading(true);
 
     try {
+      console.log(selectedUser);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/courses/${course._id}`,
         {
@@ -56,13 +61,14 @@ const AllUsers = ({ course }) => {
             Authorization: `Bearer ${storedToken}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ studentsList: selectedUser }),
+          body: JSON.stringify({ studentId: selectedUser }),
         }
       );
 
       if (response.ok) {
         console.log("OK");
-        console.log(response);
+        const updatedCourse = await response.json();
+        setCourse(updatedCourse);
       } else {
         console.error("Failed to add user to student list");
       }

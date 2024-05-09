@@ -61,7 +61,8 @@ const CurrentCourses = () => {
             >
               <Card.Section>
                 <Image
-                  src="https://i.imgur.com/Cij5vdL.png"
+                  src={course.coursePictureUrl}
+                  fallbackSrc="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
                   height={180}
                   width={150}
                 />
@@ -86,7 +87,7 @@ const CurrentCourses = () => {
                     </Badge>
                   </HoverCard.Target>
                   <HoverCard.Dropdown>
-                    {console.log(course)}
+                    {/* {console.log(course)} */}
                     {course.studentList.map((student, index) => (
                       <Text key={index} size="sm">
                         {student.firstName} {student.lastName}

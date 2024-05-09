@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import {
   useDevices,
   useDaily,
@@ -6,14 +6,14 @@ import {
   DailyVideo,
   useLocalSessionId,
   useParticipantProperty,
-} from '@daily-co/daily-react';
-import UserMediaError from '../UserMediaError/UserMediaError';
-
-import './HairCheck.css';
+} from "@daily-co/daily-react";
+import UserMediaError from "../UserMediaError/UserMediaError";
+import { Button } from "@mantine/core";
+import "./HairCheck.css";
 
 export default function HairCheck({ joinCall, cancelCall }) {
   const localSessionId = useLocalSessionId();
-  const initialUsername = useParticipantProperty(localSessionId, 'user_name');
+  const initialUsername = useParticipantProperty(localSessionId, "user_name");
   const {
     currentCam,
     currentMic,
@@ -35,10 +35,10 @@ export default function HairCheck({ joinCall, cancelCall }) {
   }, [initialUsername]);
 
   useDailyEvent(
-    'camera-error',
+    "camera-error",
     useCallback(() => {
       setGetUserMediaError(true);
-    }, []),
+    }, [])
   );
 
   const handleChange = (e) => {
@@ -78,7 +78,7 @@ export default function HairCheck({ joinCall, cancelCall }) {
           type="text"
           placeholder="Enter username"
           onChange={handleChange}
-          value={username || ' '}
+          value={username || " "}
         />
       </div>
 
@@ -88,9 +88,13 @@ export default function HairCheck({ joinCall, cancelCall }) {
           name="micOptions"
           id="micSelect"
           onChange={updateMicrophone}
-          value={currentMic?.device?.deviceId}>
+          value={currentMic?.device?.deviceId}
+        >
           {microphones.map((mic) => (
-            <option key={`mic-${mic.device.deviceId}`} value={mic.device.deviceId}>
+            <option
+              key={`mic-${mic.device.deviceId}`}
+              value={mic.device.deviceId}
+            >
               {mic.device.label}
             </option>
           ))}
@@ -103,9 +107,13 @@ export default function HairCheck({ joinCall, cancelCall }) {
           name="speakersOptions"
           id="speakersSelect"
           onChange={updateSpeakers}
-          value={currentSpeaker?.device?.deviceId}>
+          value={currentSpeaker?.device?.deviceId}
+        >
           {speakers.map((speaker) => (
-            <option key={`speaker-${speaker.device.deviceId}`} value={speaker.device.deviceId}>
+            <option
+              key={`speaker-${speaker.device.deviceId}`}
+              value={speaker.device.deviceId}
+            >
               {speaker.device.label}
             </option>
           ))}
@@ -118,21 +126,25 @@ export default function HairCheck({ joinCall, cancelCall }) {
           name="cameraOptions"
           id="cameraSelect"
           onChange={updateCamera}
-          value={currentCam?.device?.deviceId}>
+          value={currentCam?.device?.deviceId}
+        >
           {cameras.map((camera) => (
-            <option key={`cam-${camera.device.deviceId}`} value={camera.device.deviceId}>
+            <option
+              key={`cam-${camera.device.deviceId}`}
+              value={camera.device.deviceId}
+            >
               {camera.device.label}
             </option>
           ))}
         </select>
       </div>
 
-      <button onClick={handleJoin} type="submit">
+      <Button onClick={handleJoin} type="submit">
         Join call
-      </button>
-      <button onClick={cancelCall} className="cancel-call" type="button">
+      </Button>
+      <Button variant="outline" color="grey" onClick={cancelCall} className="cancel-call" type="button">
         Back to start
-      </button>
+      </Button>
     </form>
   );
 }
