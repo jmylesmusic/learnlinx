@@ -15,7 +15,7 @@ const MyCoursesPage = () => {
   };
   return (
     <>
-      <Title bg={"red"} c={"white"} order={2} my={"24px"}>
+      <Title bg={"red"} c={"white"} order={2} my={"30px"}>
         My Current Courses
       </Title>
 
