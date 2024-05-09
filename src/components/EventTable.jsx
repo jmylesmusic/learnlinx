@@ -1,13 +1,14 @@
 import cx from "clsx";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
-import { Table, ScrollArea, useMantineTheme } from "@mantine/core";
+import { EventContext } from "../context/event.context.jsx";
+import { Table, ScrollArea, useMantineTheme, Alert } from "@mantine/core";
 import classes from "../styles/TableScrollArea.module.css";
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 export function EventTable() {
   const { isLoggedIn } = useContext(AuthContext);
+  const { event, setEvent } = useContext(EventContext);
   const [scrolled, setScrolled] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +43,7 @@ export function EventTable() {
     if (isLoggedIn) {
       fetchEvents();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, event]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -102,23 +103,25 @@ export function EventTable() {
   });
 
   return (
-    <ScrollArea
-      h={300}
-      onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
-    >
-      <Table>
-        <Table.Thead
-          className={cx(classes.header, { [classes.scrolled]: scrolled })}
-        >
-          <Table.Tr>
-            <Table.Th>Date</Table.Th>
-            <Table.Th>Start Time</Table.Th>
-            <Table.Th>Course</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
-    </ScrollArea>
+    <>
+      <ScrollArea
+        h={300}
+        onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+      >
+        <Table>
+          <Table.Thead
+            className={cx(classes.header, { [classes.scrolled]: scrolled })}
+          >
+            <Table.Tr>
+              <Table.Th>Date</Table.Th>
+              <Table.Th>Start Time</Table.Th>
+              <Table.Th>Event</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+      </ScrollArea>
+    </>
   );
 }
 export default EventTable;
