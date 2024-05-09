@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { Text, Modal, Button, Notification } from "@mantine/core";
+import { Text, Modal, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
@@ -60,11 +60,7 @@ const DetailedCoursePage = () => {
       <Modal opened={opened} onClose={close} title="Edit Course" centered>
         <EditCourse
           course={course}
-          close={() => {
-            setCourse({ ...course, coursePictureUrl: oldPictureURL });
-
-            close();
-          }}
+          close={close}
           save={() => {
             close();
             getCourse();
@@ -94,11 +90,11 @@ const DetailedCoursePage = () => {
               />
             )}
             <p>Course ID: {courseId}</p>
-            <p>course Name: {course.courseName}</p>
-            <p>start Date: {formatDate(course.startDate)}</p>
-            <p>end Date: {formatDate(course.endDate)}</p>
-            <p>description: {course.description}</p>
-            <a>zoomLink: {course.zoomLink}</a>
+            <p>Course Name: {course.courseName}</p>
+            <p>Start Date: {formatDate(course.startDate)}</p>
+            <p>End Date: {formatDate(course.endDate)}</p>
+            <p>Description: {course.description}</p>
+            <a>Room Link: {course.zoomLink}</a>
 
             <p>
               Teacher: {course.teacher && course.teacher.firstName}{" "}
