@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
 import {
@@ -96,9 +96,7 @@ export function SignIn() {
           />
           <Group justify="space-between" mt="lg">
             <Checkbox label="Remember me" />
-            <Anchor component="button" size="sm">
-              Forgot password?
-            </Anchor>
+            <NavLink to="/forgotpassword">Forgot password?</NavLink>
           </Group>
           <Button type="submit" fullWidth mt="xl">
             Sign in
