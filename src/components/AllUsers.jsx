@@ -1,6 +1,6 @@
 import { Autocomplete, Avatar, Button, Group, Text } from "@mantine/core";
 import { useState, useEffect, useContext } from "react";
-import { StudentsList } from "../pages";
+
 const API_URL = import.meta.env.VITE_API_URL;
 import { courseContext } from "../context/course.context.jsx";
 
