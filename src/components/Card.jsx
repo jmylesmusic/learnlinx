@@ -25,7 +25,10 @@ export function Card() {
     <Card withBorder radius="md" className={classes.card}>
       <Card.Section>
         <a {...linkProps}>
-          <Image src="https://i.imgur.com/Cij5vdL.png" height={180} />
+          <Image
+            src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
+            height={180}
+          />
         </a>
       </Card.Section>
 

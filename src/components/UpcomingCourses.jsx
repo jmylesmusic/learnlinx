@@ -58,7 +58,7 @@ const UpcomingCourses = () => {
           >
             <Card.Section>
               <Image
-                src="https://i.imgur.com/Cij5vdL.png"
+                src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
                 height={180}
                 width={150}
               />
