@@ -11,7 +11,9 @@ function AuthProviderWrapper(props) {
   const [userProfileURL, setUserProfileURL] = useState(null);
   const [userFirstName, setUserFirstName] = useState(null);
   const [userLastName, setUserLastName] = useState(null);
-  const [isTeacher, setIsTeacher] = useState(false);
+  const [isTeacher, setIsTeacherState] = useState(
+    localStorage.getItem("isTeacher") === "true"
+  );
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -29,6 +31,13 @@ function AuthProviderWrapper(props) {
     setUserLastName(lastName);
   };
 
+  const setIsTeacher = (booleanTeacher) => {
+    console.log(booleanTeacher);
+    localStorage.setItem("isTeacher", booleanTeacher);
+    // Update the state variable as well
+    setIsTeacherState(isTeacher);
+  };
+
   const authenticateUser = async () => {
     const storedToken = localStorage.getItem("authToken");
     if (storedToken) {
@@ -44,7 +53,8 @@ function AuthProviderWrapper(props) {
         setIsLoggedIn(true);
         setIsLoading(false);
         setUser(user);
-        // setIsteacher(response.)
+        setIsTeacherState(user.isTeacher);
+        localStorage.setItem("isTeacher", user.isTeacher);
       } catch (error) {
         console.error("Error during authentication:", error);
         setIsLoggedIn(false);
@@ -68,6 +78,10 @@ function AuthProviderWrapper(props) {
   };
 
   useEffect(() => {
+    const storedIsTeacher = localStorage.getItem("isTeacher");
+    if (storedIsTeacher !== null) {
+      setIsTeacherState(storedIsTeacher === "true"); // Convert string to boolean
+    }
     authenticateUser();
   }, []);
 
