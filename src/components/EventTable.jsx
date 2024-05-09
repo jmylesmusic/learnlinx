@@ -1,17 +1,18 @@
 import cx from "clsx";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
-import { Table, ScrollArea, useMantineTheme } from "@mantine/core";
+import { Table, ScrollArea, useMantineTheme, Alert } from "@mantine/core";
 import classes from "../styles/TableScrollArea.module.css";
-
+import EditEvent from "../components/EditEvent";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export function EventTable() {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, isTeacher, teacherCourses } = useContext(AuthContext);
   const [scrolled, setScrolled] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [editEvent, setEditEvent] = useState(null); // State to manage the event being edited
   const theme = useMantineTheme();
 
   useEffect(() => {
@@ -79,6 +80,18 @@ export function EventTable() {
   // Sorting and filtering the data
   const sortedAndFilteredData = sortEventsByDateAndTime(filterPastEvents(data));
 
+  const handleEditClick = (event) => {
+    if (isTeacher) {
+      setEditEvent(event);
+    } else {
+      alert("You do not have permission to edit this event.");
+    }
+  };
+
+  const handleCloseModal = () => {
+    setEditEvent(null);
+  };
+
   // Then map over the sorted and filtered data to create table rows
 
   const rows = sortedAndFilteredData.map((event) => {
@@ -87,7 +100,7 @@ export function EventTable() {
         ? theme.colors[event.color][1]
         : theme.colors.red[1];
     return (
-      <Table.Tr key={event._id}>
+      <Table.Tr key={event._id} onClick={() => handleEditClick(event)}>
         <Table.Td style={{ backgroundColor: colorKey }}>
           {formatDate(event.date)}
         </Table.Td>
@@ -102,23 +115,26 @@ export function EventTable() {
   });
 
   return (
-    <ScrollArea
-      h={300}
-      onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
-    >
-      <Table>
-        <Table.Thead
-          className={cx(classes.header, { [classes.scrolled]: scrolled })}
-        >
-          <Table.Tr>
-            <Table.Th>Date</Table.Th>
-            <Table.Th>Start Time</Table.Th>
-            <Table.Th>Course</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
-    </ScrollArea>
+    <>
+      <ScrollArea
+        h={300}
+        onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+      >
+        <Table>
+          <Table.Thead
+            className={cx(classes.header, { [classes.scrolled]: scrolled })}
+          >
+            <Table.Tr>
+              <Table.Th>Date</Table.Th>
+              <Table.Th>Start Time</Table.Th>
+              <Table.Th>Event</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+      </ScrollArea>
+      {editEvent && <EditEvent event={editEvent} onClose={handleCloseModal} />}
+    </>
   );
 }
 export default EventTable;
