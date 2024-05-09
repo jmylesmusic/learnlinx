@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
+import { EventContext } from "../context/event.context.jsx";
 import { Calendar } from "@mantine/dates";
 import { Indicator, Text, Title, HoverCard } from "@mantine/core";
 import "@mantine/dates/styles.css";
@@ -8,42 +9,44 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 function SmallCalendarComponent() {
   const { isLoggedIn } = useContext(AuthContext);
-  const [events, setEvents] = useState({});
+  const eventContext = useContext(EventContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("authToken");
-    const fetchEvents = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/events`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-            "Content-Type": "application/json",
-          },
-        });
+    if (isLoggedIn && !dataFetched) {
+      const storedToken = localStorage.getItem("authToken");
+      const fetchEvents = async () => {
+        try {
+          const response = await fetch(`${API_URL}/api/events`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${storedToken}`,
+              "Content-Type": "application/json",
+            },
+          });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch events");
+          if (!response.ok) {
+            throw new Error("Failed to fetch events");
+          }
+
+          const eventsData = await response.json();
+          const formattedEvents = eventsData.reduce((acc, event) => {
+            const dateKey = dayjs(event.date).format("YYYY-MM-DD");
+            acc[dateKey] = acc[dateKey] || [];
+            acc[dateKey].push(event);
+            return acc;
+          }, {});
+          eventContext.setEvent(formattedEvents);
+          setDataFetched(true); // Set that data has been fetched
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
         }
+      };
 
-        const eventsData = await response.json();
-        const formattedEvents = eventsData.reduce((acc, event) => {
-          const dateKey = dayjs(event.date).format("YYYY-MM-DD");
-          acc[dateKey] = acc[dateKey] || [];
-          acc[dateKey].push(event);
-          return acc;
-        }, {});
-        setEvents(formattedEvents);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (isLoggedIn) {
       fetchEvents();
     }
   }, [isLoggedIn]);
@@ -67,7 +70,7 @@ function SmallCalendarComponent() {
       <Calendar
         renderDay={(date) => {
           const dateString = dayjs(date).format("YYYY-MM-DD");
-          const dayEvents = events[dateString];
+          const dayEvents = eventContext.event[dateString]; // Access context state using the object provided by context
           if (dayEvents && dayEvents.length > 0) {
             return (
               <HoverCard width={240} position="bottom" withArrow>

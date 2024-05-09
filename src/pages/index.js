@@ -4,6 +4,7 @@ export { default as SmallCalendarComponent } from "../components/SmallCalendarCo
 export { default as LargeCalendarComponent } from "../components/LargeCalendarComponent";
 export { default as Dashboard } from "../pages/Dashboard";
 export { default as ProfilePage } from "../pages/ProfilePage";
+export { default as ForgotPassword } from "../pages/ForgotPassword";
 export { default as SignIn } from "../components/SignIn";
 export { default as CustomDropzone } from "../components/CustomDropzone";
 export { default as SignUp } from "./SignUp";

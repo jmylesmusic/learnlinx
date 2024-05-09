@@ -57,9 +57,9 @@ const CreateCoursePage = ({ course, notifications }) => {
             const storedToken = localStorage.getItem("authToken");
 
             try {
-              console.log("form***********", form.values);
-              console.log(storedToken);
-              console.log(JSON.stringify(form.values));
+              // console.log("form***********", form.values);
+              // console.log(storedToken);
+              // console.log(JSON.stringify(form.values));
               const response = await fetch(
                 `${import.meta.env.VITE_API_URL}/api/courses/${course._id}`,
                 {
