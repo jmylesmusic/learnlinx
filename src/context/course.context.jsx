@@ -6,6 +6,7 @@ const courseContext = React.createContext();
 function CourseProviderWrapper(props) {
   const [course, setCourse] = useState({});
   const [oldPictureURL, setOldPictureURL] = useState(null);
+  const [newPictureURL, setNewPictureURL] = useState(null);
 
   return (
     <courseContext.Provider
@@ -14,6 +15,8 @@ function CourseProviderWrapper(props) {
         setCourse,
         oldPictureURL,
         setOldPictureURL,
+        newPictureURL,
+        setNewPictureURL,
       }}
     >
       {props.children}
