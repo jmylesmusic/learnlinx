@@ -87,7 +87,7 @@ const CurrentCourses = () => {
                     </Badge>
                   </HoverCard.Target>
                   <HoverCard.Dropdown>
-                    {console.log(course)}
+                    {/* {console.log(course)} */}
                     {course.studentList.map((student, index) => (
                       <Text key={index} size="sm">
                         {student.firstName} {student.lastName}

@@ -28,7 +28,7 @@ const UpcomingCourses = () => {
         },
       });
       const courses = await response.json();
-      console.log("*****", courses);
+      // console.log("*****", courses);
       if (response.ok) setCourses(courses);
     } catch (error) {
       console.log(error);
