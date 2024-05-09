@@ -252,7 +252,7 @@ const ProfilePage = () => {
               alt="Profile Picture"
             />
           </div>
-          <CustomDropzone />
+          <CustomDropzone modalType={"user"} />
 
           <Button color="red" onClick={() => setDeleteModalOpened(true)}>
             Delete Account
@@ -283,7 +283,6 @@ const ProfilePage = () => {
               Keep my account
             </Button>
           </Modal>
-
         </div>
       )}
     </>

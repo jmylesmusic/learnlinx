@@ -7,6 +7,7 @@ import "@mantine/core/styles.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Notifications } from "@mantine/notifications";
 import { AuthProviderWrapper } from "./context/auth.context"; // <== IMPORT
+import { CourseProviderWrapper } from "./context/course.context.jsx";
 import "@mantine/notifications/styles.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Notifications position="bottom-right" zIndex={1000} />
       <Router>
         <AuthProviderWrapper>
-          <App />
+          <CourseProviderWrapper>
+            <App />
+          </CourseProviderWrapper>
         </AuthProviderWrapper>
       </Router>
     </MantineProvider>

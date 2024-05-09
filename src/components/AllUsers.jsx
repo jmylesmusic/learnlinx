@@ -8,7 +8,6 @@ const AllUsers = ({ course }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  const storedToken = localStorage.getItem("authToken");
 
   const getAllUsers = async () => {
     const storedToken = localStorage.getItem("authToken");
@@ -62,7 +61,7 @@ const AllUsers = ({ course }) => {
       );
 
       if (response.ok) {
-        console.log("OK")
+        console.log("OK");
         console.log(response);
       } else {
         console.error("Failed to add user to student list");

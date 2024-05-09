@@ -1,19 +1,22 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Text, Modal, Button, Notification } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
 import { IconCheck } from "@tabler/icons-react";
-import VideoCall from "../appVideoCall/AppVideoCall";
+import { courseContext } from "../context/course.context.jsx";
 
+import AddEvent from "../components/AddEvent";
 import { notifications } from "@mantine/notifications";
 import AllUsers from "../components/AllUsers";
 
 const DetailedCoursePage = () => {
+  const { course, setCourse, oldPictureURL } = useContext(courseContext);
+
   const checkIcon = <IconCheck style={{ width: "20rem", height: "20rem" }} />;
   const navigate = useNavigate();
-  const [course, setCourse] = useState([]);
+  //const [course, setCourse] = useState([]);
   const { courseId } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -59,7 +62,11 @@ const DetailedCoursePage = () => {
       <Modal opened={opened} onClose={close} title="Edit Course" centered>
         <EditCourse
           course={course}
-          close={close}
+          close={() => {
+            setCourse({ ...course, coursePictureUrl: oldPictureURL });
+
+            close();
+          }}
           save={() => {
             close();
             getCourse();
@@ -73,30 +80,49 @@ const DetailedCoursePage = () => {
       </Modal>
       <div>
         <h1>Course Detail Page</h1>
-        {/* <p>Course ID: {courseId}</p> */}
-        <p>Course Name: {course.courseName}</p>
-        <p>Start Date: {formatDate(course.startDate)}</p>
-        <p>End Date: {formatDate(course.endDate)}</p>
-        <p>Description: {course.description}</p>
-        {/* <a>Zoom Link: {course.zoomLink}</a> */}
+        {course ? (
+          <>
+            {course.coursePictureUrl && (
+              <img
+                src={course.coursePictureUrl}
+                style={{
+                  width: "300px",
+                  height: "300px",
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+                alt="Profile Picture"
+              />
+            )}
+            <p>Course ID: {courseId}</p>
+            <p>course Name: {course.courseName}</p>
+            <p>start Date: {formatDate(course.startDate)}</p>
+            <p>end Date: {formatDate(course.endDate)}</p>
+            <p>description: {course.description}</p>
+            <a>zoomLink: {course.zoomLink}</a>
 
-        <p>
-          Teacher: {course.teacher && course.teacher.firstName}{" "}
-          {course.teacher && course.teacher.lastName}
-        </p>
-        <Button onClick={open}>Edit Course</Button>
-        <br />
+            <p>
+              Teacher: {course.teacher && course.teacher.firstName}{" "}
+              {course.teacher && course.teacher.lastName}
+            </p>
+            <Button onClick={open}>Edit course</Button>
 
-        <Button onClick={handleNavigateToVideoCall}>Join Video Call</Button>
+            <Button onClick={handleNavigateToVideoCall}>Join Video Call</Button>
 
-        <AllUsers course={course} />
-        <h4>Students list:</h4>
-        {course.studentList &&
-          course.studentList.map((student, index) => (
-            <Text key={index} size="sm">
-              {student.firstName} {student.lastName}
-            </Text>
-          ))}
+            <AllUsers course={course} />
+            <h4>Students list:</h4>
+            {course.studentList &&
+              course.studentList.map((student, index) => (
+                <Text key={index} size="sm">
+                  {student.firstName} {student.lastName}
+                </Text>
+              ))}
+            <AddEvent courseId={courseId} />
+          </>
+        ) : (
+          <p>Loading course details...</p> // Provide a loading state or message
+        )}
       </div>
     </>
   );
