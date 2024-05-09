@@ -6,7 +6,7 @@ import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
 import { IconCheck } from "@tabler/icons-react";
 import VideoCall from "../appVideoCall/AppVideoCall";
-
+import AddEvent from "../components/AddEvent";
 import { notifications } from "@mantine/notifications";
 import AllUsers from "../components/AllUsers";
 
@@ -97,6 +97,7 @@ const DetailedCoursePage = () => {
               {student.firstName} {student.lastName}
             </Text>
           ))}
+        <AddEvent courseId={courseId} />
       </div>
     </>
   );
