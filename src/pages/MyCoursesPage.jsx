@@ -21,9 +21,17 @@ const MyCoursesPage = () => {
 
       <CurrentCourses />
 
-      <h2>All my Courses</h2>
+      <Title bg={"red"} c={"white"} order={2} my={"24px"}>
+        All my Courses
+      </Title>
+
+      {isTeacher && (
+        <Button mb={"30px"} mt={"20px"} size="lg" onClick={handleClick}>
+          Add a new course
+        </Button>
+      )}
+
       <LastCourses />
-      {isTeacher && <Button onClick={handleClick}>Add a new course</Button>}
     </>
   );
 };

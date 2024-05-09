@@ -73,7 +73,7 @@ const DetailedCoursePage = () => {
         />
       </Modal>
       <div>
-        <h1>Course Detail Page</h1>
+        <h1>Course details Page</h1>
         {course ? (
           <>
             {course.coursePictureUrl && (

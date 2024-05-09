@@ -1,7 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Avatar, Table, Group, Text, useMantineTheme } from "@mantine/core";
+import {
+  Avatar,
+  Table,
+  Group,
+  Text,
+  useMantineTheme,
+  ScrollArea,
+} from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -43,11 +50,11 @@ const Lastcourses = () => {
       <Table.Td>
         <Group gap="sm">
           <Avatar size={40} src={item.coursePictureUrl} radius={40} />
-          <div>
+          <div justify="start">
             <Text fz="sm" fw={500}>
               {item.courseName}
             </Text>
-            <Text c="dimmed" fz="xs">
+            <Text c="dimmed" fz="xs" style={{ textAlign: "left" }}>
               Course name
             </Text>
           </div>
@@ -78,15 +85,17 @@ const Lastcourses = () => {
   ));
 
   return (
-    <Table.ScrollContainer minWidth={800}>
-      <Table verticalSpacing="md">
-        {courses.length > 0 ? (
-          <Table.Tbody> {rows} </Table.Tbody>
-        ) : (
-          <h3>There is no course to show!</h3>
-        )}
-      </Table>
-    </Table.ScrollContainer>
+    <ScrollArea h={500}>
+      <Table.ScrollContainer minWidth={500}>
+        <Table verticalSpacing="md">
+          {courses.length > 0 ? (
+            <Table.Tbody> {rows} </Table.Tbody>
+          ) : (
+            <h3>There is no course to show!</h3>
+          )}
+        </Table>
+      </Table.ScrollContainer>
+    </ScrollArea>
   );
 };
 
