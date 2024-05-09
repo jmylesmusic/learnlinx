@@ -62,7 +62,7 @@ const CurrentCourses = () => {
               <Card.Section>
                 <Image
                   src={course.coursePictureUrl}
-                  alt={course.courseName}
+                  fallbackSrc="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
                   height={180}
                   width={150}
                 />
