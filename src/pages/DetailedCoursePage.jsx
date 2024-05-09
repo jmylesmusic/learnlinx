@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 import { IconCheck } from "@tabler/icons-react";
 import { courseContext } from "../context/course.context.jsx";
 
+import AddEvent from "../components/AddEvent";
 import { notifications } from "@mantine/notifications";
 import AllUsers from "../components/AllUsers";
 
@@ -117,6 +118,7 @@ const DetailedCoursePage = () => {
                   {student.firstName} {student.lastName}
                 </Text>
               ))}
+            <AddEvent courseId={courseId} />
           </>
         ) : (
           <p>Loading course details...</p> // Provide a loading state or message
