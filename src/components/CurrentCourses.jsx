@@ -28,7 +28,6 @@ const CurrentCourses = () => {
       console.log(error);
     }
   };
- 
 
   const onClickCard = (courseId) => {
     // Navigate to CourseDetails component and pass courseId as props
@@ -62,7 +61,8 @@ const CurrentCourses = () => {
             >
               <Card.Section>
                 <Image
-                  src="https://i.imgur.com/Cij5vdL.png"
+                  src={course.coursePictureUrl}
+                  alt={course.courseName}
                   height={180}
                   width={150}
                 />

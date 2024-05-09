@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Group, Code } from "@mantine/core";
+
 import {
   IconCalendarClock,
   IconSchool,
@@ -11,7 +11,7 @@ import {
 import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
 
-import { NavLink, Route, Router } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import classes from "../styles/NavbarSimpleColored.module.css";
 
 const data = [
