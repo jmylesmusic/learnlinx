@@ -8,6 +8,9 @@ import {
   IconFriends,
 } from "@tabler/icons-react";
 
+import { AuthContext } from "../context/auth.context";
+import { useContext } from "react";
+
 import { NavLink, Route, Router } from "react-router-dom";
 import classes from "../styles/NavbarSimpleColored.module.css";
 
@@ -15,14 +18,19 @@ const data = [
   { link: "/main", label: "Dashboard", icon: IconLayoutDashboard },
   { link: "/courses", label: "Courses", icon: IconSchool },
   { link: "/calendar", label: "Calendar", icon: IconCalendarClock },
-  { link: "/students", label: "Students", icon: IconFriends },
-  { link: "/videocall", label: "Video Call", icon: IconBrandZoom },
 ];
 
+const dataTeacher = 
+  { link: "/students", label: "Students", icon: IconFriends },
+;
 export function Navbar() {
   const [active, setActive] = useState("Dashboard");
 
-  const links = data.map((item) => (
+  const { isTeacher } = useContext(AuthContext);
+
+  const filteredData = isTeacher ? [...data, dataTeacher] : data;
+
+  const links = filteredData.map((item) => (
     <NavLink
       className={classes.link}
       // activeClassName={classes.active}
