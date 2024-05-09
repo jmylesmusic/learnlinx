@@ -50,11 +50,11 @@ const Lastcourses = () => {
       <Table.Td>
         <Group gap="sm">
           <Avatar size={40} src={item.coursePictureUrl} radius={40} />
-          <div>
+          <div justify="start">
             <Text fz="sm" fw={500}>
               {item.courseName}
             </Text>
-            <Text c="dimmed" fz="xs">
+            <Text c="dimmed" fz="xs" style={{ textAlign: "left" }}>
               Course name
             </Text>
           </div>
@@ -85,8 +85,8 @@ const Lastcourses = () => {
   ));
 
   return (
-    <ScrollArea h={800}>
-      <Table.ScrollContainer>
+    <ScrollArea h={500}>
+      <Table.ScrollContainer minWidth={500}>
         <Table verticalSpacing="md">
           {courses.length > 0 ? (
             <Table.Tbody> {rows} </Table.Tbody>

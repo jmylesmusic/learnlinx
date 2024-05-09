@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Avatar, Table, Group, Text } from "@mantine/core";
+import { Avatar, Table, Group, Text, Title } from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -47,7 +47,7 @@ export function StudentsList() {
             <Text fz="sm" fw={500}>
               {item.firstName} {item.lastName}
             </Text>
-            <Text c="dimmed" fz="xs">
+            <Text c="dimmed" fz="xs" style={{ textAlign: "left" }}>
               Name
             </Text>
           </div>
@@ -68,11 +68,16 @@ export function StudentsList() {
     </Table.Tr>
   ));
   return (
-    <Table.ScrollContainer minWidth={800}>
-      <Table verticalSpacing="md">
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
-    </Table.ScrollContainer>
+    <>
+      <Title bg={"red"} c={"white"} order={2} my={"24px"}>
+        All my Students
+      </Title>
+      <Table.ScrollContainer minWidth={800}>
+        <Table verticalSpacing="md">
+          <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+      </Table.ScrollContainer>
+    </>
   );
 }
 
