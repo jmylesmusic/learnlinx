@@ -7,7 +7,7 @@ import {
   ScrollArea,
   useMantineTheme,
   Alert,
-  Loading,
+  Loader,
 } from "@mantine/core";
 import classes from "../styles/TableScrollArea.module.css";
 const API_URL = import.meta.env.VITE_API_URL;

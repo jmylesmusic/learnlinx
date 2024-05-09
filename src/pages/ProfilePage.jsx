@@ -1,10 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
-import { Button, Modal } from "@mantine/core";
+import { Button, Modal, Image } from "@mantine/core";
 import CustomDropzone from "../components/CustomDropzone.jsx";
 import { IconEdit, IconX, IconCheck } from "@tabler/icons-react"; // Import the necessary icons
 const API_URL = import.meta.env.VITE_API_URL;
+import headerblob from "../images/layered-waves-haikei.svg";
+import "../styles/UserPage.css";
 
 const ProfilePage = () => {
   const {
@@ -148,9 +150,21 @@ const ProfilePage = () => {
     <>
       {currentUser && (
         <div className="profile-page">
-          <h1>
+          <Image src={headerblob} />
+          <div className="usertype">
             {currentUser.isTeacher ? "Teacher Profile" : "Student Profile"}
-          </h1>
+          </div>
+          <img
+            src={userProfileURL}
+            style={{
+              width: "300px",
+              height: "300px",
+              objectFit: "cover",
+              borderRadius: "50%",
+              overflow: "hidden",
+            }}
+            alt="Profile Picture"
+          />
           <div>
             <h2>
               First Name:{" "}
@@ -240,17 +254,6 @@ const ProfilePage = () => {
                 </span>
               )}
             </h2>{" "}
-            <img
-              src={userProfileURL}
-              style={{
-                width: "300px",
-                height: "300px",
-                objectFit: "cover",
-                borderRadius: "50%",
-                overflow: "hidden",
-              }}
-              alt="Profile Picture"
-            />
           </div>
           <CustomDropzone modalType={"user"} />
 
