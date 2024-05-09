@@ -21,7 +21,7 @@ const DetailedCoursePage = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const getCourse = async () => {
-    console.log("*************getCourse");
+    // console.log("*************getCourse");
     const storedToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(`${API_URL}/api/courses/${courseId}`, {

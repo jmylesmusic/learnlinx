@@ -4,6 +4,7 @@ export function Home() {
   return (
     <div>
       <img src={herologo} alt="Hero Logo" className="hero-image" />
+      <h1>Here's some text that will be displayed</h1>
     </div>
   );
 }

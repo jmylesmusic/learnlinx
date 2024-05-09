@@ -28,7 +28,7 @@ const UpcomingCourses = () => {
         },
       });
       const courses = await response.json();
-      console.log("*****", courses);
+      // console.log("*****", courses);
       if (response.ok) setCourses(courses);
     } catch (error) {
       console.log(error);
@@ -58,7 +58,7 @@ const UpcomingCourses = () => {
           >
             <Card.Section>
               <Image
-                src="https://i.imgur.com/Cij5vdL.png"
+                src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
                 height={180}
                 width={150}
               />
