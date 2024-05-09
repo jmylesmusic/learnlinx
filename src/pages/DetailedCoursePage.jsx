@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
-import { Text, Modal, Button } from "@mantine/core";
+import { Text, Modal, Button, Group, Table, Avatar } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import EditCourse from "../components/EditCourse";
 const API_URL = import.meta.env.VITE_API_URL;
@@ -13,7 +13,8 @@ import { notifications } from "@mantine/notifications";
 import AllUsers from "../components/AllUsers";
 
 const DetailedCoursePage = () => {
-  const { course, setCourse, oldPictureURL } = useContext(courseContext);
+  const { course, setCourse } = useContext(courseContext);
+
   const { isTeacher } = useContext(AuthContext);
 
   const checkIcon = <IconCheck style={{ width: "20rem", height: "20rem" }} />;
@@ -52,6 +53,39 @@ const DetailedCoursePage = () => {
   useEffect(() => {
     getCourse();
   }, []);
+
+  const rows =
+    course && course.studentList
+      ? course.studentList.map((item) => (
+          <Table.Tr key={item._id}>
+            <Table.Td>
+              <Group gap="sm">
+                <Avatar size={40} src={item.profilePictureUrl} radius={40} />
+                <div>
+                  <Text c="dimmed" fz="xs" style={{ textAlign: "left" }}>
+                    Name
+                  </Text>
+                  <Text fz="sm" fw={500}>
+                    {item.firstName} {item.lastName}
+                  </Text>
+                </div>
+              </Group>
+            </Table.Td>
+            <Table.Td>
+              <Text fz="xs" c="dimmed">
+                Email
+              </Text>
+              <Text fz="sm">{item.email}</Text>
+            </Table.Td>
+            <Table.Td>
+              <Text fz="xs" c="dimmed">
+                Phone number
+              </Text>
+              <Text fz="sm">{item.phoneNumber}</Text>
+            </Table.Td>
+          </Table.Tr>
+        ))
+      : [];
 
   const handleNavigateToVideoCall = () => {
     navigate(`/video-call/${courseId}`); // Assuming you have a route setup for this path
@@ -113,12 +147,14 @@ const DetailedCoursePage = () => {
             )}
             <AllUsers course={course} />
             <h4>Students list:</h4>
-            {course.studentList &&
-              course.studentList.map((student, index) => (
-                <Text key={index} size="sm">
-                  {student.firstName} {student.lastName}
-                </Text>
-              ))}
+            {rows && (
+              <Table.ScrollContainer minWidth={800}>
+                <Table verticalSpacing="md">
+                  <Table.Tbody>{rows}</Table.Tbody>
+                </Table>
+              </Table.ScrollContainer>
+            )}
+
             <AddEvent courseId={courseId} />
           </>
         ) : (
