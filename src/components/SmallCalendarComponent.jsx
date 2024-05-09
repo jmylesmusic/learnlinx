@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
 import { EventContext } from "../context/event.context.jsx";
 import { Calendar } from "@mantine/dates";
-import { Indicator, Text, Title, HoverCard } from "@mantine/core";
+import { Indicator, Text, Title, HoverCard, Loader } from "@mantine/core";
 import "@mantine/dates/styles.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -51,7 +51,7 @@ function SmallCalendarComponent() {
     }
   }, [isLoggedIn]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader color="pink" />;
   if (error) return <div>Error: {error}</div>;
 
   const renderEventDetails = (dayEvents) => (

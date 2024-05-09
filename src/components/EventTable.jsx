@@ -2,7 +2,13 @@ import cx from "clsx";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
 import { EventContext } from "../context/event.context.jsx";
-import { Table, ScrollArea, useMantineTheme, Alert } from "@mantine/core";
+import {
+  Table,
+  ScrollArea,
+  useMantineTheme,
+  Alert,
+  Loading,
+} from "@mantine/core";
 import classes from "../styles/TableScrollArea.module.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -45,7 +51,7 @@ export function EventTable() {
     }
   }, [isLoggedIn, event]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader color="pink" />;
   if (error) return <div>Error: {error}</div>;
 
   const formatDate = (dateString) => {
@@ -105,7 +111,7 @@ export function EventTable() {
   return (
     <>
       <ScrollArea
-        h={300}
+        h={500}
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
       >
         <Table>

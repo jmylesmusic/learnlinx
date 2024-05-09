@@ -7,6 +7,7 @@ import moment from "moment";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { setHours, setMinutes } from "date-fns";
+import { Loader } from "@mantine/core";
 const API_URL = import.meta.env.VITE_API_URL;
 const localizer = momentLocalizer(moment);
 const DraggableCalendar = withDragAndDrop(Calendar);
@@ -104,7 +105,7 @@ export function LargeCalendarComponent() {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
+        <Loader color="pink" />
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
