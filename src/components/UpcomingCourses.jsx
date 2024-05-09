@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "@mantine/carousel/styles.css";
+
+import { Avatar, Table, Group, Text, useMantineTheme } from "@mantine/core";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
-import {
-  Card,
-  Image,
-  Text,
-  Group,
-  Center,
-  useMantineTheme,
-} from "@mantine/core";
-import { IconH3 } from "@tabler/icons-react";
 
 const UpcomingCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -28,7 +21,7 @@ const UpcomingCourses = () => {
         },
       });
       const courses = await response.json();
-      console.log("*****", courses);
+      console.log("*****Upcoming: ", courses);
       if (response.ok) setCourses(courses);
     } catch (error) {
       console.log(error);
@@ -39,53 +32,69 @@ const UpcomingCourses = () => {
     getUpcomingCourses();
   }, []);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const onClickCard = (courseId) => {
     navigate(`../courses/${courseId}`);
   };
 
   const theme = useMantineTheme();
+  const rows = courses.map((item) => (
+    <Table.Tr key={item._id}>
+      <Table.Td>
+        <Group gap="sm">
+          <Avatar size={40} src={item.coursePictureUrl} radius={40} />
+          <div>
+            <Text fz="sm" fw={500}>
+              {item.courseName}
+            </Text>
+            <Text c="dimmed" fz="xs">
+              Course name
+            </Text>
+          </div>
+        </Group>
+      </Table.Td>
+      <Table.Td>
+        <Text fz="sm">{formatDate(item.startDate)}</Text>
+        <Text fz="xs" c="dimmed">
+          Start
+        </Text>
+      </Table.Td>
+      <Table.Td>
+        <Text fz="sm">{formatDate(item.endDate)}</Text>
+        <Text fz="xs" c="dimmed">
+          End
+        </Text>
+      </Table.Td>
+      <Table.Td>
+        <Text fz="sm">
+          {item.teacher && item.teacher.firstName}{" "}
+          {item.teacher && item.teacher.lastName}
+        </Text>
+        <Text fz="xs" c="dimmed">
+          Teacher
+        </Text>
+      </Table.Td>
+    </Table.Tr>
+  ));
+
 
   return (
-    <div className="UpcomingCoursesListPage">
-      {courses.length > 0 ? (
-        courses.map((course, index) => (
-          <Card
-            key={course._id}
-            withBorder
-            radius="md"
-            className="card"
-            onClick={() => onClickCard(course._id)}
-          >
-            <Card.Section>
-              <Image
-                src="https://i.imgur.com/Cij5vdL.png"
-                height={180}
-                width={150}
-              />
-            </Card.Section>
-
-            <Text className="title" fw={500}>
-              {course.courseName}
-            </Text>
-
-            <Group justify="space-between" className="footer">
-              <Center>
-                <Text fz="sm" inline>
-                  {course.studentList.length}
-                  {course.studentList.length === 0 ||
-                  course.studentList.length === 1
-                    ? " student "
-                    : " students "}
-                  enrolled in this class
-                </Text>
-              </Center>
-            </Group>
-          </Card>
-        ))
-      ) : (
-        <h3>There is no course to show!</h3>
-      )}
-    </div>
+    <Table.ScrollContainer>
+      <Table verticalSpacing="md">
+        {courses.length > 0 ? (
+          <Table.Tbody> {rows} </Table.Tbody>
+        ) : (
+          <h3>There is no course to show!</h3>
+        )}
+      </Table>
+    </Table.ScrollContainer>
   );
 };
 

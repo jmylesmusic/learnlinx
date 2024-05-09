@@ -9,13 +9,12 @@ const MyCoursesPage = () => {
   };
   return (
     <>
-      <h1>My Courses Page</h1>
-
       <h2>My Current Courses</h2>
       <CurrentCourses />
 
-      <h2>My last Courses</h2>
+      <h2>All my Courses</h2>
       <LastCourses />
+      
       <Button onClick={handleClick}>Add a new course</Button>
     </>
   );
