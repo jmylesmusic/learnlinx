@@ -1,13 +1,16 @@
 import { Autocomplete, Avatar, Button, Group, Text } from "@mantine/core";
-import { useState, useEffect } from "react";
-import { StudentsList } from "../pages";
+import { useState, useEffect, useContext } from "react";
+
 const API_URL = import.meta.env.VITE_API_URL;
+import { courseContext } from "../context/course.context.jsx";
 
 const AllUsers = ({ course }) => {
   const [userOptions, setUserOptions] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState();
   const [isLoading, setIsLoading] = useState(false);
+
+  const { setCourse } = useContext(courseContext);
 
   const storedToken = localStorage.getItem("authToken");
 
@@ -64,7 +67,8 @@ const AllUsers = ({ course }) => {
 
       if (response.ok) {
         console.log("OK");
-        console.log(response);
+        const updatedCourse = await response.json();
+        setCourse(updatedCourse);
       } else {
         console.error("Failed to add user to student list");
       }

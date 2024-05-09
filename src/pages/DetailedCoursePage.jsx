@@ -21,7 +21,6 @@ const DetailedCoursePage = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const getCourse = async () => {
-    // console.log("*************getCourse");
     const storedToken = localStorage.getItem("authToken");
     try {
       const response = await fetch(`${API_URL}/api/courses/${courseId}`, {
@@ -34,7 +33,6 @@ const DetailedCoursePage = () => {
       const course = await response.json();
       if (response.ok) {
         setCourse(course);
-        console.log(course);
       }
     } catch (error) {
       console.log(error);
