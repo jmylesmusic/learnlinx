@@ -62,26 +62,26 @@ const DetailedCoursePage = () => {
               <Group gap="sm">
                 <Avatar size={40} src={item.profilePictureUrl} radius={40} />
                 <div>
+                  <Text c="dimmed" fz="xs" style={{ textAlign: "left" }}>
+                    Name
+                  </Text>
                   <Text fz="sm" fw={500}>
                     {item.firstName} {item.lastName}
-                  </Text>
-                  <Text c="dimmed" fz="xs">
-                    Name
                   </Text>
                 </div>
               </Group>
             </Table.Td>
             <Table.Td>
-              <Text fz="sm">{item.email}</Text>
               <Text fz="xs" c="dimmed">
                 Email
               </Text>
+              <Text fz="sm">{item.email}</Text>
             </Table.Td>
             <Table.Td>
-              <Text fz="sm">{item.phoneNumber}</Text>
               <Text fz="xs" c="dimmed">
                 Phone number
               </Text>
+              <Text fz="sm">{item.phoneNumber}</Text>
             </Table.Td>
           </Table.Tr>
         ))
