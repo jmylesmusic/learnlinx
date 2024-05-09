@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "@mantine/form";
 import { Button, Group, TextInput, Textarea } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
+import CustomDropzone from "./CustomDropzone";
+
+import { courseContext } from "../context/course.context.jsx";
 
 const EditCourse = ({ course, close, save }) => {
   const form = useForm({
@@ -60,6 +63,7 @@ const EditCourse = ({ course, close, save }) => {
           key={form.key("courseName")}
           {...form.getInputProps("courseName")}
         />
+
         <DateInput
           label="Start date"
           placeholder="Start date"
@@ -79,6 +83,18 @@ const EditCourse = ({ course, close, save }) => {
           key={form.key("description")}
           {...form.getInputProps("description")}
         />
+        <img
+          src={course.coursePictureUrl}
+          style={{
+            width: "300px",
+            height: "300px",
+            objectFit: "cover",
+            borderRadius: "50%",
+            overflow: "hidden",
+          }}
+          alt="Profile Picture"
+        />
+        <CustomDropzone modalType={"course"} />
 
         <Group justify="flex-end" mt="md">
           <Button type="submit">Save</Button>
