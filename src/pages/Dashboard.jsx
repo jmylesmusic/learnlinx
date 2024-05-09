@@ -7,14 +7,16 @@ import UpcomingCourses from "../components/UpcomingCourses";
 import { DailyProvider, useCallObject } from "@daily-co/daily-react";
 import SmallCalendarComponent from "../components/SmallCalendarComponent";
 import EventTable from "../components/EventTable";
-import { Container, SimpleGrid } from "@mantine/core";
+import { Container, SimpleGrid, Title } from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Dashboard = () => {
   return (
     <>
-      <h1>Dashboard Page</h1>
+      <Title order={2} m={"24px"}>
+        Dashboard
+      </Title>
       {/* <h3>Current courses</h3> */}
       {/* <CurrentCourses /> */}
       {/* <br /> */}
@@ -23,25 +25,34 @@ const Dashboard = () => {
       {/* <br /> */}
       {/* <h3>Upcoming courses:</h3> */}
       {/* <UpcomingCourses /> */}
-      <Container>
-        <SimpleGrid
-          cols={{ xs: 1, sm: 2 }} // 1 column on extra small screens, 2 columns from small breakpoint upwards
-          spacing="lg" // Adjust spacing as needed
-        >
-          <div>
-            <h3>Current courses</h3>
-            <CurrentCourses />
-            <br />
-            <br />
-            <h3>Upcoming courses:</h3>
-            <UpcomingCourses />
-          </div>
-          <div>
-            <SmallCalendarComponent />
-            <EventTable />
-          </div>
-        </SimpleGrid>
-      </Container>
+
+      <SimpleGrid cols={{ sm: 1, lg: 2 }} spacing="96px" verticalSpacing="72px">
+        <div>
+          <Title bg={"red"} c={"white"} order={3}>
+            Current courses
+          </Title>
+          <CurrentCourses />
+        </div>
+
+        <div>
+          <Title bg={"red"} c={"white"} order={3}>
+            Calendar
+          </Title>
+          <SmallCalendarComponent />
+        </div>
+        <div>
+          <Title bg={"red"} c={"white"} order={3}>
+            Upcoming courses
+          </Title>
+          <UpcomingCourses />
+        </div>
+        <div>
+          <Title bg={"red"} c={"white"} order={3}>
+            Upcoming events
+          </Title>
+          <EventTable />
+        </div>
+      </SimpleGrid>
     </>
   );
 };

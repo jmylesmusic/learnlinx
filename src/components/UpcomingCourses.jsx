@@ -1,10 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Avatar, Table, Group, Text, useMantineTheme } from "@mantine/core";
+import {
+  Avatar,
+  Table,
+  Group,
+  Text,
+  useMantineTheme,
+  ScrollArea,
+} from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL;
-
 
 const UpcomingCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -84,17 +90,18 @@ const UpcomingCourses = () => {
     </Table.Tr>
   ));
 
-
   return (
-    <Table.ScrollContainer>
-      <Table verticalSpacing="md">
-        {courses.length > 0 ? (
-          <Table.Tbody> {rows} </Table.Tbody>
-        ) : (
-          <h3>There is no course to show!</h3>
-        )}
-      </Table>
-    </Table.ScrollContainer>
+    <ScrollArea h={500}>
+      <Table.ScrollContainer>
+        <Table verticalSpacing="md">
+          {courses.length > 0 ? (
+            <Table.Tbody> {rows} </Table.Tbody>
+          ) : (
+            <h3>There is no course to show!</h3>
+          )}
+        </Table>
+      </Table.ScrollContainer>
+    </ScrollArea>
   );
 };
 

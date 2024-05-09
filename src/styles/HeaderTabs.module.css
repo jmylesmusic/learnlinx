@@ -1,19 +1,13 @@
 .header {
-  top: 0;
-  left: 0;
   width: 100vw;
-  height: 60px;
-  padding: 0;
-  background-color: light-dark(
-    var(--mantine-color-gray-0),
-    var(--mantine-color-dark-6)
-  );
-  border-bottom: rem(1px) solid
-    light-dark(var(--mantine-color-gray-2), transparent);
+  background-color: rgb(242, 242, 242);
 }
 
-.mainSection {
-  padding-bottom: var(--mantine-spacing-sm);
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
 }
 
 .user {
