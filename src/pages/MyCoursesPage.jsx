@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button, Title } from "@mantine/core";
 import CurrentCourses from "../components/CurrentCourses";
 import LastCourses from "../components/LastCourses";
 import { useNavigate } from "react-router-dom";
@@ -15,12 +15,13 @@ const MyCoursesPage = () => {
   };
   return (
     <>
-      <h1>My Courses Page</h1>
+      <Title bg={"red"} c={"white"} order={2} my={"24px"}>
+        My Current Courses
+      </Title>
 
-      <h2>My Current Courses</h2>
       <CurrentCourses />
 
-      <h2>My last Courses</h2>
+      <h2>All my Courses</h2>
       <LastCourses />
       {isTeacher && <Button onClick={handleClick}>Add a new course</Button>}
     </>

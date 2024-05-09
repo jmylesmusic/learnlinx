@@ -2,8 +2,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--grey);
-  padding: 0.5rem 1rem;
   background-color: var(--white);
 }
 

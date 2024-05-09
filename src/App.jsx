@@ -42,9 +42,8 @@ function App() {
               }
             : undefined
         } // Conditionally set navbar property
-        padding="md"
       >
-        <AppShell.Header>
+        <AppShell.Header style={{ backgroundColor: "rgb(242, 242, 242)" }}>
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Header />
         </AppShell.Header>

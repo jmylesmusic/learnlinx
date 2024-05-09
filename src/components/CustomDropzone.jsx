@@ -144,7 +144,7 @@ function CustomDropzone({ modalType }) {
         radius="xl"
         onClick={() => openRef.current && openRef.current()}
       >
-        Select files
+        Update image
       </Button>
     </div>
   );
