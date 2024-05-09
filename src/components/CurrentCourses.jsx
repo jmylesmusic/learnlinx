@@ -28,7 +28,6 @@ const CurrentCourses = () => {
       console.log(error);
     }
   };
- 
 
   const onClickCard = (courseId) => {
     // Navigate to CourseDetails component and pass courseId as props

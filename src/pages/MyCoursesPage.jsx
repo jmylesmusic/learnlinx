@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button, Title } from "@mantine/core";
 import CurrentCourses from "../components/CurrentCourses";
 import LastCourses from "../components/LastCourses";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,10 @@ const MyCoursesPage = () => {
   };
   return (
     <>
-      <h2>My Current Courses</h2>
+      <Title bg={"red"} c={"white"} order={2} my={"24px"}>
+        My Current Courses
+      </Title>
+
       <CurrentCourses />
 
       <h2>All my Courses</h2>

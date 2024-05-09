@@ -7,7 +7,7 @@ import UpcomingCourses from "../components/UpcomingCourses";
 import { DailyProvider, useCallObject } from "@daily-co/daily-react";
 import SmallCalendarComponent from "../components/SmallCalendarComponent";
 import EventTable from "../components/EventTable";
-import { Container, SimpleGrid, Title } from "@mantine/core";
+import { Container, SimpleGrid, Title, Flex } from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -28,26 +28,26 @@ const Dashboard = () => {
 
       <SimpleGrid cols={{ sm: 1, lg: 2 }} spacing="96px" verticalSpacing="72px">
         <div>
-          <Title bg={"red"} c={"white"} order={3}>
+          <Title bg={"red"} c={"white"} order={3} mb={"24px"}>
             Current courses
           </Title>
           <CurrentCourses />
         </div>
 
-        <div>
-          <Title bg={"red"} c={"white"} order={3}>
+        <Flex direction={"column"} align={"center"}>
+          <Title w={"100%"} bg={"red"} c={"white"} order={3} mb={"24px"}>
             Calendar
           </Title>
           <SmallCalendarComponent />
-        </div>
+        </Flex>
         <div>
-          <Title bg={"red"} c={"white"} order={3}>
+          <Title bg={"red"} c={"white"} order={3} mb={"24px"}>
             Upcoming courses
           </Title>
           <UpcomingCourses />
         </div>
         <div>
-          <Title bg={"red"} c={"white"} order={3}>
+          <Title bg={"red"} c={"white"} order={3} mb={"24px"}>
             Upcoming events
           </Title>
           <EventTable />
