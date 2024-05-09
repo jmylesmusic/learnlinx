@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "@mantine/form";
 import { Button, Group, TextInput, Textarea } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
@@ -7,6 +7,8 @@ import CustomDropzone from "./CustomDropzone";
 import { courseContext } from "../context/course.context.jsx";
 
 const EditCourse = ({ course, close, save }) => {
+  const { setCourse, oldPictureURL, newPictureURL } = useContext(courseContext);
+
   const form = useForm({
     initialValues: {
       courseName: course.courseName ?? "",
@@ -23,6 +25,7 @@ const EditCourse = ({ course, close, save }) => {
   });
 
   const handleCancel = () => {
+    setCourse({ ...course, coursePictureUrl: oldPictureURL });
     close();
   };
 
@@ -32,8 +35,7 @@ const EditCourse = ({ course, close, save }) => {
         onSubmit={form.onSubmit(async () => {
           const storedToken = localStorage.getItem("authToken");
 
-          console.log(form.values);
-
+          if (newPictureURL) form.values.coursePictureUrl = newPictureURL;
           try {
             const response = await fetch(
               `${import.meta.env.VITE_API_URL}/api/courses/${course._id}`,

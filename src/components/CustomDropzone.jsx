@@ -17,7 +17,6 @@ import classes from "../styles/DropzoneButton.module.css";
 import { AuthContext } from "../context/auth.context";
 import { courseContext } from "../context/course.context";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -29,10 +28,8 @@ function CustomDropzone({ modalType }) {
   const { storeProfilePictureURL, currentUser, setCurrentUser, user } =
     useContext(AuthContext);
 
-  const { course, setCourse, setOldPictureURL } = useContext(courseContext);
-
-  const { Id } = useParams();
-  console.log(course._id);
+  const { course, setCourse, setOldPictureURL, setNewPictureURL } =
+    useContext(courseContext);
 
   const handleDrop = async (file) => {
     const formData = new FormData();
@@ -52,6 +49,7 @@ function CustomDropzone({ modalType }) {
           }
         );
         const newImageUrl = updateResponse.data.profilePictureUrl;
+
         setCurrentUser({
           ...currentUser,
           profilePictureUrl: newImageUrl,
@@ -69,7 +67,9 @@ function CustomDropzone({ modalType }) {
           }
         );
         const newImageUrl = updateResponse.data.coursePictureUrl;
+
         setOldPictureURL(course.coursePictureUrl);
+        setNewPictureURL(newImageUrl);
         setCourse({ ...course, coursePictureUrl: newImageUrl });
       }
     } catch (error) {
