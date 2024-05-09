@@ -1,18 +1,18 @@
 import cx from "clsx";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
+import { EventContext } from "../context/event.context.jsx";
 import { Table, ScrollArea, useMantineTheme, Alert } from "@mantine/core";
 import classes from "../styles/TableScrollArea.module.css";
-import EditEvent from "../components/EditEvent";
 const API_URL = import.meta.env.VITE_API_URL;
 
 export function EventTable() {
-  const { isLoggedIn, isTeacher, teacherCourses } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
+  const { event, setEvent } = useContext(EventContext);
   const [scrolled, setScrolled] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [editEvent, setEditEvent] = useState(null); // State to manage the event being edited
   const theme = useMantineTheme();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export function EventTable() {
     if (isLoggedIn) {
       fetchEvents();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, event]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -80,18 +80,6 @@ export function EventTable() {
   // Sorting and filtering the data
   const sortedAndFilteredData = sortEventsByDateAndTime(filterPastEvents(data));
 
-  const handleEditClick = (event) => {
-    if (isTeacher) {
-      setEditEvent(event);
-    } else {
-      alert("You do not have permission to edit this event.");
-    }
-  };
-
-  const handleCloseModal = () => {
-    setEditEvent(null);
-  };
-
   // Then map over the sorted and filtered data to create table rows
 
   const rows = sortedAndFilteredData.map((event) => {
@@ -100,7 +88,7 @@ export function EventTable() {
         ? theme.colors[event.color][1]
         : theme.colors.red[1];
     return (
-      <Table.Tr key={event._id} onClick={() => handleEditClick(event)}>
+      <Table.Tr key={event._id}>
         <Table.Td style={{ backgroundColor: colorKey }}>
           {formatDate(event.date)}
         </Table.Td>
@@ -133,7 +121,6 @@ export function EventTable() {
           <Table.Tbody>{rows}</Table.Tbody>
         </Table>
       </ScrollArea>
-      {editEvent && <EditEvent event={editEvent} onClose={handleCloseModal} />}
     </>
   );
 }

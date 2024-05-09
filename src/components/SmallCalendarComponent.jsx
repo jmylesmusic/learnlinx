@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context.jsx";
+import { EventContext } from "../context/event.context.jsx";
 import { Calendar } from "@mantine/dates";
 import { Indicator, Text, Title, HoverCard } from "@mantine/core";
 import "@mantine/dates/styles.css";
@@ -8,7 +9,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 function SmallCalendarComponent() {
   const { isLoggedIn } = useContext(AuthContext);
-  const [events, setEvents] = useState({});
+  const eventContext = useContext(EventContext); // Use context directly without destructuring as an array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -35,7 +36,7 @@ function SmallCalendarComponent() {
           acc[dateKey].push(event);
           return acc;
         }, {});
-        setEvents(formattedEvents);
+        eventContext.setEvent(formattedEvents); // Update context state using the method provided by context
       } catch (err) {
         setError(err.message);
       } finally {
@@ -46,7 +47,7 @@ function SmallCalendarComponent() {
     if (isLoggedIn) {
       fetchEvents();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, eventContext]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -67,7 +68,7 @@ function SmallCalendarComponent() {
       <Calendar
         renderDay={(date) => {
           const dateString = dayjs(date).format("YYYY-MM-DD");
-          const dayEvents = events[dateString];
+          const dayEvents = eventContext.event[dateString]; // Access context state using the object provided by context
           if (dayEvents && dayEvents.length > 0) {
             return (
               <HoverCard width={240} position="bottom" withArrow>

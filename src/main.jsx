@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Notifications } from "@mantine/notifications";
 import { AuthProviderWrapper } from "./context/auth.context"; // <== IMPORT
 import { CourseProviderWrapper } from "./context/course.context.jsx";
+import { EventProviderWrapper } from "./context/event.context.jsx";
 import "@mantine/notifications/styles.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Router>
         <AuthProviderWrapper>
           <CourseProviderWrapper>
-            <App />
+            <EventProviderWrapper>
+              <App />
+            </EventProviderWrapper>
           </CourseProviderWrapper>
         </AuthProviderWrapper>
       </Router>

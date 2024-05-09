@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
 import { AuthContext } from "../context/auth.context";
+import { EventContext } from "../context/event.context"; // Assuming EventContext is in a similar path
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import moment from "moment";
-import "react-big-calendar/lib/addons/dragAndDrop/styles.css"; // Import drag and drop styles
+import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { setHours, setMinutes } from "date-fns";
-
 const API_URL = import.meta.env.VITE_API_URL;
 const localizer = momentLocalizer(moment);
-
-// Wrap the Calendar with drag and drop functionality
 const DraggableCalendar = withDragAndDrop(Calendar);
 
 export function LargeCalendarComponent() {
   const { isLoggedIn } = useContext(AuthContext);
-  const [data, setData] = useState([]);
+  const { event, setEvent } = useContext(EventContext); // Use the event from EventContext
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -24,12 +22,10 @@ export function LargeCalendarComponent() {
       const date = new Date(event.date);
       const [startHour, startMinute] = event.timeStart.split(":").map(Number);
       const [endHour, endMinute] = event.timeEnd.split(":").map(Number);
-
       const start = setMinutes(setHours(date, startHour), startMinute);
       const end = setMinutes(setHours(date, endHour), endMinute);
-
       return {
-        id: event._id, // Ensure this is added
+        id: event._id,
         title: event.eventTitle,
         start: start,
         end: end,
@@ -40,7 +36,8 @@ export function LargeCalendarComponent() {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && !event.length) {
+      // Check if event data needs to be fetched
       const storedToken = localStorage.getItem("authToken");
       const fetchEvents = async () => {
         try {
@@ -54,7 +51,7 @@ export function LargeCalendarComponent() {
 
           if (!response.ok) throw new Error("Failed to fetch events");
           const eventsData = await response.json();
-          setData(convertEventsForCalendar(eventsData));
+          setEvent(convertEventsForCalendar(eventsData)); // Set events in the context
         } catch (err) {
           setError(err.message);
         } finally {
@@ -64,17 +61,24 @@ export function LargeCalendarComponent() {
 
       fetchEvents();
     }
-  }, [isLoggedIn, setData]);
+  }, [isLoggedIn, setEvent]);
+
   const handleEventDrop = async ({ event, start, end }) => {
+    const formatTime = (date) => {
+      return `${date.getHours().toString().padStart(2, "0")}:${date
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
+    };
+
     const updatedEvent = {
       ...event.resource,
       date: start.toISOString().split("T")[0],
-      timeStart: `${start.getHours()}:${start.getMinutes()}`,
-      timeEnd: `${end.getHours()}:${end.getMinutes()}`,
+      timeStart: formatTime(start),
+      timeEnd: formatTime(end),
     };
 
-    const eventId = event.id; // Make sure you are using the corrected event id
-
+    const eventId = event.id;
     try {
       const response = await fetch(`${API_URL}/api/events/${eventId}`, {
         method: "PUT",
@@ -86,7 +90,7 @@ export function LargeCalendarComponent() {
       });
 
       if (response.ok) {
-        setData((prevData) =>
+        setEvent((prevData) =>
           prevData.map((e) => (e.id === eventId ? { ...e, start, end } : e))
         );
       } else {
@@ -106,7 +110,7 @@ export function LargeCalendarComponent() {
       ) : (
         <DraggableCalendar
           localizer={localizer}
-          events={data}
+          events={event} // Use events from context
           startAccessor="start"
           endAccessor="end"
           onEventDrop={handleEventDrop}
