@@ -20,9 +20,7 @@ const data = [
   { link: "/calendar", label: "Calendar", icon: IconCalendarClock },
 ];
 
-const dataTeacher = 
-  { link: "/students", label: "Students", icon: IconFriends },
-;
+const dataTeacher = { link: "/students", label: "Students", icon: IconFriends };
 export function Navbar() {
   const [active, setActive] = useState("Dashboard");
 
