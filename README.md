@@ -3,7 +3,9 @@ Overview
 Learnlinx is a cutting-edge Learning Management System (LMS) designed to revolutionize online education. Our platform provides a seamless and efficient learning experience, empowering educators and learners to engage, collaborate, and excel in their educational journey.
 
 # Created By:
-![logo_ironhack_blue 7](https://files.fm/f/zujqwp5vew)
+Saeideh Bahadoran : Email: Saeideh.bahadoran@gmail.com
+Fabio Niglio : Email: fabioniglio@gmail.com
+James Myles : Email: myles.james@gmail.com
 
 
 # Features
@@ -53,7 +55,7 @@ Our MVP focuses on the core functionality and features essential for a basic ver
 - Assignment Submission: Allow students to submit assignments online and provide feedback efficiently.
   
 # Links
-- [Slides Link]()
+- [Slides Link](https://www.canva.com/design/DAGE0O6GcdY/sAeV-a02zCX3DMThT-7CJQ/edit?utm_content=DAGE0O6GcdY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 - [Deployed Link](https://learnlinx.netlify.app/)
 
 # Getting Started
