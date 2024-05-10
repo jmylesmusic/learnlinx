@@ -10,30 +10,30 @@ James Myles : Email: myles.james@gmail.com <br>
 
 # Features
 - `Course Management`: Effortlessly create, organize, and manage courses with comprehensive materials, assignments, and assessments.
-- Mobile Accessibility: Access courses and materials anytime, anywhere, with Learnlinx's mobile-friendly design and responsive layout.
-- Intuitive Interface: Easily navigate and manage courses. Teachers can efficiently create and customize courses to suit their needs.
-- Profile Picture: Personalize your profile by adding or changing your profile picture. Edit your profile details with ease.
-- Calendar Integration: Seamlessly manage your schedule with our integrated calendar feature. Stay organized with event reminders and appointment management.
-- Upcoming Courses: Stay informed about upcoming courses. Browse and enroll in upcoming courses to stay ahead in your learning journey.
+- `Mobile Accessibility`: Access courses and materials anytime, anywhere, with Learnlinx's mobile-friendly design and responsive layout.
+- `Intuitive Interface`: Easily navigate and manage courses. Teachers can efficiently create and customize courses to suit their needs.
+- `Profile Picture`: Personalize your profile by adding or changing your profile picture. Edit your profile details with ease.
+- `Calendar Integration`: Seamlessly manage your schedule with our integrated calendar feature. Stay organized with event reminders and appointment management.
+- `Upcoming Courses`: Stay informed about upcoming courses. Browse and enroll in upcoming courses to stay ahead in your learning journey.
 
   
 # Technologies Used
 
-- Frontend: HTML, CSS, JavaScript, React, react-router-dom, Mantine UI library <br>
-- Backend: MongoDB, Express <br>
-- Authentication: bcrypt, JSON web token <br>
-- Video Conferencing: daily.co <br>
-- Storage: Local storage, Cloudinary <br>
+- `Frontend`: HTML, CSS, JavaScript, React, react-router-dom, Mantine UI library <br>
+- `Backend`: MongoDB, Express <br>
+- `Authentication`: bcrypt, JSON web token <br>
+- `Video Conferencing`: daily.co <br>
+- `Storage`: Local storage, Cloudinary <br>
   
 # Minimum Viable Product (MVP)
 Our MVP focuses on the core functionality and features essential for a basic version of Learnlinx:
 
-- User Authentication: Implement user authentication using bcrypt for password hashing and JSON web tokens for secure user sessions.
-- Course Creation and Management: Allow educators to create, organize, and manage courses. Each course should include materials, assignments, and assessments.
-- Mobile Accessibility: Ensure the platform is accessible on mobile devices with a responsive design and layout.
-- Profile Customization: Enable users to personalize their profiles by adding or changing their profile picture and editing profile details.
-- Basic Calendar Integration: Implement a basic calendar feature to display upcoming courses and events. Provide event reminders and basic appointment management functionality.
-- Course Enrollment: Allow users Stay informed about upcoming courses to participate in their learning journey.
+- `User Authentication`: Implement user authentication using bcrypt for password hashing and JSON web tokens for secure user sessions.
+- `Course Creation and Management`: Allow educators to create, organize, and manage courses. Each course should include materials, assignments, and assessments.
+- `Mobile Accessibility`: Ensure the platform is accessible on mobile devices with a responsive design and layout.
+- `Profile Customization`: Enable users to personalize their profiles by adding or changing their profile picture and editing profile details.
+- `Basic Calendar Integration`: Implement a basic calendar feature to display upcoming courses and events. Provide event reminders and basic appointment management functionality.
+- `Course Enrollment`: Allow users Stay informed about upcoming courses to participate in their learning journey.
 
 # Data structure
 **`Pages:`**
