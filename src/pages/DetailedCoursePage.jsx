@@ -166,7 +166,7 @@ const DetailedCoursePage = () => {
                   Room Link:
                   <span style={{ fontWeight: "600" }}>
                     {" "}
-                    <a href="{course.zoomLink}">{course.zoomLink}</a>
+                    <a href={course.zoomLink}>{course.zoomLink}</a>
                   </span>
                 </p>
 
