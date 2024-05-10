@@ -30,45 +30,10 @@ const CreateNewCourse = () => {
       coursePictureUrl: "",
       startDate: new Date(),
       endDate: new Date(),
-      coursePictureUrl: "",
       studentList: [],
       description: "",
     },
   });
-
-  const handleSubmit = async (values) => {
-    const storedToken = localStorage.getItem("authToken");
-    setErrorMessage(""); // Clear previous errors
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/courses`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${storedToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        }
-      );
-
-      if (response.ok) {
-        navigate(`../courses`);
-      } else {
-        const data = await response.json();
-        setErrorMessage(
-          data.message || "Failed to create course due to unknown error"
-        );
-        setTimeout(() => {
-          setErrorMessage("");
-        }, 5000);
-      }
-    } catch (error) {
-      setErrorMessage("An error occurred while creating the course.");
-      console.error("Error by creating the course:", error);
-    }
-  };
 
   return (
     <>
@@ -80,7 +45,44 @@ const CreateNewCourse = () => {
               {errorMessage}
             </Text>
           )}
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={form.onSubmit(async () => {
+              const storedToken = localStorage.getItem("authToken");
+
+              console.log(form.values);
+
+              try {
+                const response = await fetch(
+                  `${import.meta.env.VITE_API_URL}/api/courses`,
+                  {
+                    method: "POST",
+
+                    headers: {
+                      Authorization: `Bearer ${storedToken}`,
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(form.values),
+                  }
+                );
+
+                if (response.ok) {
+                  console.log(" OK ");
+                  navigate(`../courses`);
+                } else {
+                  const data = await response.json();
+                  setErrorMessage(
+                    data.message ||
+                      "Failed to create course due to unknown error"
+                  );
+                  setTimeout(() => {
+                    setErrorMessage("");
+                  }, 5000);
+                }
+              } catch (error) {
+                console.log(" Error by updating the course ", error);
+              }
+            })}
+          >
             <TextInput
               withAsterisk
               label="Course Name:"
