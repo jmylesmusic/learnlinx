@@ -50,7 +50,7 @@ Our MVP focuses on the core functionality and features essential for a basic ver
   - StudentsList <br>
   - VideoCallPage <br>
   
-# Future Additional Features (Under Construction)
+# Future Additional Features 
 - Communication Tools: Foster collaboration and communication between instructors and students through messaging, forums, and announcements.
 - Assignment Submission: Allow students to submit assignments online and provide feedback efficiently.
   
