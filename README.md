@@ -51,8 +51,8 @@ Our MVP focuses on the core functionality and features essential for a basic ver
   - VideoCallPage <br>
   
 # Future Additional Features 
-- Communication Tools: Foster collaboration and communication between instructors and students through messaging, forums, and announcements.
-- Assignment Submission: Allow students to submit assignments online and provide feedback efficiently.
+- `Communication Tools`: Foster collaboration and communication between instructors and students through messaging, forums, and announcements.
+- `Assignment Submission`: Allow students to submit assignments online and provide feedback efficiently.
   
 # Links
 - [Slides Link](https://www.canva.com/design/DAGE0O6GcdY/sAeV-a02zCX3DMThT-7CJQ/edit?utm_content=DAGE0O6GcdY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
@@ -62,13 +62,13 @@ Our MVP focuses on the core functionality and features essential for a basic ver
 To get started with Learnlinx, follow these steps:
 
 1- Clone the repository to your local machine:<br>
-   <tab> git clone ('link of the repo')<br>
+   `git clone ('link of the repo')`<br>
 2- Navigate to the project directory: <br>
-    cd learnlinx<br>
+    `cd learnlinx`<br>
 3- Install dependencies: <br>
-    npm install<br>
+    `npm install`<br>
 4- Start the development server:<br>
-    npm start<br>
+    `npm start`<br>
 5- Open your web browser and visit http://localhost:3000 to access Learnlinx.<br>
 
 # Support
