@@ -56,21 +56,21 @@ export function StudentsList() {
       <Table.Td>
         <Text fz="sm">{item.email}</Text>
         <Text fz="xs" c="dimmed">
-          Email
+          Email Address
         </Text>
       </Table.Td>
       <Table.Td>
         <Text fz="sm">{item.phoneNumber}</Text>
         <Text fz="xs" c="dimmed">
-          Phone number
+          Phone Number
         </Text>
       </Table.Td>
     </Table.Tr>
   ));
   return (
     <>
-      <Title bg={"red"} c={"white"} order={2} my={"24px"}>
-        All my Students
+      <Title bg={"violet"} c={"white"} order={2} my={"24px"}>
+        My Students
       </Title>
       <Table.ScrollContainer minWidth={800}>
         <Table verticalSpacing="md">

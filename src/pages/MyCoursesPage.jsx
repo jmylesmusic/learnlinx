@@ -15,23 +15,22 @@ const MyCoursesPage = () => {
   };
   return (
     <>
-      <Title bg={"red"} c={"white"} order={2} my={"30px"}>
+      <Title bg={"violet"} c={"white"} order={2} my={"30px"}>
         My Current Courses
       </Title>
 
       <CurrentCourses />
 
-      <Title bg={"red"} c={"white"} order={2} my={"24px"}>
-        All my Courses
+      <Title bg={"violet"} c={"white"} order={2} my={"24px"}>
+        My Courses
       </Title>
 
+      <LastCourses />
       {isTeacher && (
         <Button mb={"30px"} mt={"20px"} size="lg" onClick={handleClick}>
           Add a new course
         </Button>
       )}
-
-      <LastCourses />
     </>
   );
 };

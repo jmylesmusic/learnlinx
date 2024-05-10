@@ -51,7 +51,7 @@ function SmallCalendarComponent() {
     }
   }, [isLoggedIn]);
 
-  if (loading) return <Loader color="pink" />;
+  if (loading) return <Loader color="violet" />;
   if (error) return <div>Error: {error}</div>;
 
   const renderEventDetails = (dayEvents) => (

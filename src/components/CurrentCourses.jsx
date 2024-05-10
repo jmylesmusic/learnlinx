@@ -57,6 +57,7 @@ const CurrentCourses = () => {
               withBorder
               radius="md"
               className="card"
+              style={{ backgroundColor: "#D0BFFF" }}
               onClick={() => onClickCard(course._id)}
             >
               <Card.Section>

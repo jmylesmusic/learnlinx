@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Modal, Button, Input } from "@mantine/core";
+import { Modal, Button, TextInput, Group } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
 
@@ -48,37 +48,56 @@ const EditProfileModal = ({ modalOpened, setModalOpened, currentUser }) => {
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
       title="Edit Profile"
+      size="lg" // Set modal size
+      overlayOpacity={0.55}
+      overlayBlur={3}
     >
-      <Input
-        label="First Name"
-        value={tempUser.firstName}
-        onChange={(e) => handleInputChange(e, "firstName")}
-      />
-      <Input
-        label="Last Name"
-        value={tempUser.lastName}
-        onChange={(e) => handleInputChange(e, "lastName")}
-      />
-      <Input
-        label="Email"
-        value={tempUser.email}
-        onChange={(e) => handleInputChange(e, "email")}
-      />
-      <Input
-        label="Phone Number"
-        value={tempUser.phoneNumber}
-        onChange={(e) => handleInputChange(e, "phoneNumber")}
-      />
-      <Button color="green" onClick={handleSaveChanges}>
-        Save Changes
-      </Button>
-      <Button
-        color="red"
-        onClick={() => setModalOpened(false)}
-        style={{ marginLeft: "10px" }}
-      >
-        Cancel
-      </Button>
+      <form onSubmit={handleSaveChanges}>
+        <TextInput
+          required
+          label="First Name"
+          placeholder="Enter your first name"
+          value={tempUser.firstName}
+          onChange={(e) => handleInputChange(e, "firstName")}
+          mt="md"
+        />
+        <TextInput
+          required
+          label="Last Name"
+          placeholder="Enter your last name"
+          value={tempUser.lastName}
+          onChange={(e) => handleInputChange(e, "lastName")}
+          mt="md"
+        />
+        <TextInput
+          required
+          label="Email"
+          placeholder="Enter your email"
+          value={tempUser.email}
+          onChange={(e) => handleInputChange(e, "email")}
+          mt="md"
+        />
+        <TextInput
+          required
+          label="Phone Number"
+          placeholder="Enter your phone number"
+          value={tempUser.phoneNumber}
+          onChange={(e) => handleInputChange(e, "phoneNumber")}
+          mt="md"
+        />
+        <Group position="right" mt="xl">
+          <Button type="submit" color="green">
+            Save Changes
+          </Button>
+          <Button
+            color="red"
+            onClick={() => setModalOpened(false)}
+            style={{ marginLeft: "10px" }}
+          >
+            Cancel
+          </Button>
+        </Group>
+      </form>
     </Modal>
   );
 };

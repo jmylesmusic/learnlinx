@@ -1,4 +1,14 @@
 /* Dashboard.module.css */
+.dashboardBackground {
+  background: #fcf4f4;
+  min-height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
 .Container.dashboard-flex-container {
   display: flex !important;
   flex-wrap: nowrap !important;

@@ -1,6 +1,14 @@
-import { Button, Group, TextInput, Textarea, Box, Text } from "@mantine/core";
+import {
+  Button,
+  Group,
+  Text,
+  TextInput,
+  Textarea,
+  Container,
+  Paper,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
-import React, { useState } from "react";
+import { useState } from "react";
 import { DateInput } from "@mantine/dates";
 import { useNavigate } from "react-router-dom";
 
@@ -64,46 +72,48 @@ const CreateNewCourse = () => {
 
   return (
     <>
-      <h1>Create New Course Page</h1>
-      <Box maw={340} mx="auto">
-        {errorMessage && (
-          <Text color="red" align="center" size="sm" mb="lg">
-            {errorMessage}
-          </Text>
-        )}
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <TextInput
-            withAsterisk
-            label="Course name"
-            placeholder="Course name"
-            key={form.key("courseName")}
-            {...form.getInputProps("courseName")}
-          />
-          <DateInput
-            label="Start date"
-            placeholder="Start date"
-            key={form.key("startDate")}
-            {...form.getInputProps("startDate")}
-          />
-          <DateInput
-            label="End date"
-            placeholder="End date"
-            key={form.key("endDate")}
-            {...form.getInputProps("endDate")}
-          />
+      <Container size={420} my={40}>
+        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <h1>Create a New Course</h1>
+          {errorMessage && (
+            <Text color="red" align="center" size="sm" mb="lg">
+              {errorMessage}
+            </Text>
+          )}
+          <form onSubmit={handleSubmit}>
+            <TextInput
+              withAsterisk
+              label="Course Name:"
+              placeholder="Course Name"
+              key={form.key("courseName")}
+              {...form.getInputProps("courseName")}
+            />
+            <DateInput
+              label="Start Date:"
+              placeholder="Start Date"
+              key={form.key("startDate")}
+              {...form.getInputProps("startDate")}
+            />
+            <DateInput
+              label="End Date:"
+              placeholder="End Date"
+              key={form.key("endDate")}
+              {...form.getInputProps("endDate")}
+            />
 
-          <Textarea
-            label="Description"
-            placeholder="Course description"
-            key={form.key("description")}
-            {...form.getInputProps("description")}
-          />
+            <Textarea
+              label="Description:"
+              placeholder="Course description"
+              key={form.key("description")}
+              {...form.getInputProps("description")}
+            />
 
-          <Group justify="flex-end" mt="md">
-            <Button type="submit">Save the Course</Button>
-          </Group>
-        </form>
-      </Box>
+            <Group justify="flex-end" mt="md">
+              <Button type="submit">Save Course</Button>
+            </Group>
+          </form>
+        </Paper>
+      </Container>
     </>
   );
 };
