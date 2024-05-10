@@ -1,7 +1,16 @@
-# Learnlinx App
+# Learnlinx: Your Learning Management System
+Overview
+Learnlinx is a cutting-edge Learning Management System (LMS) designed to revolutionize online education. Our platform provides a seamless and efficient learning experience, empowering educators and learners to engage, collaborate, and excel in their educational journey.
 
-# Description
-- Learnlinx App is an app designed to help you manage your tasks efficiently and stay organized throughout your day. With its intuitive interface and powerful features, Time Master simplifies task management, allowing you to focus on what matters most.
+# Features
+Course Management: Effortlessly create, organize, and manage courses with comprehensive materials, assignments, and assessments.
+Mobile Accessibility: Access courses and materials anytime, anywhere, with Learnlinx's mobile-friendly design and responsive layout.
+Intuitive Interface: Easily navigate and manage courses. Teachers can efficiently create and customize courses to suit their needs.
+Profile Picture: Personalize your profile by adding or changing your profile picture. Edit your profile details with ease.
+Calendar Integration: Seamlessly manage your schedule with our integrated calendar feature. Stay organized with event reminders and appointment management.
+Upcoming Courses: Stay informed about upcoming courses and events. Browse and enroll in upcoming courses to stay ahead in your learning journey.
+
+  
 # Technologies Used
 - HTML
 - CSS
