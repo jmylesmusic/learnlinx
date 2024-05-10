@@ -29,7 +29,7 @@ const Dashboard = () => {
       <SimpleGrid cols={{ sm: 1, lg: 2 }} spacing="96px" verticalSpacing="72px">
         <div>
           <Title bg={"red"} c={"white"} order={3} mb={"24px"}>
-            Current courses
+            Current Courses
           </Title>
           <CurrentCourses />
         </div>
@@ -42,13 +42,13 @@ const Dashboard = () => {
         </Flex>
         <div>
           <Title bg={"red"} c={"white"} order={3} mb={"24px"}>
-            Upcoming courses
+            Upcoming Courses
           </Title>
           <UpcomingCourses />
         </div>
         <div>
           <Title bg={"red"} c={"white"} order={3} mb={"24px"}>
-            Upcoming events
+            Upcoming Events
           </Title>
           <EventTable />
         </div>
