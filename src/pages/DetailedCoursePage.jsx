@@ -162,7 +162,7 @@ const DetailedCoursePage = () => {
                     {course.description}
                   </span>
                 </p>
-                {/* <a>Room Link: {course.zoomLink}</a> */}
+                <a>Room Link: {course.zoomLink}</a>
 
                 <p style={{ textAlign: "left", fontSize: "18px" }}>
                   Teacher:
@@ -200,7 +200,7 @@ const DetailedCoursePage = () => {
                   <Image
                     src={course.coursePictureUrl}
                     style={{
-                      padding:"8px",
+                      padding: "8px",
                       width: "250px",
                       height: "250px",
                       objectFit: "cover",
