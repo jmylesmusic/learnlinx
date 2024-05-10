@@ -164,7 +164,10 @@ const DetailedCoursePage = () => {
                 </p>
                 <p style={{ textAlign: "left", fontSize: "18px" }}>
                   Room Link:
-                  <span style={{ fontWeight: "600" }}> {course.zoomLink}</span>
+                  <span style={{ fontWeight: "600" }}>
+                    {" "}
+                    <a href="{course.zoomLink}">{course.zoomLink}</a>
+                  </span>
                 </p>
 
                 <p style={{ textAlign: "left", fontSize: "18px" }}>
