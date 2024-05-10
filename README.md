@@ -19,11 +19,11 @@ James Myles : Email: myles.james@gmail.com <br>
   
 # Technologies Used
 
-Frontend: HTML, CSS, JavaScript, React, react-router-dom, Mantine UI library
-Backend: MongoDB, Express
-Authentication: bcrypt, JSON web token
-Video Conferencing: daily.co
-Storage: Local storage, Cloudinary
+Frontend: HTML, CSS, JavaScript, React, react-router-dom, Mantine UI library <br>
+Backend: MongoDB, Express <br>
+Authentication: bcrypt, JSON web token <br>
+Video Conferencing: daily.co <br>
+Storage: Local storage, Cloudinary <br>
   
 # Minimum Viable Product (MVP)
 Our MVP focuses on the core functionality and features essential for a basic version of Learnlinx:
