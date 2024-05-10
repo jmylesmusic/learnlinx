@@ -10,6 +10,7 @@ import {
   Title,
   Container,
   Flex,
+  Image,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import EditCourse from "../components/EditCourse";
@@ -119,7 +120,7 @@ const DetailedCoursePage = () => {
         />
       </Modal>
       <div>
-        <Title bg={"red"} c={"white"} order={3} mb={24}>
+        <Title bg={"red"} c={"white"} order={3} mb={24} w={"100%"}>
           Course details
         </Title>
         {course ? (
@@ -175,7 +176,7 @@ const DetailedCoursePage = () => {
               <Container
                 style={{ border: "solid 1px #1C7ED6", borderRadius: "5px" }}
               >
-                <Title bg={"red"} c={"white"} order={3} mb={"24px"} w={"100%"}>
+                <Title order={3} mb={"24px"} w={"100%"}>
                   Students list
                 </Title>
                 <AllUsers course={course} />
@@ -196,16 +197,17 @@ const DetailedCoursePage = () => {
             >
               <Container h={400}>
                 {course.coursePictureUrl && (
-                  <img
+                  <Image
                     src={course.coursePictureUrl}
                     style={{
-                      width: "300px",
-                      height: "300px",
+                      padding:"8px",
+                      width: "250px",
+                      height: "250px",
                       objectFit: "cover",
                       borderRadius: "50%",
                       overflow: "hidden",
                     }}
-                    alt="Profile Picture"
+                    fallbackSrc="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
                   />
                 )}
               </Container>
