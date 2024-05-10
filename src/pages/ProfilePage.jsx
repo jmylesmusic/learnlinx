@@ -6,6 +6,7 @@ import SmallDropzone from "../components/SmallDropzone.jsx";
 import { IconEdit, IconX, IconCheck } from "@tabler/icons-react";
 const API_URL = import.meta.env.VITE_API_URL;
 import headerblob from "../images/layered-waves-haikei.svg";
+import defaultProfilePic from "../images/default-profile.png";
 import "../styles/UserPage.css";
 import EditProfileModal from "../components/EditProfileModal.jsx";
 
@@ -147,13 +148,13 @@ const ProfilePage = () => {
     <>
       {currentUser && (
         <div className="profile-page">
-          <Image src={headerblob} className="header-blob"/>
+          <Image src={headerblob} className="header-blob" />
           <div className="usertype">
             {currentUser.isTeacher ? "Teacher Profile" : "Student Profile"}
           </div>
           <img
             className="profile-picture"
-            src={userProfileURL}
+            src={userProfileURL || defaultProfilePic}
             style={{
               objectFit: "cover",
               borderRadius: "50%",
