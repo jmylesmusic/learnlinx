@@ -162,7 +162,10 @@ const DetailedCoursePage = () => {
                     {course.description}
                   </span>
                 </p>
-                <a>Room Link: {course.zoomLink}</a>
+                <p style={{ textAlign: "left", fontSize: "18px" }}>
+                  Room Link:
+                  <span style={{ fontWeight: "600" }}> {course.zoomLink}</span>
+                </p>
 
                 <p style={{ textAlign: "left", fontSize: "18px" }}>
                   Teacher:
