@@ -2,11 +2,12 @@ import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/auth.context.jsx";
 import { Button, Modal, Image } from "@mantine/core";
-import CustomDropzone from "../components/CustomDropzone.jsx";
-import { IconEdit, IconX, IconCheck } from "@tabler/icons-react"; // Import the necessary icons
+import SmallDropzone from "../components/SmallDropzone.jsx";
+import { IconEdit, IconX, IconCheck } from "@tabler/icons-react";
 const API_URL = import.meta.env.VITE_API_URL;
 import headerblob from "../images/layered-waves-haikei.svg";
 import "../styles/UserPage.css";
+import EditProfileModal from "../components/EditProfileModal.jsx";
 
 const ProfilePage = () => {
   const {
@@ -26,7 +27,7 @@ const ProfilePage = () => {
   const [tempValue, setTempValue] = useState(""); // State to temporarily store edited value
   const [deleteModalOpened, setDeleteModalOpened] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
-
+  const [editModalOpened, setEditModalOpened] = useState(false);
   const { userId } = useParams();
 
   useEffect(() => {
@@ -48,10 +49,6 @@ const ProfilePage = () => {
 
         const data = await response.json();
         setCurrentUser(data);
-        storeFirstName(data.firstName);
-        storeLastName(data.lastName);
-        storeProfilePictureURL(data.profilePictureUrl);
-        console.log(data);
       } catch (e) {
         setError(`Failed to fetch user details: ${e.message}`);
         console.error(e);
@@ -150,15 +147,14 @@ const ProfilePage = () => {
     <>
       {currentUser && (
         <div className="profile-page">
-          <Image src={headerblob} />
+          <Image src={headerblob} className="header-blob"/>
           <div className="usertype">
             {currentUser.isTeacher ? "Teacher Profile" : "Student Profile"}
           </div>
           <img
+            className="profile-picture"
             src={userProfileURL}
             style={{
-              width: "300px",
-              height: "300px",
               objectFit: "cover",
               borderRadius: "50%",
               overflow: "hidden",
@@ -166,98 +162,36 @@ const ProfilePage = () => {
             alt="Profile Picture"
           />
           <div>
-            <h2>
-              First Name:{" "}
-              {editingField === "firstName" ? (
-                <>
-                  <input
-                    type="text"
-                    value={tempValue}
-                    onChange={handleInputChange}
-                  />
-                  <IconX strokeWidth={1} onClick={handleRevertChanges} />{" "}
-                  <IconCheck strokeWidth={1} onClick={handleSaveChanges} />
-                </>
-              ) : (
-                <span>
-                  {currentUser.firstName}
-                  <IconEdit
-                    strokeWidth={0.5}
-                    onClick={() => handleEditField("firstName")}
-                  />
-                </span>
-              )}
-            </h2>
-            <h2>
-              Last Name:{" "}
-              {editingField === "lastName" ? (
-                <>
-                  <input
-                    type="text"
-                    value={tempValue}
-                    onChange={handleInputChange}
-                  />
-                  <IconX strokeWidth={1} onClick={handleRevertChanges} />{" "}
-                  <IconCheck strokeWidth={1} onClick={handleSaveChanges} />
-                </>
-              ) : (
-                <span>
-                  {currentUser.lastName}
-                  <IconEdit
-                    strokeWidth={0.5}
-                    onClick={() => handleEditField("lastName")}
-                  />
-                </span>
-              )}
-            </h2>
-            <h2>
-              Email Address:{" "}
-              {editingField === "email" ? (
-                <>
-                  <input
-                    type="email"
-                    value={tempValue}
-                    onChange={handleInputChange}
-                  />
-                  <IconX strokeWidth={1} onClick={handleRevertChanges} />{" "}
-                  <IconCheck strokeWidth={1} onClick={handleSaveChanges} />
-                </>
-              ) : (
-                <span>
-                  {currentUser.email}
-                  <IconEdit
-                    strokeWidth={0.5}
-                    onClick={() => handleEditField("email")}
-                  />
-                </span>
-              )}
-            </h2>
-            <h2>
-              Phone Number:{" "}
-              {editingField === "phoneNumber" ? (
-                <>
-                  <input
-                    type="tel"
-                    value={tempValue}
-                    onChange={handleInputChange}
-                  />
-                  <IconX strokeWidth={1} onClick={handleRevertChanges} />{" "}
-                  <IconCheck strokeWidth={1} onClick={handleSaveChanges} />
-                </>
-              ) : (
-                <span>
-                  {currentUser.phoneNumber}
-                  <IconEdit
-                    strokeWidth={0.5}
-                    onClick={() => handleEditField("phoneNumber")}
-                  />
-                </span>
-              )}
-            </h2>{" "}
+            <div className="user-name">
+              {currentUser.firstName} {currentUser.lastName}{" "}
+              <IconEdit
+                className="user-edit-icon"
+                strokeWidth={0.5}
+                onClick={() => setEditModalOpened(true)}
+              />
+            </div>
+            <div className="user-email">{currentUser.email}</div>
+            <div className="user-number">
+              <span style={{ fontWeight: "bold", color: "lightblue" }}>
+                Phone Number:{" "}
+              </span>
+              {currentUser.phoneNumber}
+            </div>
           </div>
-          <CustomDropzone modalType={"user"} />
 
-          <Button color="red" onClick={() => setDeleteModalOpened(true)}>
+          <EditProfileModal
+            modalOpened={editModalOpened}
+            setModalOpened={setEditModalOpened}
+            currentUser={currentUser}
+          />
+          <div className="user-photo-edit">
+            <SmallDropzone modalType={"user"} />
+          </div>
+          <Button
+            className="delete-button"
+            color="red"
+            onClick={() => setDeleteModalOpened(true)}
+          >
             Delete Account
           </Button>
           <Modal

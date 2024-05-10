@@ -28,19 +28,19 @@ header a.new-tab-link {
 }
 
 a:visited {
-  color: var(--dark-blue);
+  color: var(pink);
 }
 
 a:focus {
-  color: var(--dark-blue);
+  color: lightgray;
 }
 
 a:active {
-  color: var(--turquoise);
+  color: black;
 }
 
 a:hover {
-  color: var(--turquoise);
+  color: pink;
 }
 
 .header-section {
