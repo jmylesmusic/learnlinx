@@ -19,7 +19,7 @@ James Myles : Email: myles.james@gmail.com <br>
   
 # Technologies Used
 
-- `Frontend`: HTML, CSS, JavaScript, React, react-router-dom, Mantine UI library <br>
+- `Frontend`: HTML, CSS, JavaScript,TypeScript, React, react-router-dom, Mantine UI library <br>
 - `Backend`: MongoDB, Express <br>
 - `Authentication`: bcrypt, JSON web token <br>
 - `Video Conferencing`: daily.co <br>
