@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input } from "@mantine/core";
+import { Button, Input, Container, Paper, Title } from "@mantine/core";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -22,18 +22,25 @@ function ForgotPassword() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <Button type="submit">Send Reset Link</Button>
-      </form>
+      <Container size={420} my={40}>
+        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <Title ta="center" fw={600} p={10}>
+            Forgot Your Password?
+          </Title>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Email:
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+            <Button type="submit">Send Reset Link</Button>
+          </form>
+        </Paper>
+      </Container>
     </>
   );
 }

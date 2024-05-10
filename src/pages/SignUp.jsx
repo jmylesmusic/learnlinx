@@ -7,10 +7,14 @@ import {
   Text,
   Anchor,
   Checkbox,
+  Paper,
+  Container,
+  Title,
+  getFontSize,
 } from "@mantine/core";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import classes from "../styles/AuthenticationTitle.module.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const SignUp = () => {
@@ -55,74 +59,79 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      <Text size="lg" fw={500}>
-        Create your Account!
-      </Text>
-      <form onSubmit={handleSignupSubmit}>
-        <Stack>
-          <TextInput
-            label="First Name"
-            placeholder="Your first name"
-            value={firstName}
-            onChange={handleFirstName}
-            radius="md"
-          />
+    <>
+      <div className={classes.signInBackground}></div>
+      <Container size={420} my={40}>
+        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <Title ta="center" fw={600} p={10}>
+            Create an Account
+          </Title>
+          <form onSubmit={handleSignupSubmit}>
+            <Stack>
+              <TextInput
+                label="First Name"
+                placeholder="Your first name"
+                value={firstName}
+                onChange={handleFirstName}
+                radius="md"
+              />
 
-          <TextInput
-            label="Last Name"
-            placeholder="Your last name"
-            value={lastName}
-            onChange={handleLastName}
-            radius="md"
-          />
-          <TextInput
-            required
-            label="Phone"
-            placeholder="07039434"
-            value={phoneNumber}
-            onChange={handlePhone}
-            radius="md"
-          />
+              <TextInput
+                label="Last Name"
+                placeholder="Your last name"
+                value={lastName}
+                onChange={handleLastName}
+                radius="md"
+              />
+              <TextInput
+                required
+                label="Phone"
+                placeholder="07039434"
+                value={phoneNumber}
+                onChange={handlePhone}
+                radius="md"
+              />
 
-          <TextInput
-            required
-            label="Email"
-            placeholder="hello@mantine.dev"
-            value={email}
-            onChange={handleEmail}
-            radius="md"
-          />
+              <TextInput
+                required
+                label="Email"
+                placeholder="hello@mantine.dev"
+                value={email}
+                onChange={handleEmail}
+                radius="md"
+              />
 
-          <PasswordInput
-            required
-            label="Password"
-            placeholder="Your password"
-            value={password}
-            onChange={handlePassword}
-            radius="md"
-          />
+              <PasswordInput
+                required
+                label="Password"
+                placeholder="Your password"
+                value={password}
+                onChange={handlePassword}
+                radius="md"
+              />
 
-          <Checkbox
-            label="Are you a teacher?"
-            checked={isTeacher}
-            onChange={handleTeacher}
-          />
-          {errorMessage && (
-            <Text color="red" size="sm">
-              {errorMessage}
-            </Text>
-          )}
-          <Button type="submit">Create Account</Button>
-        </Stack>
-      </form>
-      <Text c="dimmed" size="sm" ta="center" mt={5}>
-        Already have an account?{" "}
-        <Anchor size="sm" component={Link} to="/signin">
-          Sign In
-        </Anchor>
-      </Text>
-    </div>
+              <Checkbox
+                label="Are you a teacher?"
+                checked={isTeacher}
+                onChange={handleTeacher}
+              />
+              {errorMessage && (
+                <Text color="red" size="sm">
+                  {errorMessage}
+                </Text>
+              )}
+              <Button type="submit">Create Account</Button>
+            </Stack>
+          </form>
+          <Text c="dimmed" size="sm" ta="center" mt={5}>
+            Already have an account?{" "}
+            <Anchor size="sm" component={Link} to="/signin">
+              Sign In
+            </Anchor>
+          </Text>
+        </Paper>
+      </Container>
+    </>
   );
 };
 

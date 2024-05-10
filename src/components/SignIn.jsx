@@ -57,53 +57,55 @@ export function SignIn() {
   };
 
   return (
-    <Container size={420} my={40}>
-      <Title ta="center" className={classes.title}>
-        Welcome back!
-      </Title>
-      <Text c="dimmed" size="sm" ta="center" mt={5}>
-        Don't have an account yet?{" "}
-        <Anchor size="sm" component={Link} to="/signup">
-          Create account
-        </Anchor>
-      </Text>
-
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <form onSubmit={handleSubmit}>
-          {errorMessage && (
-            <Alert color="red" mt="sm">
-              {errorMessage}
-            </Alert>
-          )}
-          <TextInput
-            label="Email"
-            placeholder="you@mantine.dev"
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleEmail}
-            required
-          />
-          <PasswordInput
-            label="Password"
-            placeholder="Your password"
-            required
-            mt="md"
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePassword}
-          />
-          <Group justify="space-between" mt="lg">
-            <Checkbox label="Remember me" />
-            <NavLink to="/forgotpassword">Forgot password?</NavLink>
-          </Group>
-          <Button type="submit" fullWidth mt="xl">
-            Sign in
-          </Button>
-        </form>
-      </Paper>
-    </Container>
+    <>
+      <div className={classes.signInBackground} />
+      <Container size={420} my={40}>
+        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <Title ta="center" className={classes.title}>
+            Welcome back!
+          </Title>
+          <Text c="dimmed" size="sm" ta="center" mt={5}>
+            Don't have an account yet?{" "}
+            <Anchor size="sm" component={Link} to="/signup">
+              Create account
+            </Anchor>
+          </Text>
+          <form onSubmit={handleSubmit}>
+            {errorMessage && (
+              <Alert color="red" mt="sm">
+                {errorMessage}
+              </Alert>
+            )}
+            <TextInput
+              label="Email"
+              placeholder="you@mantine.dev"
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleEmail}
+              required
+            />
+            <PasswordInput
+              label="Password"
+              placeholder="Your password"
+              required
+              mt="md"
+              type="password"
+              name="password"
+              value={password}
+              onChange={handlePassword}
+            />
+            <Group justify="space-between" mt="lg">
+              <Checkbox label="Remember me" />
+              <NavLink to="/forgotpassword">Forgot password?</NavLink>
+            </Group>
+            <Button type="submit" fullWidth mt="xl">
+              Sign in
+            </Button>
+          </form>
+        </Paper>
+      </Container>
+    </>
   );
 }
 
