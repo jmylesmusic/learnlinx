@@ -1,13 +1,14 @@
 import {
   Button,
   Group,
+  Text,
   TextInput,
   Textarea,
   Container,
   Paper,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import React, { useState } from "react";
+import { useState } from "react";
 import { DateInput } from "@mantine/dates";
 import { useNavigate } from "react-router-dom";
 
@@ -21,6 +22,8 @@ const CreateNewCourse = () => {
   const [endDate, setEndDate] = useState("");
   const [description, setDescription] = useState();
 
+  const [errorMessage, setErrorMessage] = useState("");
+
   const form = useForm({
     initialValues: {
       courseName: "",
@@ -33,40 +36,51 @@ const CreateNewCourse = () => {
     },
   });
 
+  const handleSubmit = async (values) => {
+    const storedToken = localStorage.getItem("authToken");
+    setErrorMessage(""); // Clear previous errors
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/courses`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+
+      if (response.ok) {
+        navigate(`../courses`);
+      } else {
+        const data = await response.json();
+        setErrorMessage(
+          data.message || "Failed to create course due to unknown error"
+        );
+        setTimeout(() => {
+          setErrorMessage("");
+        }, 5000);
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred while creating the course.");
+      console.error("Error by creating the course:", error);
+    }
+  };
+
   return (
     <>
       <Container size={420} my={40}>
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-      <h1>Create a New Course</h1>
-          <form
-            onSubmit={form.onSubmit(async () => {
-              const storedToken = localStorage.getItem("authToken");
-
-              console.log(form.values);
-
-              try {
-                const response = await fetch(
-                  `${import.meta.env.VITE_API_URL}/api/courses`,
-                  {
-                    method: "POST",
-
-                    headers: {
-                      Authorization: `Bearer ${storedToken}`,
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(form.values),
-                  }
-                );
-
-                if (response.ok) {
-                  console.log(" OK ");
-                  navigate(`../courses`);
-                }
-              } catch (error) {
-                console.log(" Error by updating the course ", error);
-              }
-            })}
-          >
+          <h1>Create a New Course</h1>
+          {errorMessage && (
+            <Text color="red" align="center" size="sm" mb="lg">
+              {errorMessage}
+            </Text>
+          )}
+          <form onSubmit={handleSubmit}>
             <TextInput
               withAsterisk
               label="Course Name:"
