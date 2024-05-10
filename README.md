@@ -9,7 +9,7 @@ James Myles : Email: myles.james@gmail.com <br>
 
 
 # Features
-- Course Management: Effortlessly create, organize, and manage courses with comprehensive materials, assignments, and assessments.
+- `Course Management`: Effortlessly create, organize, and manage courses with comprehensive materials, assignments, and assessments.
 - Mobile Accessibility: Access courses and materials anytime, anywhere, with Learnlinx's mobile-friendly design and responsive layout.
 - Intuitive Interface: Easily navigate and manage courses. Teachers can efficiently create and customize courses to suit their needs.
 - Profile Picture: Personalize your profile by adding or changing your profile picture. Edit your profile details with ease.
