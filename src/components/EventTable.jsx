@@ -51,7 +51,7 @@ export function EventTable() {
     }
   }, [isLoggedIn, event]);
 
-  if (loading) return <Loader color="pink" />;
+  if (loading) return <Loader color="violet" />;
   if (error) return <div>Error: {error}</div>;
 
   const formatDate = (dateString) => {

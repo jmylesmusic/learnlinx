@@ -105,7 +105,7 @@ export function LargeCalendarComponent() {
   return (
     <div>
       {loading ? (
-        <Loader color="pink" />
+        <Loader color="violet" />
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
