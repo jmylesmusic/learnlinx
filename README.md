@@ -62,7 +62,7 @@ Our MVP focuses on the core functionality and features essential for a basic ver
 To get started with Learnlinx, follow these steps:
 
 1- Clone the repository to your local machine:<br>
-   <tab> git clone ('link of the repo')
+   <tab> git clone ('link of the repo')<br>
 2- Navigate to the project directory: <br>
     cd learnlinx<br>
 3- Install dependencies: <br>
