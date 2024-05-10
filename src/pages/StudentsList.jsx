@@ -69,7 +69,7 @@ export function StudentsList() {
   ));
   return (
     <>
-      <Title bg={"pink"} c={"white"} order={2} my={"24px"}>
+      <Title bg={"violet"} c={"white"} order={2} my={"24px"}>
         My Students
       </Title>
       <Table.ScrollContainer minWidth={800}>

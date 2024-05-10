@@ -15,13 +15,13 @@ const MyCoursesPage = () => {
   };
   return (
     <>
-      <Title bg={"pink"} c={"white"} order={2} my={"30px"}>
+      <Title bg={"violet"} c={"white"} order={2} my={"30px"}>
         My Current Courses
       </Title>
 
       <CurrentCourses />
 
-      <Title bg={"pink"} c={"white"} order={2} my={"24px"}>
+      <Title bg={"violet"} c={"white"} order={2} my={"24px"}>
         My Courses
       </Title>
 
