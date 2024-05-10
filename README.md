@@ -61,15 +61,15 @@ Our MVP focuses on the core functionality and features essential for a basic ver
 # Getting Started
 To get started with Learnlinx, follow these steps:
 
-1- Clone the repository to your local machine:
-    git clone https://github.com/your-username/learnlinx.git
-2- Navigate to the project directory:
-    cd learnlinx
-3- Install dependencies:
-    npm install
-4- Start the development server:
-    npm start
-5- Open your web browser and visit http://localhost:3000 to access Learnlinx.
+1- Clone the repository to your local machine:<br>
+    git clone https://github.com/your-username/learnlinx.git <br>
+2- Navigate to the project directory: <br>
+    cd learnlinx<br>
+3- Install dependencies: <br>
+    npm install<br>
+4- Start the development server:<br>
+    npm start<br>
+5- Open your web browser and visit http://localhost:3000 to access Learnlinx.<br>
 
 # Support
 
