@@ -3,9 +3,9 @@ Overview
 Learnlinx is a cutting-edge Learning Management System (LMS) designed to revolutionize online education. Our platform provides a seamless and efficient learning experience, empowering educators and learners to engage, collaborate, and excel in their educational journey.
 
 # Created By:
-Saeideh Bahadoran : Email: Saeideh.bahadoran@gmail.com
-Fabio Niglio : Email: fabioniglio@gmail.com
-James Myles : Email: myles.james@gmail.com
+Saeideh Bahadoran : Email: Saeideh.bahadoran@gmail.com <br>
+Fabio Niglio : Email: fabioniglio@gmail.com <br>
+James Myles : Email: myles.james@gmail.com <br>
 
 
 # Features
