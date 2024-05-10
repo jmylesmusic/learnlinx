@@ -1,4 +1,4 @@
-import { Autocomplete, Avatar, Button, Group, Text } from "@mantine/core";
+import { Autocomplete, Avatar, Button, Group, Text, Flex } from "@mantine/core";
 import { useState, useEffect, useContext } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -84,20 +84,24 @@ const AllUsers = ({ course }) => {
   return (
     <>
       {isTeacher && (
-        <>
+        <Flex style={{ width: "100%" }} align={"stretch"} gap={16} my={16}>
           <Autocomplete
+            style={{ flexGrow: "5" }}
             data={userOptions}
             renderOption={renderAutocompleteOption}
             maxDropdownHeight={300}
-            label="Add a new Student"
-            placeholder="choose a Student"
+            placeholder="Add a student to list"
             onOptionSubmit={(value) => onDropDownChange(value)}
           />
 
-          <Button onClick={handleAddToStudentList} disabled={isLoading}>
-            {isLoading ? "Adding..." : "Add Student"}
+          <Button
+            onClick={handleAddToStudentList}
+            disabled={isLoading}
+            style={{ flexGrow: "1" }}
+          >
+            {isLoading ? "Adding..." : "Add to list"}
           </Button>
-        </>
+        </Flex>
       )}
     </>
   );
