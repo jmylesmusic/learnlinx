@@ -3,7 +3,7 @@ Overview
 Learnlinx is a cutting-edge Learning Management System (LMS) designed to revolutionize online education. Our platform provides a seamless and efficient learning experience, empowering educators and learners to engage, collaborate, and excel in their educational journey.
 
 # Created By:
-![logo_ironhack_blue 7](https://files.fm/u/z37n4se8jm)
+![logo_ironhack_blue 7](https://files.fm/f/zujqwp5vew)
 
 
 # Features
