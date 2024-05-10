@@ -42,14 +42,18 @@ Our MVP focuses on the core functionality and features essential for a basic ver
 # Data structure
 **`Pages:`**
 
-  -HomePage <br>
-  -HomePage <br>
-  -HomePage <br>
+  - HomePage <br>
+  - SignIn <br>
+  - SignUp <br>
+  - Dashboard <br>
+  - CalenderPage <br>
+  - CreateCoursePage <br>
+  - DetailedCoursePage <br>
+  - MyCoursesPage <br>
+  - ProfilePage <br>
+  - StudentsList <br>
+  - VideoCallPage <br>
   
-
-
-
-
 # Future Additional Features (Under Construction)
   - Create API
   - Use Data base
