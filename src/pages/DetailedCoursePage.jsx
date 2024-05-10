@@ -120,7 +120,7 @@ const DetailedCoursePage = () => {
         />
       </Modal>
       <div>
-        <Title bg={"red"} c={"white"} order={3} mb={24} w={"100%"}>
+        <Title bg={"pink"} c={"white"} order={3} mb={24} w={"100%"}>
           Course details
         </Title>
         {course ? (

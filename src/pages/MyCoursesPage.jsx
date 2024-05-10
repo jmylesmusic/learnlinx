@@ -25,13 +25,12 @@ const MyCoursesPage = () => {
         My Courses
       </Title>
 
+      <LastCourses />
       {isTeacher && (
         <Button mb={"30px"} mt={"20px"} size="lg" onClick={handleClick}>
           Add a new course
         </Button>
       )}
-
-      <LastCourses />
     </>
   );
 };
