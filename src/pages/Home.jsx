@@ -25,6 +25,7 @@ export function Home() {
         data-sal-duration="500"
         data-sal-easing="ease-in-bounce"
         className="hero-head-text"
+        style={{paddingLeft:"20px"}}
       >
         Dive into Learning with LearnLinx
       </div>
@@ -34,6 +35,7 @@ export function Home() {
         data-sal-delay="500"
         data-sal-duration="500"
         data-sal-easing="ease-in-bounce"
+        style={{paddingLeft:"20px"}}
       >
         Your journey to knowledge begins here! Access a world of information at
         your fingertips and discover learning made easy and enjoyable.
